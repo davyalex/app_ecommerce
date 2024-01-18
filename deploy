@@ -1,0 +1,1 @@
+rsync -av ./ -e "ssh -p 22" devdav@zoolouk.com@ftp.dolubux.com:~/home/c2243629c/public_html/zoolouk.com
