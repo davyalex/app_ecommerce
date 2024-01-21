@@ -30,11 +30,11 @@ class HomeController extends Controller
             $e->getMessage();
         }
     }
-    //Get Section Category with product
+    //Get Section Category with products
     public function sectionCategory()
     {
         try {
-            $data = Category::with(['media','products'])
+            $data = Category::with(['media','products'=>fn($q)=>$q->with('media')])
                 ->orderBy('created_at', 'DESC')
                 ->whereType('section')
                 ->get();
