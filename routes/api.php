@@ -20,7 +20,7 @@ use Illuminate\Support\Facades\Route;
 /***************************** API WITHOUT AUTHENTICATION */
 
     
-    Route::controller(HomeController::class)->group(function(){
+    Route::controller(HomeController::class)->prefix('v1')->group(function(){
         //Principal Category list with subcategory and media
         Route::get('/principalCategory', 'principalCategory');
 
