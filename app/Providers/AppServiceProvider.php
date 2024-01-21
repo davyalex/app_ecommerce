@@ -49,8 +49,6 @@ class AppServiceProvider extends ServiceProvider
                 'section_categories' =>$section_categories,
                 'roles' => $roles,
                 'collection' => $collection,
-
-
         ]);
         });
         

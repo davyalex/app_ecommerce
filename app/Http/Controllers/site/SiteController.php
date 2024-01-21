@@ -26,6 +26,7 @@ public function index(){
         $category = Category::with('media')
             ->orderBy('created_at', 'DESC')
             ->get();
+            
 
         //category section has product list
         //  $section_has_product = Category::withWhereHas('products', fn ($q) =>
