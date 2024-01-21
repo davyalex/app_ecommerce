@@ -34,7 +34,7 @@ class HomeController extends Controller
     public function sectionCategory()
     {
         try {
-            $data = Category::with('media')
+            $data = Category::with(['media','products'])
                 ->orderBy('created_at', 'DESC')
                 ->whereType('section')
                 ->get();
