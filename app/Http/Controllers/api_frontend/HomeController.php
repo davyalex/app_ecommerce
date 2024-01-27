@@ -60,7 +60,7 @@ class HomeController extends Controller
     {
         try {
             $data = Category::with([
-                'media', 'products' => fn ($q) =>
+                'media' , 'products' => fn ($q) =>
                 $q->with(['subcategorie', 'media']),
             ])
                 ->orderBy('created_at', 'DESC')
@@ -83,7 +83,8 @@ class HomeController extends Controller
     public function slider()
     {
         try {
-            $data = Slider::orderBy('created_at', 'DESC')->get();
+            $data = Slider::with('media')->
+            orderBy('created_at', 'DESC')->get();
 
             return response()->json([
                 // 'status' => true,
