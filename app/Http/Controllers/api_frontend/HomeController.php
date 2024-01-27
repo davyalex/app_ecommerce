@@ -16,7 +16,7 @@ class HomeController extends Controller
     {
         try {
             $data = Category::with([
-               'products'=> fn ($q) =>$q->with('media')->take(5)
+               'products'=> fn ($q) =>$q->with('media')->inRandomOrder()->take(15)
                ,'media', 'subcategories' => fn ($q) => $q->with('media')
             ])
                 ->orderBy('created_at', 'DESC')
