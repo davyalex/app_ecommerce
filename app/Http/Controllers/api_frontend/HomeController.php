@@ -16,7 +16,8 @@ class HomeController extends Controller
     {
         try {
             $data = Category::with([
-               'products' ,'media', 'subcategories' => fn ($q) => $q->with('media')
+                'products' => fn ($q) => $q->with('media')
+               ,'media', 'subcategories' => fn ($q) => $q->with('media')
             ])
                 ->orderBy('created_at', 'DESC')
                 ->whereType('principale')
