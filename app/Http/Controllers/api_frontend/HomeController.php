@@ -16,10 +16,10 @@ class HomeController extends Controller
     {
         try {
             $data = Category::with([
-               'products'=> fn ($q) =>$q->inRandomOrder()->take(15)
+               'products'=> fn ($q) =>$q->with('media')->inRandomOrder()->take(15)
                ,'media', 'subcategories' => fn ($q) => $q->with('media')
             ])
-                ->orderBy('created_at', 'DESC')
+                // ->orderBy('created_at', 'DESC')
                 ->whereType('principale')
                 ->get();
 
