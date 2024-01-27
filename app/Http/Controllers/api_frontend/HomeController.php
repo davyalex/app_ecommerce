@@ -16,7 +16,7 @@ class HomeController extends Controller
     {
         try {
             $data = Category::with([
-               'products'=> fn ($q) =>[ $q->with('media'), $q->skip(0)]
+               'products'=> fn ($q) =>[ $q->with('media'), $q->skip(0)->take(15)]
 
 
                ,'media', 'subcategories' => fn ($q) => $q->with('media')
