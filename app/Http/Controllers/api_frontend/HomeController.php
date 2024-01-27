@@ -18,7 +18,7 @@ class HomeController extends Controller
             $data = Category::with([
                'products'=> function($q){
                    return $q->with('media');
-                   return $q->limit(15);
+                   return $q->take(15);
                }
                
                ,'media', 'subcategories' => fn ($q) => $q->with('media')
