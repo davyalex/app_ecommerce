@@ -16,7 +16,11 @@ class HomeController extends Controller
     {
         try {
             $data = Category::with([
-                'products' => fn ($q) => $q->with('media')
+               'products'=> function($q){
+                   return $q->with('media');
+                   return $q->limit(15);
+               }
+               
                ,'media', 'subcategories' => fn ($q) => $q->with('media')
             ])
                 ->orderBy('created_at', 'DESC')
