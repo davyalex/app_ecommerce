@@ -16,7 +16,7 @@ class HomeController extends Controller
     {
         try {
             $data = Category::with([
-               'products'=> fn ($q) =>[ $q->with('media'), $q->limit(15)]
+               'products'=> fn ($q) =>[ $q->with('media'), $q->random(15)]
 
 
                ,'media', 'subcategories' => fn ($q) => $q->with('media')
@@ -80,6 +80,9 @@ class HomeController extends Controller
             $e->getMessage();
         }
     }
+
+
+    //Get 
 
 
     /*******Get Sliders */
