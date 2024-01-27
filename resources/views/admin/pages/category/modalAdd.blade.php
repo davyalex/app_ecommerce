@@ -81,6 +81,8 @@
                                       <option disabled selected value>Choisir un type</option>
                                       <option value="principale">Principale</option>
                                       <option value="section">Section</option>
+                                      <option value="pack">Pack</option>
+
                                   </select>
                                   <div class="invalid-feedback">
                                       Champ obligatoire

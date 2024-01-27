@@ -19,13 +19,20 @@ use Illuminate\Support\Facades\Route;
 
 /***************************** API WITHOUT AUTHENTICATION */
 
-    
     Route::controller(HomeController::class)->prefix('v1')->group(function(){
         //Principal Category list with subcategory and media
         Route::get('/principalCategory', 'principalCategory');
 
         //Section Category list with media
         Route::get('/sectionCategory', 'sectionCategory');
+
+        //Slider
+        Route::get('/slider', 'slider');
+
+        //Section Category pack with products
+
+        Route::get('/CategoryPack', 'CategoryPack');
+
 
 
 

@@ -53,7 +53,7 @@
                                   <select name="type" class="form-control selectric " required>
                                       <option disabled selected value>Choisir un type</option>
                                       @php
-                                        $type = ['banniere', 'publicite' ,'popup']
+                                        $type = ['banniere', 'publicite' ,'popup', 'section']
                                       @endphp
                                       @foreach ($type as $item)
                                       <option class="text-capitalize" value="{{$item}}"> {{$item}} </option>
