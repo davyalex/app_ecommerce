@@ -26,7 +26,7 @@ class HomeController extends Controller
                 ->get()
                 ->map(
                     function ($q) {
-                        $q->products = $q->products->take(10); // take only 10 query
+                        $q->products = $q->products->take(15); // take only 10 query
                         return $q;
                     }
                 );
