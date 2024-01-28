@@ -67,7 +67,7 @@
                 "tags": [
                     "Liste de tous les produits "
                 ],
-                "summary": "Liste de tous les produits",
+                "summary": "Liste de tous les produits:\n     *     Pour  recuperer un produit par sa categorie envoyez \n     *     l'id de la catégorie dans le paramètre en GET {category} \n     *     ou {subcategory} pour recuperer les produits d'une sous categorie \n     * Exemple: http://127.0.0.1:8000/api/v1/allProduct?category={id}",
                 "operationId": "cb0d1fc57f5b6333d4e1818172bbcd4a",
                 "responses": {
                     "200": {
