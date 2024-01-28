@@ -24,13 +24,7 @@ class HomeController extends Controller
                 ->orderBy('created_at', 'DESC')
                 ->whereType('principale')
                 ->get()
-                ->map(
-                    function ($q) {
-                        $q->products = $q->products->take(1); // take only 15 query
-                        return $q;
-                    }
-                );
-
+                
 
             return response()->json([
                 // 'status' => true,
