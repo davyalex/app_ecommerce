@@ -120,7 +120,7 @@ class HomeController extends Controller
 
     public function someProduct()
     {
-        $data = Product::with(['categories', 'subcategorie', 'media'])->inRandomOrder()->limit(30);
+        $data = Product::with(['categories', 'subcategorie', 'media'])->inRandomOrder()->take(30);
 
         return response()->json([
             // 'status' => true,
