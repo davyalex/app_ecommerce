@@ -31,7 +31,7 @@ use Illuminate\Support\Facades\Route;
 
         //Section Category pack with products
 
-        Route::get('/CategoryPack', 'CategoryPack');
+        Route::get('/categoryPack', 'CategoryPack');
 
 
 

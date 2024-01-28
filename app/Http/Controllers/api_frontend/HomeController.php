@@ -8,10 +8,25 @@ use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
+/**
+ * @OA\Info(
+ *    title="My Cool API",
+ *    description="An API of cool stuffs",
+ *    version="1.0.0",
+ * )
+ */
 class HomeController extends Controller
 {
     //Get Principal Category list with subCategory and media 
-
+    /**
+     * @OA\Get(
+     *     path="v1/principalCategory",
+     *     summary="Get a list of category list",
+     * @OA\Info() ,
+     *     tags={"principalCategory"},
+     *     @OA\Response(response=200, description="Successful operation"),
+     * )
+     */
     public function principalCategory()
     {
         try {
@@ -23,7 +38,7 @@ class HomeController extends Controller
             ])
                 ->orderBy('created_at', 'DESC')
                 ->whereType('principale')
-                ->get()
+                ->get();
                 
 
             return response()->json([

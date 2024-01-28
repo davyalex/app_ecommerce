@@ -1,0 +1,24 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "My Cool API",
+        "description": "An API of cool stuffs",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "v1/principalCategory": {
+            "get": {
+                "tags": [
+                    "principalCategory"
+                ],
+                "summary": "Get a list of category list",
+                "operationId": "728f48db3f3653f4e823a1a32f40f40b",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            }
+        }
+    }
+}
