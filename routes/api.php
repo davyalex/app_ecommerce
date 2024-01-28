@@ -1,8 +1,10 @@
 <?php
 
-use App\Http\Controllers\api_frontend\HomeController;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\api_frontend\HomeController;
+use App\Http\Controllers\api_frontend\ProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,26 +20,37 @@ use Illuminate\Support\Facades\Route;
 
 
 /***************************** API WITHOUT AUTHENTICATION */
+Route::prefix('v1')->group(function () {
 
-Route::controller(HomeController::class)->prefix('v1')->group(function () {
-    //Principal Category list with subcategory and media
-    Route::get('/principalCategory', 'principalCategory');
+    Route::controller(HomeController::class)->group(function () {
+        //Principal Category list with subcategory and media
+        Route::get('/principalCategory', 'principalCategory');
 
-    //Section Category list with media
-    Route::get('/sectionCategory', 'sectionCategory');
+        //Section Category list with media
+        Route::get('/sectionCategory', 'sectionCategory');
 
-    //Slider
-    Route::get('/slider', 'slider');
+        //Slider
+        Route::get('/slider', 'slider');
 
-    //Section Category pack with products
-    Route::get('/categoryPack', 'CategoryPack');
+        //Section Category pack with products
+        Route::get('/categoryPack', 'CategoryPack');
 
-    // quelques produits sur la page accueil
-    Route::get('/someProduct', 'someProduct');
+        // quelques produits sur la page accueil
+        Route::get('/someProduct', 'someProduct');
 
-    // Liste de tous les produits || ou avec parametre 
-    Route::get('/allProduct', 'allProduct');
+    });
+
+
+    Route::controller(ProductController::class)->group(function () {
+        // Detail d'un produit et les produit en relation
+        Route::get('/detailProduct', 'detailProduct');
+        // Liste de tous les produits || ou avec parametre 
+        Route::get('/allProduct', 'allProduct');
+    });
+
+
 });
+
 
 
 

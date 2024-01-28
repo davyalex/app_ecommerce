@@ -68,7 +68,21 @@
                     "Liste de tous les produits "
                 ],
                 "summary": "Liste de tous les produits:\n     *     Pour  recuperer un produit par sa categorie envoyez \n     *     l'id de la catégorie dans le paramètre en GET {category} \n     *     ou {subcategory} pour recuperer les produits d'une sous categorie \n     * Exemple: http://127.0.0.1:8000/api/v1/allProduct?category={id}",
-                "operationId": "cb0d1fc57f5b6333d4e1818172bbcd4a",
+                "operationId": "cf6abfe71a7fadeaa9f82c5549177737",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            }
+        },
+        "/api/v1/detailProduct": {
+            "get": {
+                "tags": [
+                    "Detail d'un produit "
+                ],
+                "summary": "detail d'un produit:\n     *     Pour  recuperer les detail d'un produit, envpoyez l'id du produit en GET {product} \n     * Exemple: http://127.0.0.1:8000/api/v1/detailProduct?product={id}",
+                "operationId": "bb457d6f9ff82670f2b7f2206c792eee",
                 "responses": {
                     "200": {
                         "description": "Successful operation"
