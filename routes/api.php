@@ -19,24 +19,25 @@ use Illuminate\Support\Facades\Route;
 
 /***************************** API WITHOUT AUTHENTICATION */
 
-    Route::controller(HomeController::class)->prefix('v1')->group(function(){
-        //Principal Category list with subcategory and media
-        Route::get('/principalCategory', 'principalCategory');
+Route::controller(HomeController::class)->prefix('v1')->group(function () {
+    //Principal Category list with subcategory and media
+    Route::get('/principalCategory', 'principalCategory');
 
-        //Section Category list with media
-        Route::get('/sectionCategory', 'sectionCategory');
+    //Section Category list with media
+    Route::get('/sectionCategory', 'sectionCategory');
 
-        //Slider
-        Route::get('/slider', 'slider');
+    //Slider
+    Route::get('/slider', 'slider');
 
-        //Section Category pack with products
+    //Section Category pack with products
+    Route::get('/categoryPack', 'CategoryPack');
 
-        Route::get('/categoryPack', 'CategoryPack');
+    // quelques produits sur la page accueil
+    Route::get('/someProduct', 'someProduct');
 
-
-
-
-    });
+    // Liste de tous les produits || ou avec parametre 
+    Route::get('/allProduct', 'allProduct');
+});
 
 
 

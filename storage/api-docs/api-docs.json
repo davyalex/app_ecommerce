@@ -1,18 +1,74 @@
 {
     "openapi": "3.0.0",
     "info": {
-        "title": "My Cool API",
-        "description": "An API of cool stuffs",
+        "title": "Dooya Api",
+        "description": " Api de dooya site e-commerce",
         "version": "1.0.0"
     },
     "paths": {
-        "v1/principalCategory": {
+        "/api/v1/principalCategory": {
             "get": {
                 "tags": [
-                    "principalCategory"
+                    "Liste des categories de type principale"
                 ],
-                "summary": "Get a list of category list",
-                "operationId": "728f48db3f3653f4e823a1a32f40f40b",
+                "summary": "Recuperer la liste des categories de type principal avec les produits et sous categories a l'interieur",
+                "operationId": "9562aee673df036919d42a8c3b75eb92",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            }
+        },
+        "/api/v1/sectionCategory": {
+            "get": {
+                "tags": [
+                    "Liste des categories de type section"
+                ],
+                "summary": "Recuperer la liste des categories de type section avec les produits a l'interieur",
+                "operationId": "dd0a0f34d4289c0949cf2f24655c7967",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            }
+        },
+        "/api/v1/categoryPack": {
+            "get": {
+                "tags": [
+                    "Liste des categories de type pack"
+                ],
+                "summary": "Recuperer la liste des categories de type pack avec les produits a l'interieur",
+                "operationId": "8430bc00232f1e2095d9947ed45f5653",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            }
+        },
+        "/api/v1/someProduct": {
+            "get": {
+                "tags": [
+                    "Liste de quelques produits  de toutes les categories"
+                ],
+                "summary": "Liste de quelque produits de toutes categories confondue",
+                "operationId": "29efc79ee36ad643953a9a0395608fdf",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            }
+        },
+        "/api/v1/allProduct": {
+            "get": {
+                "tags": [
+                    "Liste de tous les produits "
+                ],
+                "summary": "Liste de tous les produits",
+                "operationId": "cb0d1fc57f5b6333d4e1818172bbcd4a",
                 "responses": {
                     "200": {
                         "description": "Successful operation"
