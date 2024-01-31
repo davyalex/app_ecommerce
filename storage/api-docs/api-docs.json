@@ -6,6 +6,34 @@
         "version": "1.0.0"
     },
     "paths": {
+        "/api/v1/register": {
+            "post": {
+                "tags": [
+                    "Register"
+                ],
+                "summary": "Inscription du client",
+                "operationId": "5cddb7cce42211dff9e7d0ec6cb6e30b",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            }
+        },
+        "/api/v1/login": {
+            "post": {
+                "tags": [
+                    "Login"
+                ],
+                "summary": "Connexion du client",
+                "operationId": "e290c19623eca699c0bf09b04d64ae8c",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            }
+        },
         "/api/v1/principalCategory": {
             "get": {
                 "tags": [

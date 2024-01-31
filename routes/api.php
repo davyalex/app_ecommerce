@@ -3,6 +3,7 @@
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\api_frontend\AuthController;
 use App\Http\Controllers\api_frontend\HomeController;
 use App\Http\Controllers\api_frontend\ProductController;
 
@@ -46,6 +47,14 @@ Route::prefix('v1')->group(function () {
         Route::get('/detailProduct', 'detailProduct');
         // Liste de tous les produits || ou avec parametre 
         Route::get('/allProduct', 'allProduct');
+    });
+
+
+    Route::controller(AuthController::class)->group(function () {
+        Route::post('register', 'register');
+        Route::post('login', 'login');
+        Route::get('auth', 'auth')->middleware('auth:sanctum');
+        Route::post('logout', 'logout')->middleware('auth:sanctum');
     });
 
 

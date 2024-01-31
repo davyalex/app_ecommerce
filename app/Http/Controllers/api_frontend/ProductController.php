@@ -32,8 +32,9 @@ class ProductController extends Controller
             $subcategory_id = request('subcategory');
 
             $data = Product::with(['media', 'categories', 'subcategorie'])
-                ->when($category_id, fn ($q) => $q->whereHas('categories',
-                fn ($q) => $q->where('category_product.category_id',$category_id),
+                ->when($category_id, fn ($q) => $q->whereHas(
+                    'categories',
+                    fn ($q) => $q->where('category_product.category_id', $category_id),
                 ))
                 ->when($subcategory_id, fn ($q) => $q->where('sub_category_id', $subcategory_id))
                 ->inRandomOrder()->paginate(30);
@@ -74,7 +75,7 @@ class ProductController extends Controller
 
             $product_related =
                 Product::with(['media', 'categories', 'subcategorie'])
-                ->whereHas('categories', fn($q)=>$q->where('category_product.category_id', $data['categories'][0]['id'] ))
+                ->whereHas('categories', fn ($q) => $q->where('category_product.category_id', $data['categories'][0]['id']))
                 ->orWhere('sub_category_id', $data['sub_category_id'])
                 ->where('id', '!=',  $product_id)
                 ->inRandomOrder()->take(30)->get();
@@ -89,7 +90,10 @@ class ProductController extends Controller
 
             ], 200);
         } catch (\Exception $e) {
-           return $e->getMessage();
+            return response()->json([
+                // 'status' => true,
+                'message' => "Data not Found",
+            ], 200);
         }
     }
 }
