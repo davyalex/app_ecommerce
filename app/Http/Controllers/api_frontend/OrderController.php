@@ -20,7 +20,8 @@ class OrderController extends Controller
      */
 
      public function delivery(){
-        $data = Delivery::get();
+        $data = Delivery::orderBy('zone', 'ASC')->get();
+
         return response()->json([
             // 'status' => true,
             'message' => "Data Found",
