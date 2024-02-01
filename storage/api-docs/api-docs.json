@@ -34,6 +34,20 @@
                 }
             }
         },
+        "/api/v1/logout": {
+            "get": {
+                "tags": [
+                    "Logout "
+                ],
+                "summary": "Deconnexion du user",
+                "operationId": "cffa51e4efc36f6f0bc5fbdb842caba0",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            }
+        },
         "/api/v1/principalCategory": {
             "get": {
                 "tags": [
