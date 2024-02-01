@@ -104,6 +104,20 @@
                 }
             }
         },
+        "/api/v1/delivery": {
+            "get": {
+                "tags": [
+                    " Liste des zones de livraison "
+                ],
+                "summary": "Liste des zone de livraison",
+                "operationId": "f790fa45d78cf08f23634138a2f02d13",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            }
+        },
         "/api/v1/allProduct": {
             "get": {
                 "tags": [

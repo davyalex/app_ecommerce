@@ -1,10 +1,12 @@
 <?php
 
+use App\Models\Order;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\api_frontend\AuthController;
 use App\Http\Controllers\api_frontend\HomeController;
+use App\Http\Controllers\api_frontend\OrderController;
 use App\Http\Controllers\api_frontend\ProductController;
 
 /*
@@ -22,6 +24,16 @@ use App\Http\Controllers\api_frontend\ProductController;
 
 /***************************** API WITHOUT AUTHENTICATION */
 Route::prefix('v1')->group(function () {
+
+
+    Route::controller(AuthController::class)->group(function () {
+        Route::post('register', 'register');
+        Route::post('login', 'login');
+        Route::get('auth', 'auth')->middleware('auth:sanctum');
+        Route::post('logout', 'logout')->middleware('auth:sanctum');
+    });
+
+
 
     Route::controller(HomeController::class)->group(function () {
         //Principal Category list with subcategory and media
@@ -53,12 +65,11 @@ Route::prefix('v1')->group(function () {
     });
 
 
-    Route::controller(AuthController::class)->group(function () {
-        Route::post('register', 'register');
-        Route::post('login', 'login');
-        Route::get('auth', 'auth')->middleware('auth:sanctum');
-        Route::post('logout', 'logout')->middleware('auth:sanctum');
-    });
+    Route::controller(OrderController::class)->group(function () {
+        //La liste des zone de livraison
+        Route::get('delivery', 'delivery');
+       
+    });   
 
 
 });
