@@ -183,4 +183,24 @@ class AuthController extends Controller
             ], 200);
         }
     }
+
+
+
+    /**
+     * @OA\Get(
+     *     path="/api/v1/logout",
+     *     summary="Deconnexion du user",
+     *     tags={"Logout "},
+     *     @OA\Response(response=200, description="Successful operation"),
+     * )
+     * 
+     */
+
+    public function logout(Request $request)
+    {
+        $request->user()->currentAccessToken()->delete();
+        return response()->json([
+            'message' => 'Operation réussi',
+        ], 200);
+    }
 }
