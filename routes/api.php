@@ -47,6 +47,9 @@ Route::prefix('v1')->group(function () {
         Route::get('/detailProduct', 'detailProduct');
         // Liste de tous les produits || ou avec parametre 
         Route::get('/allProduct', 'allProduct');
+//Rechercher un produit
+        Route::get('/q', 'searchProduct');
+
     });
 
 

@@ -117,6 +117,20 @@
                     }
                 }
             }
+        },
+        "/api/v1/q": {
+            "get": {
+                "tags": [
+                    "Rechercher un produit "
+                ],
+                "summary": "Rechercher un produit",
+                "operationId": "9d88bc39fe4fe01c09da6a544199e017",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            }
         }
     }
 }

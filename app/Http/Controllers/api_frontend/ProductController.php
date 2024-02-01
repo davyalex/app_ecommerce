@@ -96,4 +96,42 @@ class ProductController extends Controller
             ], 200);
         }
     }
+
+
+    /**
+     * @OA\Get(
+     *     path="/api/v1/q",
+     *     summary="Rechercher un produit",
+     *     tags={"Rechercher un produit "},
+     *     @OA\Response(response=200, description="Successful operation"),
+     * )
+     * 
+     */
+
+    public function searchProduct(Request $request)
+    {
+
+        try {
+            $search = $request['search'];
+            $data = Product::with(['categories', 'subcategorie', 'media'])
+                ->where('title', 'Like', "%{$search}%")
+                ->orderBy('created_at', 'desc')->paginate(36);
+
+            return response()->json([
+                // 'status' => true,
+                'message' => "Data Found",
+                "data" => $data,
+                "description" => 'Rechercher un produit',
+
+            ], 200);
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => "Data not Found",
+            ], 200);
+        }
+
+       
+
+
+    }
 }
