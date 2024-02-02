@@ -146,13 +146,13 @@
                 }
             }
         },
-        "/api/v1/q": {
+        "/api/v1/product?q=?": {
             "get": {
                 "tags": [
                     "Rechercher un produit "
                 ],
                 "summary": "Rechercher un produit",
-                "operationId": "9d88bc39fe4fe01c09da6a544199e017",
+                "operationId": "387e0c1605663dd8af0788ac8a876719",
                 "responses": {
                     "200": {
                         "description": "Successful operation"

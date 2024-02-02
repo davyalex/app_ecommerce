@@ -100,7 +100,7 @@ class ProductController extends Controller
 
     /**
      * @OA\Get(
-     *     path="/api/v1/q",
+     *     path="/api/v1/product?q=?",
      *     summary="Rechercher un produit",
      *     tags={"Rechercher un produit "},
      *     @OA\Response(response=200, description="Successful operation"),
@@ -112,7 +112,7 @@ class ProductController extends Controller
     {
 
         try {
-            $search = $request['search'];
+            $search = request('q');
             $data = Product::with(['categories', 'subcategorie', 'media'])
                 ->where('title', 'Like', "%{$search}%")
                 ->orderBy('created_at', 'desc')->paginate(36);

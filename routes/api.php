@@ -60,7 +60,7 @@ Route::prefix('v1')->group(function () {
         // Liste de tous les produits || ou avec parametre 
         Route::get('/allProduct', 'allProduct');
 //Rechercher un produit
-        Route::get('/q', 'searchProduct');
+        Route::get('/product', 'searchProduct'); //search product
 
     });
 
