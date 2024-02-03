@@ -132,6 +132,20 @@
                 }
             }
         },
+        "/api/v1/userOrderList": {
+            "get": {
+                "tags": [
+                    "Liste des Commandes du client "
+                ],
+                "summary": "La liste des commandes du client",
+                "operationId": "7b5314f6be2d2bd7a47452c62d2bfdbb",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            }
+        },
         "/api/v1/allProduct": {
             "get": {
                 "tags": [

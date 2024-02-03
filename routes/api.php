@@ -68,7 +68,11 @@ Route::prefix('v1')->group(function () {
     Route::controller(OrderController::class)->group(function () {
         //La liste des zone de livraison
         Route::get('delivery', 'delivery');
+        //Enregistrer La commande du client
         Route::post('order', 'order');
+        //Afficher la liste des commandes du client
+        Route::get('userOrderList', 'userOrder');
+
 
        
     });   
