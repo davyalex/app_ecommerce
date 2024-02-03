@@ -34,12 +34,13 @@ class ProductController extends Controller
             $subcategory_id = request('subcategory');
 
             // Get infos category if request category_id
-            if ($category_id) {
+          
                 $data_category = Category::with([
                     'subcategories' => fn ($q) => $q->with(['media', 'products']), 'media'
-                ])->get();
-            }
+                ])
+                ->whereId( $category_id)->first();
 
+        
 
             $data_product = Product::with(['media', 'categories', 'subcategorie'])
                 ->when($category_id, fn ($q) => $q->whereHas(
