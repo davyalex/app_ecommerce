@@ -24,7 +24,8 @@ class OrderController extends Controller
      * 
      */
 
-     public function delivery(){
+    public function delivery()
+    {
         $data = Delivery::orderBy('zone', 'ASC')->get();
 
         return response()->json([
@@ -34,7 +35,7 @@ class OrderController extends Controller
             "description" => 'Liste des zone de livraison',
 
         ], 200);
-     }
+    }
 
 
     /**
@@ -47,12 +48,14 @@ class OrderController extends Controller
      * 
      */
 
-     public function  order(Request $request){
-         try {
+    public function  order(Request $request)
+    {
+        try {
 
             //ger infos delivery
             $delivery = Delivery::whereId($request['livraison_id'])->first();
 
+            //save order
             $data = Order::firstOrCreate([
                 "user_id" => Auth::user()->id,
                 'quantity_product' => $request['qte_des_articles'],
@@ -69,38 +72,26 @@ class OrderController extends Controller
                 'date_order' => Carbon::now()->format('Y-m-d')
 
             ]);
-             
-             return $this->showAllOrderByUser();
-         } catch (Exception $e) {
-             return response()->json(['error'=>'Une erreur est survenue']);
-         }
-         
-     }
-     
-  
-     private function showAllOrderByUser(){
-        //recuperation des commandes d'un utilisateur connecté
-    //     $orders=[];
-    //     $userId=Auth::user()->id;
-    //     $userOrders=Order::where('user_id',$userId)->get();
-    //     foreach ($userOrders as $userOrder) {
-    //         $product=Product::find($userOrder->product_id);
-    //         $orderDetail=[
-    //             "product"=>$product,
-    //             "quantity"=>$userOrder->quantity,
-    //             "price"=>$product->price,
-    //             "total"=>$product->price*$userOrder->quantity
-    //         ];
-    //         array_push($orders,$orderDetail);
-    //     }
-    //     $data=[
-    //        'user_name'=>Auth::user()->name,
-    //        'commands'=>$orders
-    //    ];
-    //     return response()->json(["data"=>$data]);
+
+            //insert data in pivot order_product
+            foreach ($request['produits'] as $key => $value) {
+                $data->products()->attach($key, [
+                    'quantity' => $value['qte_unitaire'],
+                    'unit_price' => $value['prix_unitaire'],
+                    'total' => $value['qte_unitaire'] * $value['prix_unitaire'],
+                ]);
+            }
+            return response()->json(['success' => true, 'message' => 'La commande a été bien enregistrée']);
+
+            // return $this->showAllOrderByUser();
+        } catch (Exception $e) {
+            return response()->json(['error' => 'Une erreur est survenue']);
+        }
     }
 
 
-
-
+    private function showAllOrderByUser()
+    {
+       
+    }
 }

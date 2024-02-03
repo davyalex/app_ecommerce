@@ -68,7 +68,7 @@ Route::prefix('v1')->group(function () {
     Route::controller(OrderController::class)->group(function () {
         //La liste des zone de livraison
         Route::get('delivery', 'delivery');
-        Route::get('order', 'order');
+        Route::post('order', 'order');
 
        
     });   
