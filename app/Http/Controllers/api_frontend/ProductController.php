@@ -5,6 +5,8 @@ namespace App\Http\Controllers\api_frontend;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Category;
+use App\Models\SubCategory;
 
 class ProductController extends Controller
 {
@@ -31,7 +33,13 @@ class ProductController extends Controller
             $category_id = request('category');
             $subcategory_id = request('subcategory');
 
-            $data = Product::with(['media', 'categories', 'subcategorie'])
+            // Get infos category if request category_id
+            if ($category_id) {
+               $data_category = Category::with(['subcategories','media'])->get();
+            }
+            
+
+            $data_product = Product::with(['media', 'categories', 'subcategorie'])
                 ->when($category_id, fn ($q) => $q->whereHas(
                     'categories',
                     fn ($q) => $q->where('category_product.category_id', $category_id),
@@ -42,7 +50,8 @@ class ProductController extends Controller
             return response()->json([
                 // 'status' => true,
                 'message' => "Data Found",
-                "data" => $data,
+                "products" => $data_product,
+                "category" => $data_category,
                 "description" => 'Liste des produits || parametre: category or subcategory',
 
             ], 200);
