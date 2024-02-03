@@ -69,9 +69,11 @@ Route::prefix('v1')->group(function () {
         //La liste des zone de livraison
         Route::get('delivery', 'delivery');
         //Enregistrer La commande du client
-        Route::post('order', 'order');
+        Route::post('order', 'order')->middleware('auth:sanctum');
         //Afficher la liste des commandes du client
-        Route::get('userOrderList', 'userOrder');
+        Route::get('userOrderList', 'userOrder')->middleware('auth:sanctum');
+        Route::get('userOrder/{id}', 'userOrderDetail')->middleware('auth:sanctum');
+
 
 
        

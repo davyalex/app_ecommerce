@@ -146,6 +146,31 @@
                 }
             }
         },
+        "/api/v1/userOrder/{id}": {
+            "get": {
+                "tags": [
+                    "Detail d'une commande "
+                ],
+                "summary": "Detail d'une commandes",
+                "operationId": "beb65c3992b31244cc6b2ef2655c5fa5",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Commande id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            }
+        },
         "/api/v1/allProduct": {
             "get": {
                 "tags": [

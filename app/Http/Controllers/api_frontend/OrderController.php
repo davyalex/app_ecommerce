@@ -51,13 +51,14 @@ class OrderController extends Controller
     public function  order(Request $request)
     {
         try {
+            //get infos delivery
+            $delivery = Delivery::whereId($request['livraison_id'])->first();
+
 
             if (!Auth::check()) {
                 throw new Exception("Vous devez être connecté pour acceder aux commandes");
             } else {
-                //ger infos delivery
-                $delivery = Delivery::whereId($request['livraison_id'])->first();
-
+              
                 //save order
                 $data = Order::firstOrCreate([
                     "user_id" => Auth::user()->id,
@@ -103,6 +104,7 @@ class OrderController extends Controller
      *     summary="La liste des commandes du client",
      *     tags={"Liste des Commandes du client "},
      *     @OA\Response(response=200, description="Successful operation"),
+     * 
      * )
      * 
      */
@@ -127,4 +129,62 @@ class OrderController extends Controller
             return  ['errors' => $ex->getMessage()];
         }
     }
+
+
+    /**
+     * @OA\GET(
+     *     path="/api/v1/userOrder/{id}",
+     *     summary="Detail d'une commandes",
+     *     tags={"Detail d'une commande "},
+     *     @OA\Response(response=200, description="Successful operation"),
+     * 
+     *  @OA\Parameter(
+     *          name="id",
+     *          description="Commande id",
+     *          required=true,
+     *          in="path",
+     *          @OA\Schema(
+     *              type="integer"
+     *          )
+     *      ),
+     * )
+     * 
+     */
+
+    public function userOrderDetail($id){
+        try{
+            
+            if(!Auth::check())
+            {
+                throw new Exception("Vous devez être connecté pour accèder à cette ressource");
+            }
+
+            $order = Order::whereId($id)
+            ->with([
+                'user', 'products'
+                => fn ($q) => $q->with('media')
+            ])
+                ->orderBy('created_at', 'DESC')->first();
+
+            if ($order == null) {
+                throw new Exception("Cette commande n'existe pas");
+            } elseif ($order->user_id != Auth::user()->id) {
+                throw new Exception("Vous ne pouvez pas consulter cette commande");
+            }
+
+
+
+            return response()->json([
+                 'status'=> true,   
+                 'data'=>$order,
+                 'message'=> "Détail de la commande récupéré avec succès"
+            ],200);
+         }catch(Exception $e){
+             return response()->json(['error'=>$e->getMessage()],400);
+         }
+        
+    }
+
+
+
 }
