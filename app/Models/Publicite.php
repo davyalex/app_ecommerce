@@ -2,19 +2,21 @@
 
 namespace App\Models;
 
-use Spatie\MediaLibrary\HasMedia;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\MediaLibrary\HasMedia;
 
-class Slider extends Model implements HasMedia
+class Publicite extends Model implements HasMedia
 {
-    use HasFactory,InteractsWithMedia;
+    use HasFactory, InteractsWithMedia, SoftDeletes;
+
     protected $fillable = [
         'type',
         'url',
         'created_at',
-        'updated_at'
+        'updated_at',
+        'deleted_at'
     ];
-       
 }

@@ -317,8 +317,8 @@
                             </li>
 
                             <li class="dropdown">
-                                <a href="{{ route('slider.index') }}" class="nav-link"><i
-                                        data-feather="image"></i><span>Bannieres</span></a>
+                                <a href="{{ route('publicite.index') }}" class="nav-link"><i
+                                        data-feather="image"></i><span>Publicités</span></a>
                             </li>
 
                             {{-- <li class="dropdown">

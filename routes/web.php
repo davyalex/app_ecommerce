@@ -7,7 +7,6 @@ use App\Http\Controllers\site\CartController;
 use App\Http\Controllers\site\SiteController;
 use App\Http\Controllers\admin\OrderController;
 use App\Http\Controllers\site\VendorController;
-use App\Http\Controllers\admin\SliderController;
 use App\Http\Controllers\site\AccountController;
 use App\Http\Controllers\site\SupportController;
 use App\Http\Controllers\admin\ProductController;
@@ -15,6 +14,7 @@ use App\Http\Controllers\admin\CategoryController;
 use App\Http\Controllers\admin\DeliveryController;
 use App\Http\Controllers\admin\AuthAdminController;
 use App\Http\Controllers\admin\DashboardController;
+use App\Http\Controllers\admin\PubliciteController;
 use App\Http\Controllers\admin\CollectionController;
 use App\Http\Controllers\admin\SubCategoryController;
 
@@ -196,14 +196,14 @@ Route::middleware(['admin'])->group(function () {
         Route::get('changeState', 'changeState')->name('order.changeState');
     });
 
-    //slider
+    //publicite
 
     /** Collection **/
-    Route::prefix('admin/slider')->controller(SliderController::class)->group(function () {
-        route::get('', 'index')->name('slider.index');
-        route::post('', 'store')->name('slider.store');
-        route::get('edit/{id}', 'edit')->name('slider.edit');
-        route::post('update/{id}', 'update')->name('slider.update');
-        route::post('destroy/{id}', 'destroy')->name('slider.destroy');
+    Route::prefix('admin/publicite')->controller(PubliciteController::class)->group(function () {
+        route::get('', 'index')->name('publicite.index');
+        route::post('', 'store')->name('publicite.store');
+        route::get('edit/{id}', 'edit')->name('publicite.edit');
+        route::post('update/{id}', 'update')->name('publicite.update');
+        route::post('destroy/{id}', 'destroy')->name('publicite.destroy');
     });
 });

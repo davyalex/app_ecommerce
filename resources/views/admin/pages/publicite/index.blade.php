@@ -11,10 +11,10 @@
                     </div>
                     <div class="card">
                         <div class="card-header">
-                            <h4>Sliders</h4>
-                            <button type="button" data-toggle="modal" data-target="#modalAddSlider"
+                            <h4>publicites</h4>
+                            <button type="button" data-toggle="modal" data-target="#modalAddpublicite"
                                 class="btn btn-primary">Ajouter
-                                une Slider</button>
+                                une publicite</button>
                         </div>
 
 
@@ -33,15 +33,15 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($slider as $key => $item)
+                                        @foreach ($publicite as $key => $item)
                                             <tr>
                                                 <td>
                                                     {{ ++$key }}
                                                 </td>
                                                 <td> {{ $item['type'] }} </td>
                                                 <td>
-                                                    <img alt="{{ $item->getFirstMediaUrl('slider_image') }}"
-                                                        src="{{ $item->getFirstMediaUrl('slider_image') }}" width="35">
+                                                    <img alt="{{ $item->getFirstMediaUrl('publicite_image') }}"
+                                                        src="{{ $item->getFirstMediaUrl('publicite_image') }}" width="35">
                                                 </td>
                                                 <td class="align-middle">
                                                     {{ $item->url }}
@@ -53,7 +53,7 @@
                                                             class="btn btn-warning dropdown-toggle">Options</a>
                                                         <div class="dropdown-menu">
 
-                                                            <a href="{{ route('slider.edit', $item['id']) }}"
+                                                            <a href="{{ route('publicite.edit', $item['id']) }}"
                                                                 class="dropdown-item has-icon"><i class="far fa-edit"></i>
                                                                 Edit</a>
 
@@ -75,7 +75,7 @@
             </div>
         </div>
     </section>
-    @include('admin.pages.slider.modalAdd')
+    @include('admin.pages.publicite.modalAdd')
 
     <script>
         $(document).ready(function() {
@@ -93,7 +93,7 @@
                     if (result) {
                         $.ajax({
                             type: "POST",
-                            url: "/admin/slider/destroy/" + Id,
+                            url: "/admin/publicite/destroy/" + Id,
                             dataType: "json",
                             data: {
                                 _token: '{{ csrf_token() }}',
@@ -104,7 +104,7 @@
                                     Swal.fire({
                                         toast: true,
                                         icon: 'success',
-                                        title: 'Le slider a été retiré',
+                                        title: 'Le publicite a été retiré',
                                         animation: false,
                                         position: 'top',
                                         background: '#3da108e0',
@@ -116,7 +116,7 @@
                                     });
                                     setTimeout(function() {
                                         window.location.href =
-                                            "{{ route('slider.index') }}";
+                                            "{{ route('publicite.index') }}";
                                     }, 500);
                                 }
                             }

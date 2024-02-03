@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\site;
 
 use Exception;
-use App\Models\Slider;
+use App\Models\Publicite;
 use App\Models\Product;
 use App\Models\Category;
 use App\Models\Collection;
@@ -42,8 +42,8 @@ public function index(){
         //collection List
         $collection = Collection::with('media')->orderBy('name')->get();
 
-        //slider type==banniere
-        $slider_banniere = Slider::whereType('banniere')->orderBy('created_at', 'DESC')->get();
+        //Publicite type==banniere
+        $Publicite_banniere = Publicite::whereType('banniere')->orderBy('created_at', 'DESC')->get();
 
 
         //category with product
@@ -62,7 +62,7 @@ public function index(){
         $q->with('media'))->orderBy('name')->inRandomOrder()->take(26)->get();
         // dd($subcategory_with_product->toArray());
 
-        return view('site.home', compact('category',  'category_with_product', 'collection', 'slider_banniere', 'subcategory_with_product'));
+        return view('site.home', compact('category',  'category_with_product', 'collection', 'Publicite_banniere', 'subcategory_with_product'));
     }
     //return previous page
     // public function back(){

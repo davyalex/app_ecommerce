@@ -43,7 +43,7 @@ Route::prefix('v1')->group(function () {
         Route::get('/sectionCategory', 'sectionCategory');
 
         //Slider
-        Route::get('/slider', 'slider');
+        Route::get('/publicite', 'publicite');
 
         //Section Category pack with products
         Route::get('/categoryPack', 'CategoryPack');

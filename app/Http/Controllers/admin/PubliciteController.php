@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\admin;
 
-use App\Models\Slider;
+use App\Models\Publicite;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class SliderController extends Controller
+class PubliciteController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,9 +14,9 @@ class SliderController extends Controller
     public function index()
     {
         //
-        $slider = Slider::orderBy('created_at', 'DESC')->get();
+        $publicite = Publicite::orderBy('created_at', 'DESC')->get();
 
-        return view('admin.pages.slider.index', compact('slider'));
+        return view('admin.pages.publicite.index', compact('publicite'));
     }
 
     /**
@@ -39,7 +39,7 @@ class SliderController extends Controller
         ]);
 
 
-        $slider = Slider::create([
+        $publicite = Publicite::create([
             'type' => $request['type'],
             'url' => $request['url'],
 
@@ -47,11 +47,11 @@ class SliderController extends Controller
 
              //upload category_image
              if ($request->has('image')) {
-                $slider->addMediaFromRequest('image')->toMediaCollection('slider_image');
+                $publicite->addMediaFromRequest('image')->toMediaCollection('publicite_image');
             }
     
 
-        return back()->with('success', 'Nouvelle slider ajoutée avec success');
+        return back()->with('success', 'Nouvelle Publicite ajoutée avec success');
     }
 
     /**
@@ -68,9 +68,9 @@ class SliderController extends Controller
     public function edit(string $id)
     {
         //
-        $slider = Slider::whereId($id)->first();
+        $publicite = Publicite::whereId($id)->first();
 
-        return view('admin.pages.slider.edit', compact('slider'));
+        return view('admin.pages.publicite.edit', compact('publicite'));
     }
 
     /**
@@ -85,18 +85,18 @@ class SliderController extends Controller
         ]);
 
 
-        $slider = tap(Slider::find($id))->update([
+        $publicite = tap(Publicite::find($id))->update([
             'type' => $request['type'],
             'url' => $request['url'],
         ]);
 
         //upload category_image 
         if ($request->has('image')) {
-            $slider->clearMediaCollection('slider_image');
-            $slider->addMediaFromRequest('image')->toMediaCollection('slider_image');
+            $publicite->clearMediaCollection('publicite_image');
+            $publicite->addMediaFromRequest('image')->toMediaCollection('publicite_image');
             }
             
-        return back()->withSuccess('slider modifiée avec success');
+        return back()->withSuccess('Publicite modifiée avec success');
     }
 
     /**
@@ -105,7 +105,7 @@ class SliderController extends Controller
     public function destroy(string $id)
     {
         //
-        Slider::whereId($id)->delete();
+        Publicite::whereId($id)->delete();
         return response()->json([
             'status'=>200
         ]);

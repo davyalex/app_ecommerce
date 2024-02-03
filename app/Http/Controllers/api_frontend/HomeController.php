@@ -6,6 +6,7 @@ use Exception;
 use App\Models\Slider;
 use App\Models\Product;
 use App\Models\Category;
+use App\Models\Publicite;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -26,8 +27,8 @@ class HomeController extends Controller
         try {
             $data = Category::with([
                 'products' => function ($q) {
-                    return $q->with('subcategorie','media')->inRandomOrder();
-                }, 'media', 'subcategories' => fn ($q) => $q->with(['products','media'])
+                    return $q->with('subcategorie', 'media')->inRandomOrder();
+                }, 'media', 'subcategories' => fn ($q) => $q->with(['products', 'media'])
             ])
                 ->orderBy('created_at', 'DESC')
                 ->whereType('principale')
@@ -131,19 +132,53 @@ class HomeController extends Controller
         ], 200);
     }
 
-    
 
-    /*******Get Sliders */
-    public function slider()
+    /**
+     * @OA\Get(
+     *     path="/api/v1/publicite",
+     *     summary="Liste des publicite par type['slider', 'popup', 'top-header', 'background', 'small-card']",
+     *     tags={"Liste des publicites par type"},
+     *     @OA\Response(response=200, description="Successful operation"),
+     * )
+     */
+
+    public function publicite()
     {
         try {
-            $data = Slider::with('media')->orderBy('created_at', 'DESC')->get();
+            //publicite type slide/carrousel
+            $slider = Publicite::with('media')
+                ->where('type', 'slider')
+                ->orderBy('created_at', 'DESC')->get();
+
+            //publicite type top-header
+            $top_header = Publicite::with('media')
+                ->where('type', 'top-header')
+                ->orderBy('created_at', 'DESC')->get();
+
+            //publicite type banniere
+            $banniere = Publicite::with('media')
+                ->where('type', 'banniere')
+                ->orderBy('created_at', 'DESC')->get();
+
+            //publicite type small-card
+            $small_card = Publicite::with('media')
+                ->where('type', 'small-card')
+                ->orderBy('created_at', 'DESC')->get();
+
+            //publicite type background arriere plan
+            $background = Publicite::with('media')
+                ->where('type', 'background')
+                ->orderBy('created_at', 'DESC')->get();
 
             return response()->json([
                 // 'status' => true,
                 'message' => "Data Found",
-                "data" => $data,
-                "description" => 'recuperation des sliders',
+                "slider" => $slider,
+                "top_header" => $top_header,
+                "banniere" => $banniere,
+                "small_card" => $small_card,
+                "background" => $background[0],
+                "description" => 'recuperation des publicités par type ',
 
             ], 200);
         } catch (Exception $e) {

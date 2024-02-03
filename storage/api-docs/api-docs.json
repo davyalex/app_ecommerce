@@ -104,6 +104,20 @@
                 }
             }
         },
+        "/api/v1/publicite": {
+            "get": {
+                "tags": [
+                    "Liste des publicites par type"
+                ],
+                "summary": "Liste des publicite par type['slider', 'popup', 'top-header', 'background', 'small-card']",
+                "operationId": "7a71ac3ae5a41359bfea90cf4c4cc576",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            }
+        },
         "/api/v1/delivery": {
             "get": {
                 "tags": [

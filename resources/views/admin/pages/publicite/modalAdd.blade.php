@@ -33,7 +33,7 @@
 
 
   <!-- Modal with form -->
-  <div class="modal fade" id="modalAddSlider" tabindex="-1" role="dialog" aria-labelledby="formModal" aria-hidden="true">
+  <div class="modal fade" id="modalAddpublicite" tabindex="-1" role="dialog" aria-labelledby="formModal" aria-hidden="true">
       <div class="modal-dialog" role="document">
           <div class="modal-content">
               <div class="modal-header">
@@ -43,7 +43,7 @@
                   </button>
               </div>
               <div class="modal-body">
-                  <form action="{{ route('slider.store') }}" class="needs-validation" novalidate="" method="post"
+                  <form action="{{ route('publicite.store') }}" class="needs-validation" novalidate="" method="post"
                       enctype="multipart/form-data">
                       @csrf
                       <div class="card-body">
@@ -53,7 +53,7 @@
                                   <select name="type" class="form-control selectric " required>
                                       <option disabled selected value>Choisir un type</option>
                                       @php
-                                        $type = ['banniere', 'publicite' ,'popup', 'section']
+                                        $type = ['slider','banniere' ,'top-header' ,'popup', 'small-card', 'background']
                                       @endphp
                                       @foreach ($type as $item)
                                       <option class="text-capitalize" value="{{$item}}"> {{$item}} </option>
