@@ -177,7 +177,7 @@ class HomeController extends Controller
                 "top_header" => $top_header,
                 "banniere" => $banniere,
                 "small_card" => $small_card,
-                "background" => $background[0],
+                "background" => $background,
                 "description" => 'recuperation des publicités par type ',
 
             ], 200);
