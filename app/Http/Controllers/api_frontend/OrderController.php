@@ -39,7 +39,7 @@ class OrderController extends Controller
 
 
     /**
-     * @OA\Get(
+     * @OA\POST(
      *     path="/api/v1/order",
      *     summary="Enregistrement de la commande du client",
      *     tags={"Commande "},

@@ -119,12 +119,12 @@
             }
         },
         "/api/v1/order": {
-            "get": {
+            "post": {
                 "tags": [
                     "Commande "
                 ],
                 "summary": "Enregistrement de la commande du client",
-                "operationId": "093ee2e976a89fad73f6a6b154029f2b",
+                "operationId": "d2eb67a9e515dc70d8498836b3d34f78",
                 "responses": {
                     "200": {
                         "description": "Successful operation"
