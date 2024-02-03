@@ -35,9 +35,11 @@ class ProductController extends Controller
 
             // Get infos category if request category_id
             if ($category_id) {
-               $data_category = Category::with(['subcategories','media'])->get();
+                $data_category = Category::with([
+                    'subcategories' => fn ($q) => $q->with(['media', 'products']), 'media'
+                ])->get();
             }
-            
+
 
             $data_product = Product::with(['media', 'categories', 'subcategorie'])
                 ->when($category_id, fn ($q) => $q->whereHas(
@@ -138,9 +140,5 @@ class ProductController extends Controller
                 'message' => "Data not Found",
             ], 200);
         }
-
-       
-
-
     }
 }
