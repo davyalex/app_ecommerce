@@ -118,6 +118,20 @@
                 }
             }
         },
+        "/api/v1/order": {
+            "get": {
+                "tags": [
+                    "Commande "
+                ],
+                "summary": "Enregistrement de la commande du client",
+                "operationId": "093ee2e976a89fad73f6a6b154029f2b",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            }
+        },
         "/api/v1/allProduct": {
             "get": {
                 "tags": [
