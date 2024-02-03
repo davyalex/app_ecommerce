@@ -34,8 +34,8 @@
                                             <th>Nom</th>
                                             <th>Contact</th>
                                             <th>Email</th>
-                                            <th>Boutique</th>
-                                            <th>Localisation</th>
+                                            {{-- <th>Boutique</th>
+                                            <th>Localisation</th> --}}
                                             <th>Role</th>
                                             <th>Action</th>
                                         </tr>
@@ -47,8 +47,8 @@
                                                 <td>{{ $item['name'] }}</td>
                                                 <td>{{ $item['phone'] }}</td>
                                                 <td>{{ $item['email'] }}</td>
-                                                <td>  {{ $item['shop_name'] }} </td>
-                                                <td>{{ $item['localisation'] }} </td>
+                                                {{-- <td>  {{ $item['shop_name'] }} </td>
+                                                <td>{{ $item['localisation'] }} </td> --}}
                                                 <td>
                                                     @foreach ($item['roles'] as $role)
                                                         <br> <span
