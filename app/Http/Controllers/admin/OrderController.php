@@ -34,12 +34,23 @@ class OrderController extends Controller
     }
 
     public function invoice($id){
+        //function si on verifie la disponibilite des articles
+        // $orders= Order::whereId($id)
+        // ->with(['user','products'
+        //     =>fn($q)=>$q->with('media')->where('available', 'disponible')
+        // ])
+        // ->orderBy('created_at','DESC')->first();
 
-        $orders= Order::whereId($id)
-        ->with(['user','products'
-            =>fn($q)=>$q->with('media')->where('available', 'disponible')
-        ])
-        ->orderBy('created_at','DESC')->first();
+
+        //function sans verification de disponiblite
+        $orders = Order::whereId($id)
+            ->with([
+                'user', 'products'
+                => fn ($q) => $q->with('media')
+            ])
+            ->orderBy('created_at', 'DESC')->first();
+
+
         // dd($orders->toArray());
         return view('admin.pages.order.invoice',compact('orders'));
     }

@@ -69,7 +69,7 @@
                                                         <a href="#" data-toggle="dropdown"
                                                             class="btn btn-warning dropdown-toggle">Options</a>
                                                         <div class="dropdown-menu">
-                                                            <a href="{{ route('product-detail', $item['id']) }}"
+                                                            <a href="#"
                                                                 class="dropdown-item has-icon"><i class="fas fa-eye"></i>
                                                                 View</a>
                                                             <a href="{{ route('product.edit', $item['id']) }}"

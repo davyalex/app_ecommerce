@@ -64,8 +64,10 @@
                                                                 class="dropdown-item has-icon"><i class="fas fa-plus"></i>
                                                                 Ajouter un produit</a>
 
-                                                            <a href="#" class="dropdown-item has-icon"><i
-                                                                    class="fas fa-eye"></i> View</a>
+                                                            {{-- <a href="#" class="dropdown-item has-icon"><i
+                                                                    class="fas fa-eye"></i> View</a> --}}
+
+
                                                             <a href="{{ route('user.edit', $item['id']) }}"
                                                                 class="dropdown-item has-icon"><i class="far fa-edit"></i>
                                                                 Edit</a>

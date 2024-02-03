@@ -6,14 +6,14 @@
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>{{config('app.name')}} - Admin Dashboard </title>
+    <title>{{ config('app.name') }}- Admin Dashboard </title>
 
-      <!-- Favicons -->
-      <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" type="image/x-icon">
-      <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('assets/images/favicon/apple-touch-icon.png') }}">
-      <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('assets/images/favicon/favicon-32x32.png') }}">
-      <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('assets/images/favicon/favicon-16x16.png') }}">
-  
+    <!-- Favicons -->
+    <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('assets/images/favicon/apple-touch-icon.png') }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('assets/images/favicon/favicon-32x32.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('assets/images/favicon/favicon-16x16.png') }}">
+
     <!-- General CSS Files -->
     {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.js"></script> --}}
 
@@ -41,8 +41,8 @@
     https://cdn.jsdelivr.net/npm/sweetalert2@11.7.32/dist/sweetalert2.min.css
     " rel="stylesheet">
     <script src="
-            https://cdn.jsdelivr.net/npm/sweetalert2@11.7.32/dist/sweetalert2.all.min.js
-            "></script>
+                https://cdn.jsdelivr.net/npm/sweetalert2@11.7.32/dist/sweetalert2.all.min.js
+                "></script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.5/jspdf.min.js"></script>
 
@@ -223,11 +223,11 @@
                                 <div class="dropdown-title">{{ Auth::user()->name }}
                                     <span>{{ Auth::user()->role }} </span>
                                 </div>
-                                <a href="{{route('user.edit', Auth::user()->id )}}" class="dropdown-item has-icon"> <i
-                                        class="far
+                                <a href="{{ route('user.edit', Auth::user()->id) }}" class="dropdown-item has-icon">
+                                    <i class="far
                                       fa-user"></i> Profile
                                 </a>
-                                 {{-- <a href="timeline.html" class="dropdown-item has-icon"> <i
+                                {{-- <a href="timeline.html" class="dropdown-item has-icon"> <i
                                         class="fas fa-bolt"></i>
                                     Activities
                                 </a>  --}}
@@ -251,9 +251,10 @@
                 <div class="main-sidebar sidebar-style-2">
                     <aside id="sidebar-wrapper">
                         <div class="sidebar-brand">
-                            <a href="{{route('dashboard.index')}}">
+                            <a href="{{ route('dashboard.index') }}">
                                 <span class="logo-name">
-                                    <img src="{{asset('assets/images/logo/logo_zoolouk/logo_fond_noir.png')}}" width="150" class="m-auto"  alt="">
+                                    <img src="{{ asset('admin/assets/img/logo.jpg') }}"
+                                        width="80" class="m-auto" alt="">
                                 </span>
                             </a>
                         </div>
@@ -316,15 +317,19 @@
                             </li>
 
                             <li class="dropdown">
+                                <a href="{{ route('slider.index') }}" class="nav-link"><i
+                                        data-feather="image"></i><span>Bannieres</span></a>
+                            </li>
+
+                            {{-- <li class="dropdown">
                                 <a href="#" class="menu-toggle nav-link has-dropdown"><i
                                         data-feather="settings"></i><span>Parametres</span></a>
                                 <ul class="dropdown-menu">
                                     <li><a class="nav-link" href="avatar.html">Rôles</a></li>
-                                    <li><a class="nav-link" href="{{route('slider.index')}}">Sliders</a></li>
                                     <li><a class="nav-link" href="card.html">Publicités</a></li>
 
                                 </ul>
-                            </li>
+                            </li> --}}
                         </ul>
                     </aside>
                 </div>

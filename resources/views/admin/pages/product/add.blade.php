@@ -82,7 +82,6 @@
 
                                 <div class="col-sm-12 col-md-7">
                                     <select name="categories" class="form-control select2" required>
-                                        <option disabled selected value>Choisir une categorie</option>
                                         @foreach ($categories as $item)
                                             <option value="{{ $item['id'] }}"> {{ $item['name'] }} </option>
                                         @endforeach
@@ -102,8 +101,7 @@
                                     categorie</label>
 
                                 <div class="col-sm-12 col-md-7">
-                                    <select name="subcategories" class="form-control select2">
-                                        <option disabled selected value></option>
+                                    <select style="width: 520px" name="subcategories" class="form-control select2">
                                         @foreach ($subcategories as $item)
                                             {{-- <option value="{{ $item['id'] }}"> {{ $item['name'] }} </option> --}}
                                         @endforeach
@@ -126,14 +124,14 @@
                                     <input class="form-check-input" type="checkbox" id="collection" value="option2">
                                     <label class="form-check-label" for="collection">Collections</label>
                                 </div>
-                                <div class="form-check form-check-inline">
+                                {{-- <div class="form-check form-check-inline">
                                     <input class="form-check-input" type="checkbox" id="pointure" value="option2">
                                     <label class="form-check-label" for="pointure">Pointures</label>
-                                </div>
-                                <div class="form-check form-check-inline">
+                                </div> --}}
+                                {{-- <div class="form-check form-check-inline">
                                     <input class="form-check-input" type="checkbox" id="taille" value="option2">
                                     <label class="form-check-label" for="taille">Tailles</label>
-                                </div>
+                                </div> --}}
                             </div>
 
                             <div class="form-group row mb-4" id="sectionDiv">
@@ -156,8 +154,7 @@
                             <div class="form-group row mb-4" id="collectionDiv">
                                 <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Collection</label>
                                 <div class="col-sm-12 col-md-7">
-                                    <select style="width:600px" name="collection" class="form-control select2 ">
-                                        <option disabled selected value></option>
+                                    <select style="width:520px" name="collection" class="form-control select2 ">
                                         @foreach ($collection as $item)
                                             <option value="{{ $item['id'] }}"> {{ $item['name'] }} </option>
                                         @endforeach
@@ -168,7 +165,7 @@
                                     class="btn btn-primary"><i data-feather="plus"></i> Add New</button>
                             </div>
 
-                            <div class="form-group row mb-4" id="pointureDiv">
+                            {{-- <div class="form-group row mb-4" id="pointureDiv">
                                 <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Pointure</label>
                                 <div class="col-sm-12 col-md-7">
                                     <select name="pointures[]" class="form-control selectric " multiple>
@@ -179,8 +176,8 @@
                                     </select>
 
                                 </div>
-                            </div>
-                            <div class="form-group row mb-4" id="tailleDiv">
+                            </div> --}}
+                            {{-- <div class="form-group row mb-4" id="tailleDiv">
                                 <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Taille</label>
                                 <div class="col-sm-12 col-md-7">
                                     <select name="tailles[]" class="form-control selectric " multiple>
@@ -195,7 +192,7 @@
 
                                     </select>
                                 </div>
-                            </div>
+                            </div> --}}
 
                             <div class="form-group row mb-4">
                                 <label

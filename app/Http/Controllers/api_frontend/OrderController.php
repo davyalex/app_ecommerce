@@ -55,7 +55,7 @@ class OrderController extends Controller
             $delivery = Delivery::whereId($request['livraison_id'])->first();
 
 
-            if (!Auth::check()) {
+            if (!auth('sanctum')->check()) {
                 throw new Exception("Vous devez être connecté pour acceder aux commandes");
             } else {
               
@@ -111,7 +111,7 @@ class OrderController extends Controller
     public function userOrder(Request $request)
     {
         try {
-            if (!Auth::check()) {
+            if (!auth('sanctum')->check()) {
                 throw new Exception("Vous devez être connecté pour acceder aux commandes");
             } else {
                 $orders = Order::where('user_id', Auth::user()->id)
@@ -154,7 +154,7 @@ class OrderController extends Controller
     public function userOrderDetail($id){
         try{
             
-            if(!Auth::check())
+            if(!auth('sanctum')->check())
             {
                 throw new Exception("Vous devez être connecté pour accèder à cette ressource");
             }

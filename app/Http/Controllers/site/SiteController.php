@@ -36,8 +36,8 @@ public function index(){
 
 
         //subcat list
-        $subcategory = SubCategory::withWhereHas('products', fn ($q) =>
-        $q->with('media'))->orderBy('name', 'DESC')->get();
+        // $subcategory = SubCategory::withWhereHas('products', fn ($q) =>
+        // $q->with('media'))->orderBy('name', 'DESC')->get();
 
         //collection List
         $collection = Collection::with('media')->orderBy('name')->get();
@@ -62,7 +62,7 @@ public function index(){
         $q->with('media'))->orderBy('name')->inRandomOrder()->take(26)->get();
         // dd($subcategory_with_product->toArray());
 
-        return view('site.home', compact('category', 'subcategory', 'category_with_product', 'collection', 'slider_banniere', 'subcategory_with_product'));
+        return view('site.home', compact('category',  'category_with_product', 'collection', 'slider_banniere', 'subcategory_with_product'));
     }
     //return previous page
     // public function back(){

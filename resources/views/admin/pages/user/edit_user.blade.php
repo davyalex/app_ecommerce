@@ -34,7 +34,7 @@
 
                         </div>
                         <div class="card-header">
-                            <h4>Nouvel utilisateur</h4>
+                            <h4>Modification utilisateur</h4>
                         </div>
                         <div class="card-body">
                             <form class="needs-validation" novalidate="" method="POST"
@@ -77,6 +77,7 @@
                                             Champs obligatoire
                                         </div>
                                     </div>
+                                    @role('administrateur')
                                     <div class="form-group col-6">
                                         <label for="password2" class="d-block">Role</label>
                                         <select name="role" class="form-control select2"  required>
@@ -93,11 +94,12 @@
                                             Champs obligatoire
                                         </div>
                                     </div>
+                                    @endrole
                                 </div>
 
                                 {{-- auth fornisseur / vendeur --}}
 
-                                <div class="row">
+                                {{-- <div class="row">
                                     <div class="form-group col-6">
                                         <label for="shopName">Nom de boutique</label>
                                         <input id="shopName" value="{{ $user['shop_name'] }}" type="text"
@@ -111,7 +113,7 @@
                                             class="form-control" name="localisation">
 
                                     </div>
-                                </div>
+                                </div> --}}
                                 <div class="row">
                                     <div class="form-group col-8">
                                         <label for="password" class="d-block">Mot de passe (<small

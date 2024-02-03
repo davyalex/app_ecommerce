@@ -90,7 +90,7 @@
                                 {{-- auth fornisseur / vendeur --}}
                                     {{-- @if (request('u')) --}}
                                         
-                                    <div class="row">
+                                    {{-- <div class="row">
                                         <div class="form-group col-6">
                                             <label for="shopName">Nom de boutique</label>
                                             <input id="shopName" type="text" class="form-control" name="shop_name" required>
@@ -105,7 +105,7 @@
                                                 Champs obligatoire
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> --}}
                                     {{-- @endif --}}
                                 
                                 <div class="form-group">

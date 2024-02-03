@@ -46,7 +46,7 @@
                 <div class="card" id="div_print">
 
                     <div class="text-center logo p-2 px-5">
-                        <img src="{{ asset('assets/images/logo/logo_zoolouk/logo_transparent_noir.png') }}" width="25%">
+                        <img src="{{ asset('admin/assets/img/logo.jpg') }}" width="25%">
                     </div>
                     <div class="invoice p-5" style="box-shadow: none">
 

@@ -15,7 +15,7 @@
         "jenssegers/agent": "^2.6",
         "laravel/framework": "^10.10",
         "laravel/helpers": "^1.6",
-        "laravel/sanctum": "^3.2",
+        "laravel/sanctum": "^3.3",
         "laravel/socialite": "^5.9",
         "laravel/tinker": "^2.8",
         "realrashid/sweet-alert": "^7.1",

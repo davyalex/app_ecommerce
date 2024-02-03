@@ -66,28 +66,28 @@
                     <li class="list-group-item py-3">
                         <div class="d-flex flex-row align-items-start align-items-stretch gap-3">
                             <div class="product-img">
-                                <a href="{{ route('product-detail', $item['id']) }}">
+                                <a href="#">
                                     <img src="{{ $item->getFirstMediaUrl('product_image') }}" class="rounded-3" width="100"
                                         alt=""></a>
                             </div>
                             <div class="product-info ml-3 ">
                                 <h6 class="mb-1 text-dark">{{ $item['title'] }}</h6>
                                 <div class="mt-1">
-                                    <span
+                                    {{-- <span
                                         class="fst-italic">{{ $item['pivot']['options'] && is_numeric($item['pivot']['options'][0]) ? 'Pointure: ' : ($item['pivot']['options'] && ctype_alpha($item['pivot']['options'][0]) ? 'Taille:' : '') }}
-                                        {{ $item['pivot']['options'] }}</span><br>
+                                        {{ $item['pivot']['options'] }}</span><br> --}}
                                     <span class="fst-italic">Qté :{{ $item['pivot']['quantity'] }} </span><br>
                                     <span class="fst-italic">Pu :{{ number_format($item['pivot']['unit_price']) }} FCFA
                                     </span>
 
-                                    <br><h5 class="text-dark fw-bold">{{$item['pivot']['available']==null ? 'En attente de verification' : $item['pivot']['available'] }} </h5>
+                                    {{-- <br><h5 class="text-dark fw-bold">{{$item['pivot']['available']==null ? 'En attente de verification' : $item['pivot']['available'] }} </h5> --}}
 
                                 </div>
                             </div>
                         </div>
                          {{-- start change state of available --}}
 
-                         @if ($orders['status'] =='attente' || $orders['status'] =='annulée')
+                         {{-- @if ($orders['status'] =='attente' || $orders['status'] =='annulée')
                             
                         <form class=""action="{{route('vendor-available', $orders['id'])}}" method="post">
                             @csrf
@@ -108,7 +108,7 @@
                             
                             </div> 
                         </form>
-                        @endif
+                        @endif --}}
 
                         {{-- end change state of available --}}
 
