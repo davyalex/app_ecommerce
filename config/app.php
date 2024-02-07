@@ -172,6 +172,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         RealRashid\SweetAlert\SweetAlertServiceProvider::class,
         Jenssegers\Agent\AgentServiceProvider::class,
+        Orangehill\Iseed\IseedServiceProvider::class,
 
     ])->toArray(),
 
