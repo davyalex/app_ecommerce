@@ -34,26 +34,40 @@ class ProductController extends Controller
             $subcategory_id = request('subcategory');
 
             // Get infos category if request category_id
-
             $data_category = Category::with([
                 'subcategories' => fn ($q) => $q->with(['media', 'products']), 'media'
-            ])
-                ->whereId($category_id)->first();
+            ])->whereId($category_id)->first();
+                
 
 
             if ($category_id) {
+
+                // Get infos category if request category_id
+                $data_category = Category::with([
+                    'subcategories' => fn ($q) => $q->with(['media', 'products']), 'media'
+                ])->whereId($category_id)->first();
+                
+
+
                 $data_product = Product::whereHas(
                     'categories',
                     fn ($q) => $q->where('category_product.category_id', $category_id),
 
                 )->with(['collection', 'media', 'categories', 'subcategorie'])
                     ->inRandomOrder()->paginate(36);
-            }elseif($subcategory_id){
+            } elseif ($subcategory_id) {
+
+                // Get infos category if request category_id
+                $data_category = SubCategory::with([
+                    'categorie' => fn ($q) => $q->with(['media', 'products']), 'media'
+                ])->whereId($category_id)->first();
+                
+
                 $data_product = Product::with(['collection', 'media', 'categories'])
                     ->where('sub_category_id', $subcategory_id)->inRandomOrder()->paginate(36);
-            }else{
-                $data_product = Product::with(['collection', 'media', 'categories','subcategorie'])
-                  ->inRandomOrder()->paginate(36);
+            } else {
+                $data_product = Product::with(['collection', 'media', 'categories', 'subcategorie'])
+                    ->inRandomOrder()->paginate(36);
             }
 
             // $data_product = Product::with(['media', 'categories', 'subcategorie'])
