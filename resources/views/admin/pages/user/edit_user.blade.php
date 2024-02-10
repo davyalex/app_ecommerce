@@ -77,24 +77,34 @@
                                             Champs obligatoire
                                         </div>
                                     </div>
-                                    @role('administrateur')
+
                                     <div class="form-group col-6">
                                         <label for="password2" class="d-block">Role</label>
-                                        <select name="role" class="form-control select2"  required>
+                                        <select name="role" class="form-control select2" required>
                                             <option disabled selected value>Choisir un role</option>
                                             {{-- @if ($user->roles->containsStrict('id', $item['id'])) @selected(true) @endif --}}
-                                            @foreach ($roles as $item)
+                                            
+                                            @if (Auth::user()->hasRole('developpeur'))
+                                                  @foreach ($roles_for_developpeur as $item)
                                                 <option value="{{ $item['name'] }}"
-                                                {{$item['name'] == $user['role'] ? 'selected' : ''}}
-                                                >
+                                                    {{ $item['name'] == $user['role'] ? 'selected' : '' }}>
                                                     {{ $item['name'] }} </option>
                                             @endforeach
+                                            @else
+                                                  @foreach ($roles as $item)
+                                                <option value="{{ $item['name'] }}"
+                                                    {{ $item['name'] == $user['role'] ? 'selected' : '' }}>
+                                                    {{ $item['name'] }} </option>
+                                            @endforeach
+                                            @endif
+                                            
+                                            
+                                          
                                         </select>
                                         <div class="invalid-feedback">
                                             Champs obligatoire
                                         </div>
                                     </div>
-                                    @endrole
                                 </div>
 
                                 {{-- auth fornisseur / vendeur --}}
@@ -119,9 +129,9 @@
                                         <label for="password" class="d-block">Mot de passe (<small
                                                 class="text-danger">Entrer un nouveau mot de passe si vous souhaitez le
                                                 modifier </small>) </label>
-                                        <input id="password" type="password" class="form-control"
-                                             name="password" aria-autocomplete="none" autocomplete="off">
-                                      
+                                        <input id="password" type="password" class="form-control" name="password"
+                                            aria-autocomplete="none" autocomplete="off">
+
                                     </div>
 
                                     <div class="form-group col-4 my-auto">

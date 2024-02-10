@@ -32,7 +32,7 @@ class ProductController extends Controller
         try {
             $category_id = request('category');
             $subcategory_id = request('subcategory');
-            $section_id = request('sectioncategory');
+            // $section_id = request('sectioncategory');
 
 
 

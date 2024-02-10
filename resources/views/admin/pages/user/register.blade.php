@@ -11,38 +11,40 @@
     <section class="section">
         <div class="container mt-1">
             <div class="row">
-                <a class="btn btn-primary fas fa-arrow-left mb-2" href="{{route('user.list')}}"> Retour à la liste des utilisateurs</a>
-                <div class="col-12 col-sm-10 offset-sm-1 col-md-10 offset-md-2 col-lg-10 offset-lg-2 col-xl-10 offset-xl-2 m-auto">
+                <a class="btn btn-primary fas fa-arrow-left mb-2" href="{{ route('user.list') }}"> Retour à la liste des
+                    utilisateurs</a>
+                <div
+                    class="col-12 col-sm-10 offset-sm-1 col-md-10 offset-md-2 col-lg-10 offset-lg-2 col-xl-10 offset-xl-2 m-auto">
                     @if (session('user_auth'))
-                    @php
-                         $getData =Session::get('user_auth');
-                    @endphp
-                   
+                        @php
+                            $getData = Session::get('user_auth');
+                        @endphp
+
                         <div class="alert alert-primary">
                             <h5>Les informations de connexions du dernier utilisateur</h5>
-                        Email:   {{$getData['email']}}
-                        <br> Mot de passe :  {{$getData['pwd']}}
+                            Email: {{ $getData['email'] }}
+                            <br> Mot de passe : {{ $getData['pwd'] }}
 
                         </div>
-                  
-                  @endif
-                   
+                    @endif
+
                     <div class="card card-primary">
                         @include('admin.components.validationMessage')
                         <div>
-                    
+
                         </div>
                         <div class="card-header">
                             <h4>Nouvel utilisateur</h4>
                         </div>
                         <div class="card-body">
-                            <form class="needs-validation" novalidate="" method="POST" action="{{route('user.register')}}">
+                            <form class="needs-validation" novalidate="" method="POST"
+                                action="{{ route('user.register') }}">
                                 @csrf
                                 <div class="row">
                                     <div class="form-group col-6">
                                         <label for="frist_name">Nom & prenoms</label>
-                                        <input id="frist_name" type="text" class="form-control" name="name"
-                                            autofocus required>
+                                        <input id="frist_name" type="text" class="form-control" name="name" autofocus
+                                            required>
                                         <div class="invalid-feedback">
                                             Champs obligatoire
                                         </div>
@@ -55,7 +57,7 @@
                                         </div>
                                     </div>
                                 </div>
-                               
+
                                 <div class="row">
                                     {{-- <div class="form-group col-6">
                                         <label for="password" class="d-block">Mot de password</label>
@@ -75,11 +77,18 @@
                                     </div>
                                     <div class="form-group col-6">
                                         <label for="password2" class="d-block">Role</label>
-                                        <select name="role" class="form-control select2"  required>
+                                        <select name="role" class="form-control select2" required>
                                             <option disabled selected value>Choisir un role</option>
-                                            @foreach ($roles as $item)
-                                                <option value="{{ $item['name'] }}"> {{ $item['name'] }} </option>
-                                            @endforeach
+                                            @if (Auth::user()->hasRole('developpeur'))
+                                                @foreach ($roles_for_developpeur as $item)
+                                                    <option value="{{ $item['name'] }}"> {{ $item['name'] }} </option>
+                                                @endforeach
+                                            @else
+                                                @foreach ($roles as $item)
+                                                    <option value="{{ $item['name'] }}"> {{ $item['name'] }} </option>
+                                                @endforeach
+                                            @endif
+
                                         </select>
                                         <div class="invalid-feedback">
                                             Champs obligatoire
@@ -88,9 +97,9 @@
                                 </div>
 
                                 {{-- auth fornisseur / vendeur --}}
-                                    {{-- @if (request('u')) --}}
-                                        
-                                    {{-- <div class="row">
+                                {{-- @if (request('u')) --}}
+
+                                {{-- <div class="row">
                                         <div class="form-group col-6">
                                             <label for="shopName">Nom de boutique</label>
                                             <input id="shopName" type="text" class="form-control" name="shop_name" required>
@@ -106,8 +115,8 @@
                                             </div>
                                         </div>
                                     </div> --}}
-                                    {{-- @endif --}}
-                                
+                                {{-- @endif --}}
+
                                 <div class="form-group">
                                     <button type="submit" class="btn btn-primary btn-lg btn-block">
                                         Enregistrer
@@ -115,7 +124,7 @@
                                 </div>
                             </form>
                         </div>
-                       
+
                     </div>
                 </div>
             </div>

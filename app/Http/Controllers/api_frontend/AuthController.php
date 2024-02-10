@@ -97,7 +97,7 @@ class AuthController extends Controller
             ]);
 
             // if ($request->role) {
-                $user->assignRole('client');
+            $user->assignRole('client');
             // }
 
             //create-token

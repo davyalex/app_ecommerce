@@ -50,10 +50,8 @@
                                                 {{-- <td>  {{ $item['shop_name'] }} </td>
                                                 <td>{{ $item['localisation'] }} </td> --}}
                                                 <td>
-                                                    @foreach ($item['roles'] as $role)
-                                                        <br> <span
-                                                            class="text-capitalize fw-bold">{{ $role['name'] }}</span>
-                                                    @endforeach
+                                                    <span
+                                                            class="text-capitalize fw-bold">{{ $item['role'] }}</span>
                                                 </td>
                                                 <td>
                                                     <div class="dropdown">
