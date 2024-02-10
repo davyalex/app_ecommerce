@@ -60,7 +60,7 @@ class ProductController extends Controller
                 // Get infos category if request category_id
                 $data_category = SubCategory::with([
                     'categorie' => fn ($q) => $q->with(['media', 'products']), 'media'
-                ])->whereId($category_id)->first();
+                ])->whereId($subcategory_id)->first();
                 
 
                 $data_product = Product::with(['collection', 'media', 'categories'])
