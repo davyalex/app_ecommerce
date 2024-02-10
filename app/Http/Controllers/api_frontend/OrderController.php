@@ -91,7 +91,8 @@ class OrderController extends Controller
 
                 foreach ($request['produits'] as $value) {
                     DB::table('order_product')->insert([
-                        'product_id' => $data['id'],
+                        'order_id' => $data['id'],
+                        'product_id' => $value['produit_id'],
                         'quantity' => $value['qte_unitaire'],
                         'unit_price' => $value['prix_unitaire'],
                         'total' => $value['qte_unitaire'] * $value['prix_unitaire'],
