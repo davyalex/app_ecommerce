@@ -80,9 +80,7 @@ class AuthController extends Controller
                 "description" => 'On verifie si le client existe, on renvoie un message',
 
             ], 200);
-        }
-        
-        else {
+        } else {
             $request->validate([
                 'name' => 'required',
                 'phone' => 'required|unique:users',
@@ -98,9 +96,9 @@ class AuthController extends Controller
                 'password' => Hash::make($request['password']),
             ]);
 
-            if ($request->role) {
-                $user->assignRole($request->role);
-            }
+            // if ($request->role) {
+                $user->assignRole('client');
+            // }
 
             //create-token
             $token = $user->createToken('auth_token')->plainTextToken;
@@ -196,10 +194,18 @@ class AuthController extends Controller
      */
     public function user_auth(Request $request)
     {
-        return response()->json([
-            'message' => 'Operation réussi',
-            'user' => Auth::user()
-        ], 200);
+
+        try {
+            $user = Auth::user();
+            return response()->json([
+                'message' => 'Operation réussi',
+                'user' => $user
+            ], 200);
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => 'Veuillez vous connecter',
+            ], 200);
+        }
     }
 
 

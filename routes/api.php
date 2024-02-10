@@ -25,7 +25,6 @@ use App\Http\Controllers\api_frontend\ProductController;
 /***************************** API WITHOUT AUTHENTICATION */
 Route::prefix('v1')->group(function () {
 
-
     Route::controller(AuthController::class)->group(function () {
         Route::post('register', 'register');
         Route::post('login', 'login');
