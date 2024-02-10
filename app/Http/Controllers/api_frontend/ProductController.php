@@ -41,17 +41,28 @@ class ProductController extends Controller
                 ->whereId($category_id)->first();
 
 
-
-            $data_product = Product::with(['media', 'categories', 'subcategorie'])
-                ->when($category_id, fn ($q) => $q->whereHas(
+            if ($category_id) {
+                $data_product = Product::whereHas(
                     'categories',
                     fn ($q) => $q->where('category_product.category_id', $category_id),
-                ))
-                ->when($subcategory_id, fn ($q) => $q->whereHas(
-                    'subcategorie',
-                    fn ($q) => $q->where('id', $subcategory_id)
-                ))
-                ->inRandomOrder()->paginate(30);
+
+                )->with(['collection', 'media', 'categories'])
+                    ->inRandomOrder()->paginate(36);
+            }elseif($subcategory_id){
+                $data_product = Product::with(['collection', 'media', 'categories'])
+                    ->where('sub_category_id', $subcategory_id)->inRandomOrder()->paginate(36);
+            }else{
+                $data_product = Product::with(['collection', 'media', 'categories'])
+                  ->inRandomOrder()->paginate(36);
+            }
+
+            // $data_product = Product::with(['media', 'categories', 'subcategorie'])
+            //     ->when($category_id, fn ($q) => $q->whereHas(
+            //         'categories',
+            //         fn ($q) => $q->where('category_product.category_id', $category_id),
+            //     ))
+            //     ->when($subcategory_id, fn ($q) => $q->where('sub_category_id', $subcategory_id))
+            //     ->inRandomOrder()->paginate(30);
 
             return response()->json([
                 // 'status' => true,
