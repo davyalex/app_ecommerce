@@ -77,7 +77,7 @@ class OrderController extends Controller
                     'date_order' => Carbon::now()->format('Y-m-d')
 
                 ]);
-                dd($request['produits']);
+                // dd($request['produits']);
 
                 //insert data in pivot order_product
                 foreach ($request['produits'] as $key => $value) {
@@ -87,7 +87,11 @@ class OrderController extends Controller
                         'total' => $value['qte_unitaire'] * $value['prix_unitaire'],
                     ]);
                 }
-                return response()->json(['success' => true, 'message' => 'La commande a été bien enregistrée']);
+                return response()->json(['data' => $request['produits'],
+                
+                'message' => 'La commande a été bien enregistrée'
+            
+            ]);
             }
 
             // return $this->showAllOrderByUser();
