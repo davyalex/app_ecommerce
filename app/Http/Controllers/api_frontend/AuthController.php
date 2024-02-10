@@ -185,6 +185,26 @@ class AuthController extends Controller
     }
 
 
+    /**
+     * @OA\Get(
+     *     path="/api/v1/userAuth",
+     *     summary="Utilisateur connecté",
+     *     tags={"User Auth "},
+     *     @OA\Response(response=200, description="Successful operation"),
+     * )
+     * 
+     */
+    public function user_auth(Request $request)
+    {
+        return response()->json([
+            'message' => 'Operation réussi',
+            'user' => Auth::user()
+        ], 200);
+    }
+
+
+
+
 
     /**
      * @OA\Get(

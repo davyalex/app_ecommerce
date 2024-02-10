@@ -34,6 +34,20 @@
                 }
             }
         },
+        "/api/v1/userAuth": {
+            "get": {
+                "tags": [
+                    "User Auth "
+                ],
+                "summary": "Utilisateur connecté",
+                "operationId": "7f234199bd1247a31baebfc65e5c355b",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            }
+        },
         "/api/v1/logout": {
             "get": {
                 "tags": [
