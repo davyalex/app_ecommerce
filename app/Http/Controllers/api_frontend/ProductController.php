@@ -32,9 +32,6 @@ class ProductController extends Controller
         try {
             $category_id = request('category');
             $subcategory_id = request('subcategory');
-            // $section_id = request('sectioncategory');
-
-
 
             // Get infos category if request category_id
 
@@ -50,7 +47,7 @@ class ProductController extends Controller
                     'categories',
                     fn ($q) => $q->where('category_product.category_id', $category_id),
                 ))
-                ->when($subcategory_id, fn ($q) => $q->where('sub_category_id', $subcategory_id))
+                ->when($subcategory_id, fn ($q) => $q->whereHas('sub_category_id', $subcategory_id))
                 ->inRandomOrder()->paginate(30);
 
             return response()->json([
