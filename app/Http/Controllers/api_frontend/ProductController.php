@@ -47,7 +47,10 @@ class ProductController extends Controller
                     'categories',
                     fn ($q) => $q->where('category_product.category_id', $category_id),
                 ))
-                ->when($subcategory_id, fn ($q) => $q->whereHas('sub_category_id', $subcategory_id))
+                ->when($subcategory_id, fn ($q) => $q->whereHas(
+                    'subcategorie',
+                    fn ($q) => $q->where('id', $subcategory_id)
+                ))
                 ->inRandomOrder()->paginate(30);
 
             return response()->json([
