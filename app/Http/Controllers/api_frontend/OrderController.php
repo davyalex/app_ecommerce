@@ -8,6 +8,7 @@ use App\Models\Order;
 use App\Models\Product;
 use App\Models\Delivery;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
@@ -51,7 +52,7 @@ class OrderController extends Controller
     public function  order(Request $request)
     {
         try {
-           
+
 
 
             if (!auth('sanctum')->check()) {
@@ -59,7 +60,7 @@ class OrderController extends Controller
             } else {
                 //get infos delivery
                 $delivery = Delivery::whereId($request['livraison_id'])->first();
-              
+
                 //save order
                 $data = Order::firstOrCreate([
                     "user_id" => Auth::user()->id,
@@ -77,21 +78,29 @@ class OrderController extends Controller
                     'date_order' => Carbon::now()->format('Y-m-d')
 
                 ]);
-                // dd($request['produits']);
+
 
                 //insert data in pivot order_product
-                foreach ($request['produits'] as $key => $value) {
-                    $data->products()->attach($key, [
+                // foreach ($request['produits'] as $key => $value) {
+                //     $data->products()->attach($key, [
+                //         'quantity' => $value['qte_unitaire'],
+                //         'unit_price' => $value['prix_unitaire'],
+                //         'total' => $value['qte_unitaire'] * $value['prix_unitaire'],
+                //     ]);
+                // }
+
+                foreach ($request['produits'] as $value) {
+                    DB::table('order_product')->insert([
+                        'product_id' => $data['id'],
                         'quantity' => $value['qte_unitaire'],
                         'unit_price' => $value['prix_unitaire'],
                         'total' => $value['qte_unitaire'] * $value['prix_unitaire'],
                     ]);
                 }
-                return response()->json(['data' => $request['produits'],
-                
-                'message' => 'La commande a été bien enregistrée'
-            
-            ]);
+
+
+
+                return response()->json(['success' => true, 'message' => 'La commande a été bien enregistrée']);
             }
 
             // return $this->showAllOrderByUser();
@@ -157,19 +166,19 @@ class OrderController extends Controller
      * 
      */
 
-    public function userOrderDetail($id){
-        try{
-            
-            if(!auth('sanctum')->check())
-            {
+    public function userOrderDetail($id)
+    {
+        try {
+
+            if (!auth('sanctum')->check()) {
                 throw new Exception("Vous devez être connecté pour accèder à cette ressource");
             }
 
             $order = Order::whereId($id)
-            ->with([
-                'user', 'products'
-                => fn ($q) => $q->with('media')
-            ])
+                ->with([
+                    'user', 'products'
+                    => fn ($q) => $q->with('media')
+                ])
                 ->orderBy('created_at', 'DESC')->first();
 
             if ($order == null) {
@@ -181,16 +190,12 @@ class OrderController extends Controller
 
 
             return response()->json([
-                 'status'=> true,   
-                 'data'=>$order,
-                 'message'=> "Détail de la commande récupéré avec succès"
-            ],200);
-         }catch(Exception $e){
-             return response()->json(['error'=>$e->getMessage()],400);
-         }
-        
+                'status' => true,
+                'data' => $order,
+                'message' => "Détail de la commande récupéré avec succès"
+            ], 200);
+        } catch (Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 400);
+        }
     }
-
-
-
 }
