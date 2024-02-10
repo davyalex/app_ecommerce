@@ -46,13 +46,13 @@ class ProductController extends Controller
                     'categories',
                     fn ($q) => $q->where('category_product.category_id', $category_id),
 
-                )->with(['collection', 'media', 'categories'])
+                )->with(['collection', 'media', 'categories', 'subcategorie'])
                     ->inRandomOrder()->paginate(36);
             }elseif($subcategory_id){
                 $data_product = Product::with(['collection', 'media', 'categories'])
                     ->where('sub_category_id', $subcategory_id)->inRandomOrder()->paginate(36);
             }else{
-                $data_product = Product::with(['collection', 'media', 'categories'])
+                $data_product = Product::with(['collection', 'media', 'categories','subcategorie'])
                   ->inRandomOrder()->paginate(36);
             }
 
@@ -69,6 +69,9 @@ class ProductController extends Controller
                 'message' => "Data Found",
                 "products" => $data_product,
                 "category" => $data_category,
+                "subcategory" => $subcategory_id,
+
+
                 "description" => 'Liste des produits || parametre: category or subcategory',
 
             ], 200);
