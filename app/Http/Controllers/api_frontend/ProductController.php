@@ -57,10 +57,10 @@ class ProductController extends Controller
                     ->inRandomOrder()->paginate(36);
             } elseif ($subcategory_id) {
 
-                // Get infos category if request category_id
-                $data_category = SubCategory::with([
-                    'categorie' => fn ($q) => $q->with(['media', 'products']), 'media'
-                ])->whereId($subcategory_id)->first();
+                // // Get infos category if request category_id
+                // $data_category = SubCategory::with([
+                //     'categorie' => fn ($q) => $q->with(['media', 'products']), 'media'
+                // ])->whereId($subcategory_id)->first();
                 
 
                 $data_product = Product::with(['collection', 'media', 'categories'])
