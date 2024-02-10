@@ -237,7 +237,7 @@
                                 <div class="dropdown-divider"></div>
                                 <a href="{{ route('user.logout') }}" class="dropdown-item has-icon text-danger"> <i
                                         class="fas fa-sign-out-alt"></i>
-                                    Logout
+                                    Se deconnecter
                                 </a>
                             </div>
                         </li>
@@ -273,10 +273,10 @@
                                 <a href="{{ route('sub-category.index') }}" class="nav-link"><i
                                         data-feather="grid"></i><span>Sous Categories</span></a>
                             </li>
-                            <li class="dropdown">
+                            {{-- <li class="dropdown">
                                 <a href="{{ route('collection.index') }}" class="nav-link"><i
                                         data-feather="grid"></i><span>Collections</span></a>
-                            </li>
+                            </li> --}}
 
                             <li class="dropdown">
                                 <a href="{{ route('product.index') }}" class="nav-link"><i
@@ -349,9 +349,9 @@
 
 
 
-            <footer class="main-footer">
-                <div class="footer-left">
-                    <a href="#">Dolubux</a></a>
+            <footer class="">
+                <div class="text-center">
+                    <a href="#">Développé par DYG COMMUNICATION</a></a>
                 </div>
                 <div class="footer-right">
                 </div>

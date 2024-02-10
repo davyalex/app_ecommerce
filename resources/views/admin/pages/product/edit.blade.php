@@ -59,7 +59,7 @@
                         @csrf
                         <div class="card-body">
                             <div class="form-group row mb-4">
-                                <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Title</label>
+                                <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Nom du produit</label>
                                 <div class="col-sm-12 col-md-7">
                                     <input name="title" type="text" value="{{ $product['title'] }}"
                                         class="form-control" required>
@@ -69,7 +69,7 @@
                                 </div>
                             </div>
                             <div class="form-group row mb-4">
-                                <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Price</label>
+                                <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Prix</label>
                                 <div class="col-sm-12 col-md-7">
                                     <input name="price" value="{{ $product['price'] }}" type="number"
                                         class="form-control currency" required>
@@ -80,7 +80,7 @@
                             </div>
                             <div class="form-group row mb-4">
                                 <label for=""
-                                    class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Category
+                                    class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Categorie
                                 </label>
 
                                 <div class="col-sm-12 col-md-7">
@@ -96,8 +96,8 @@
                                         Champs obligatoire
                                     </div>
                                 </div>
-                                <button type="button" data-toggle="modal" data-target="#modalAddCategory"
-                                    class="btn btn-primary"><i data-feather="plus"></i> Add New</button>
+                                {{-- <button type="button" data-toggle="modal" data-target="#modalAddCategory"
+                                    class="btn btn-primary"><i data-feather="plus"></i> Add New</button> --}}
                             </div>
 
 
@@ -117,8 +117,8 @@
                                         Champs obligatoire
                                     </div>
                                 </div>
-                                <button type="button" data-toggle="modal" data-target="#modalAddsousCategorie"
-                                    class="btn btn-primary"><i data-feather="plus"></i> Add New</button>
+                                {{-- <button type="button" data-toggle="modal" data-target="#modalAddsousCategorie"
+                                    class="btn btn-primary"><i data-feather="plus"></i> Add New</button> --}}
                             </div>
 
                             <div class="form-group row mb-4">
@@ -127,10 +127,10 @@
                                     <input class="form-check-input" type="checkbox" id="section" value="option1">
                                     <label class="form-check-label" for="section">Sections</label>
                                 </div>
-                                <div class="form-check form-check-inline">
+                                {{-- <div class="form-check form-check-inline">
                                     <input class="form-check-input" type="checkbox" id="collection" value="option2">
                                     <label class="form-check-label" for="collection">Collections</label>
-                                </div>
+                                </div> --}}
                                 {{-- <div class="form-check form-check-inline">
                                     <input class="form-check-input" type="checkbox" id="pointure" value="option2">
                                     <label class="form-check-label" for="pointure">Pointures</label>
@@ -144,7 +144,7 @@
                             <div class="form-group row mb-4" id="sectionDiv">
                                 <label for=""
                                     class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Section
-                                    Category</label>
+                                    Categorie</label>
 
                                 <div class="col-sm-12 col-md-7">
                                     <select style="width: 520px" name="category_section[]" class="form-control select2"
@@ -157,11 +157,11 @@
                                     </select>
 
                                 </div>
-                                <button type="button" data-toggle="modal" data-target="#modalAddCategory"
-                                    class="btn btn-primary"><i data-feather="plus"></i> Add New</button>
+                                {{-- <button type="button" data-toggle="modal" data-target="#modalAddCategory"
+                                    class="btn btn-primary"><i data-feather="plus"></i> Add New</button> --}}
                             </div>
 
-                            <div class="form-group row mb-4" id="collectionDiv">
+                            {{-- <div class="form-group row mb-4" id="collectionDiv">
                                 <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Collection</label>
                                 <div class="col-sm-12 col-md-7">
                                     <select style="width:520px" name="collection" class="form-control select2 ">
@@ -176,7 +176,7 @@
                                 </div>
                                 <button type="button" data-toggle="modal" data-target="#modalAddCollection"
                                     class="btn btn-primary"><i data-feather="plus"></i> Add New</button>
-                            </div>
+                            </div> --}}
 
                             {{-- <div class="form-group row mb-4" id="pointureDiv">
                                 <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Pointure</label>
@@ -241,8 +241,8 @@
         </div>
     </div>
 </section>
-@include('admin.pages.collection.modalAdd')
-@include('admin.pages.category.modalAdd')
+{{-- @include('admin.pages.collection.modalAdd')
+@include('admin.pages.category.modalAdd') --}}
 
 
 @section('script')
@@ -349,6 +349,7 @@
                             $('.subcat').show(200);
 
 
+
                         } else {
                             $('.subcat').hide(200);
                         }
@@ -364,24 +365,24 @@
 
         //hide elements
         $('#sectionDiv').hide();
-        $('#collectionDiv').hide();
-        $('#pointureDiv').hide();
-        $('#tailleDiv').hide();
+        // $('#collectionDiv').hide();
+        // $('#pointureDiv').hide();
+        // $('#tailleDiv').hide();
 
         //show if checked
 
 
-        $('#collection').change(function() {
-            $('#collectionDiv').toggle(200);
-        });
+        // $('#collection').change(function() {
+        //     $('#collectionDiv').toggle(200);
+        // });
 
-        $('#pointure').change(function() {
-            $('#pointureDiv').toggle(200);
-        });
+        // $('#pointure').change(function() {
+        //     $('#pointureDiv').toggle(200);
+        // });
 
-        $('#taille').change(function() {
-            $('#tailleDiv').toggle(200);
-        });
+        // $('#taille').change(function() {
+        //     $('#tailleDiv').toggle(200);
+        // });
 
         $('#section').change(function() {
             $('#sectionDiv').toggle(200);

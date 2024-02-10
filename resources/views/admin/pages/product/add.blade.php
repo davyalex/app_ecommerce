@@ -18,6 +18,7 @@
             display: inline-block;
             margin: 10px 10px 0 0;
             color: rgb(255, 255, 255)
+            
         }
 
         .remove {
@@ -59,7 +60,7 @@
                         @csrf
                         <div class="card-body">
                             <div class="form-group row mb-4">
-                                <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Titre</label>
+                                <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Nom du produit</label>
                                 <div class="col-sm-12 col-md-7">
                                     <input name="title" type="text" class="form-control" required>
                                     <div class="invalid-feedback">
@@ -78,10 +79,11 @@
                             </div>
                             <div class="form-group row mb-4">
                                 <label for=""
-                                    class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Category</label>
+                                    class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Categorie</label>
 
                                 <div class="col-sm-12 col-md-7">
                                     <select name="categories" class="form-control select2" required>
+                                        <option value="">Selectionner une catégorie</option>
                                         @foreach ($categories as $item)
                                             <option value="{{ $item['id'] }}"> {{ $item['name'] }} </option>
                                         @endforeach
@@ -90,8 +92,8 @@
                                         Champs obligatoire
                                     </div>
                                 </div>
-                                <button type="button" data-toggle="modal" data-target="#modalAddCategory"
-                                    class="btn btn-primary"><i data-feather="plus"></i> Add New</button>
+                                {{-- <button type="button" data-toggle="modal" data-target="#modalAddCategory"
+                                    class="btn btn-primary"><i data-feather="plus"></i> </button> --}}
                             </div>
 
 
@@ -101,7 +103,7 @@
                                     categorie</label>
 
                                 <div class="col-sm-12 col-md-7">
-                                    <select style="width: 520px" name="subcategories" class="form-control select2">
+                                    <select style="width: 520px" name="subcategories" class="form-control select2" required>
                                         @foreach ($subcategories as $item)
                                             {{-- <option value="{{ $item['id'] }}"> {{ $item['name'] }} </option> --}}
                                         @endforeach
@@ -110,20 +112,23 @@
                                         Champs obligatoire
                                     </div>
                                 </div>
-                                <button type="button" data-toggle="modal" data-target="#modalAddsousCategorie"
-                                    class="btn btn-primary"><i data-feather="plus"></i> Add New</button>
+                                {{-- <button type="button" data-toggle="modal" data-target="#modalAddsousCategorie"
+                                    class="btn btn-primary"><i data-feather="plus"></i> </button> --}}
                             </div>
 
                             <div class="form-group row mb-4">
                                 <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Options</label>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" id="section" value="option1">
-                                    <label class="form-check-label" for="section">Sections</label>
+                                    <input style="width: 2em; 
+                                           height: 1.2em;" class="form-check-input "
+                                        type="checkbox" id="section" value="option1">
+                                    <label class="form-check-label"
+                                        for="section">Sections</label>
                                 </div>
-                                <div class="form-check form-check-inline">
+                                {{-- <div class="form-check form-check-inline">
                                     <input class="form-check-input" type="checkbox" id="collection" value="option2">
                                     <label class="form-check-label" for="collection">Collections</label>
-                                </div>
+                                </div> --}}
                                 {{-- <div class="form-check form-check-inline">
                                     <input class="form-check-input" type="checkbox" id="pointure" value="option2">
                                     <label class="form-check-label" for="pointure">Pointures</label>
@@ -137,21 +142,22 @@
                             <div class="form-group row mb-4" id="sectionDiv">
                                 <label for=""
                                     class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Section
-                                    Category</label>
+                                    Categorie</label>
 
                                 <div class="col-sm-12 col-md-7">
-                                    <select  style="width: 520px" name="category_section[]" class="form-control select2" multiple>
+                                    <select style="width: 520px" name="category_section[]" class="form-control select2"
+                                        multiple>
                                         @foreach ($section_categories as $item)
                                             <option value="{{ $item['id'] }}"> {{ $item['name'] }} </option>
                                         @endforeach
                                     </select>
 
                                 </div>
-                                <button type="button" data-toggle="modal" data-target="#modalAddCategory"
-                                    class="btn btn-primary"><i data-feather="plus"></i> Add New</button>
+                                {{-- <button type="button" data-toggle="modal" data-target="#modalAddCategory"
+                                    class="btn btn-primary"><i data-feather="plus"></i></button> --}}
                             </div>
 
-                            <div class="form-group row mb-4" id="collectionDiv">
+                            {{-- <div class="form-group row mb-4" id="collectionDiv">
                                 <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Collection</label>
                                 <div class="col-sm-12 col-md-7">
                                     <select style="width:520px" name="collection" class="form-control select2 ">
@@ -162,8 +168,8 @@
 
                                 </div>
                                 <button type="button" data-toggle="modal" data-target="#modalAddCollection"
-                                    class="btn btn-primary"><i data-feather="plus"></i> Add New</button>
-                            </div>
+                                    class="btn btn-primary"><i data-feather="plus"></i> </button>
+                            </div> --}}
 
                             {{-- <div class="form-group row mb-4" id="pointureDiv">
                                 <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Pointure</label>
@@ -195,8 +201,7 @@
                             </div> --}}
 
                             <div class="form-group row mb-4">
-                                <label
-                                    class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Description</label>
+                                <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Description</label>
                                 <div class="col-sm-12 col-md-7">
                                     <textarea name="description" class="summernote-simple"></textarea>
                                 </div>
@@ -230,9 +235,9 @@
         </div>
     </div>
 </section>
-@include('admin.pages.collection.modalAdd')
+{{-- @include('admin.pages.collection.modalAdd')
 @include('admin.pages.category.modalAdd')
-@include('admin.pages.subCategory.modalAdd')
+@include('admin.pages.subCategory.modalAdd') --}}
 
 
 
@@ -253,7 +258,7 @@
                     var fileReader = new FileReader();
                     fileReader.onload = (function(e) {
                         var file = e.target;
-                        $("<span class=\"pip\">" +
+                        $("<span class=\"pip\">" + "<span class=\"pip\">" +
                             "<img class=\"imageThumb\" src=\"" + e.target.result +
                             "\" title=\"" + file
                             .name + "\"/>" +
@@ -304,10 +309,12 @@
 
                         if (data.length > 0) {
                             $('.subcat').show(200);
+                            $('.subcat').prop('required', true);
 
 
                         } else {
                             $('.subcat').hide(200);
+                            $('.subcat').prop('required', false);
                         }
                     }
 
@@ -328,17 +335,17 @@
         //show if checked
 
 
-        $('#collection').change(function() {
-            $('#collectionDiv').toggle(200);
-        });
+        // $('#collection').change(function() {
+        //     $('#collectionDiv').toggle(200);
+        // });
 
-        $('#pointure').change(function() {
-            $('#pointureDiv').toggle(200);
-        });
+        // $('#pointure').change(function() {
+        //     $('#pointureDiv').toggle(200);
+        // });
 
-        $('#taille').change(function() {
-            $('#tailleDiv').toggle(200);
-        });
+        // $('#taille').change(function() {
+        //     $('#tailleDiv').toggle(200);
+        // });
 
         $('#section').change(function() {
             $('#sectionDiv').toggle(200);

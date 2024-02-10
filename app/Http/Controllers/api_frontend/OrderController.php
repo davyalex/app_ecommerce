@@ -51,13 +51,14 @@ class OrderController extends Controller
     public function  order(Request $request)
     {
         try {
-            //get infos delivery
-            $delivery = Delivery::whereId($request['livraison_id'])->first();
+           
 
 
             if (!auth('sanctum')->check()) {
                 throw new Exception("Vous devez être connecté pour acceder aux commandes");
             } else {
+                //get infos delivery
+                $delivery = Delivery::whereId($request['livraison_id'])->first();
               
                 //save order
                 $data = Order::firstOrCreate([
@@ -76,6 +77,7 @@ class OrderController extends Controller
                     'date_order' => Carbon::now()->format('Y-m-d')
 
                 ]);
+                dd($request['produits']);
 
                 //insert data in pivot order_product
                 foreach ($request['produits'] as $key => $value) {
