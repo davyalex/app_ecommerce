@@ -92,13 +92,13 @@ class AuthController extends Controller
                 'name' => $request['name'],
                 'phone' => $request['phone'],
                 'email' => $request->email,
-                'role' => $request->role,
+                'role' => 'client',
                 'password' => Hash::make($request['password']),
             ]);
 
-            if ($request->role) {
-            $user->assignRole($request->role);
-            }
+            // if ($request->role) {
+            $user->assignRole('client');
+            // }
 
             //create-token
             $token = $user->createToken('auth_token')->plainTextToken;
