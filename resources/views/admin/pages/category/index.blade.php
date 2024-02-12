@@ -62,7 +62,7 @@
                                                         <a href="#" data-toggle="dropdown"
                                                             class="btn btn-warning dropdown-toggle">Options</a>
                                                         <div class="dropdown-menu">
-                                                            <a href="#" class="dropdown-item has-icon"><i
+                                                            <a href="{{env('APP_URL').'/categorie/'.$item['id']}}" class="dropdown-item has-icon"><i
                                                                     class="fas fa-eye"></i> View</a>
                                                             <a href="{{ route('category.edit', $item['id']) }}"
                                                                 class="dropdown-item has-icon"><i class="far fa-edit"></i>
