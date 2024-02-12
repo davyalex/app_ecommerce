@@ -34,12 +34,12 @@ class ProductController extends Controller
             $subcategory_id = request('subcategory');
 
             // Get infos category if request category_id
-            $data_category = Category::with([
-                'subcategories' => fn ($q) => $q->with(['media', 'products']), 'media'
-            ])->whereId($category_id)->first();
+            // $data_category = Category::with([
+            //     'subcategories' => fn ($q) => $q->with(['media', 'products']), 'media'
+            // ])->whereId($category_id)->first();
+
+            $data_category = "";
                 
-
-
             if ($category_id) {
 
                 // Get infos category if request category_id
@@ -47,7 +47,6 @@ class ProductController extends Controller
                     'subcategories' => fn ($q) => $q->with(['media', 'products']), 'media'
                 ])->whereId($category_id)->first();
                 
-
 
                 $data_product = Product::whereHas(
                     'categories',
@@ -57,10 +56,10 @@ class ProductController extends Controller
                     ->inRandomOrder()->paginate(36);
             } elseif ($subcategory_id) {
 
-                // // Get infos category if request category_id
-                // $data_category = SubCategory::with([
-                //     'categorie' => fn ($q) => $q->with(['media', 'products']), 'media'
-                // ])->whereId($subcategory_id)->first();
+                // Get infos category if request subcategory_id
+                $data_category = SubCategory::with([
+                    'category' => fn ($q) => $q->with(['media', 'products']), 'media'
+                ])->whereId($subcategory_id)->first();
                 
 
                 $data_product = Product::with(['subcategorie','collection', 'media', 'categories'])
@@ -83,9 +82,6 @@ class ProductController extends Controller
                 'message' => "Data Found",
                 "products" => $data_product,
                 "category" => $data_category,
-                "subcategory" => $subcategory_id,
-
-
                 "description" => 'Liste des produits || parametre: category or subcategory',
 
             ], 200);
