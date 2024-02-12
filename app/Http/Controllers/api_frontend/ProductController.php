@@ -63,7 +63,7 @@ class ProductController extends Controller
                 // ])->whereId($subcategory_id)->first();
                 
 
-                $data_product = Product::with(['collection', 'media', 'categories'])
+                $data_product = Product::with(['collection', 'media', 'categories','subcategorie'])
                     ->where('sub_category_id', $subcategory_id)->inRandomOrder()->paginate(36);
             } else {
                 $data_product = Product::with(['collection', 'media', 'categories', 'subcategorie'])
