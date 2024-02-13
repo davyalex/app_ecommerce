@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\admin;
 
 use App\Models\User;
+use App\Models\Order;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -108,6 +109,10 @@ class AuthAdminController extends Controller
     {
 
         User::whereId($id)->delete();
+
+//delete order of this user
+Order::where("user_id",$id)->delete();
+
         return response()->json([
             'status' => 200
         ]);
