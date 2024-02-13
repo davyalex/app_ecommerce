@@ -30,7 +30,7 @@ class HomeController extends Controller
                     return $q->with('subcategorie', 'media')->inRandomOrder();
                 }, 'media', 'subcategories' => fn ($q) => $q->with(['products', 'media'])
             ])
-                ->orderBy('created_at', 'DESC')
+                ->orderBy('created_at', 'ASC')
                 ->whereType('principale')
                 ->get();
 
