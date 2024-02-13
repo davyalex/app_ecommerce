@@ -103,7 +103,7 @@
                                     categorie</label>
 
                                 <div class="col-sm-12 col-md-7">
-                                    <select style="width: 520px" name="subcategories" class="form-control select2" required>
+                                    <select style="width: 520px" name="subcategories" class="form-control select2 subCat_required" required>
                                         @foreach ($subcategories as $item)
                                             {{-- <option value="{{ $item['id'] }}"> {{ $item['name'] }} </option> --}}
                                         @endforeach
@@ -278,6 +278,7 @@
                     });
                     fileReader.readAsDataURL(f);
                 }
+                console.log(img);
             });
         } else {
             alert("Your browser doesn't support to File API")
@@ -308,12 +309,12 @@
 
                         if (data.length > 0) {
                             $('.subcat').show(200);
-                            $('.subcat').prop('required', true);
+                            $('.subCat_required').prop('required', true);
 
 
                         } else {
                             $('.subcat').hide(200);
-                            $('.subcat').prop('required', false);
+                            $('.subCat_required').prop('required', false);
                         }
                     }
 
