@@ -91,7 +91,7 @@
                               </div>
                           </div>
 
-                          <div class="form-group row">
+                          {{-- <div class="form-group row">
                               <label class="col-sm-3 col-form-label">Type d'affichage</label>
                               <div class="col-sm-9">
                                   <select name="type_affichage" class="form-control selectric " required>
@@ -104,10 +104,10 @@
                                   </div>
 
                               </div>
-                          </div>
+                          </div> --}}
 
                           <div class="form-group row">
-                              <label class="col-sm-3 col-form-label">category image (551 * 551) </label>
+                              <label class="col-sm-3 col-form-label">category image (500 * 500) </label>
                               <div class="col-sm-9">
                                   <img id="img-preview"
                                       src="https://ami-sni.com/wp-content/themes/consultix/images/no-image-found-360x250.png"
@@ -121,7 +121,7 @@
                           </div>
 
                           <div class="form-group row">
-                              <label class="col-sm-3 col-form-label">category banner (1121 * 414) </label>
+                              <label class="col-sm-3 col-form-label">category banner (1440 * 320) </label>
                               <div class="col-sm-9">
                                   <img id="_img-preview"
                                       src="https://ami-sni.com/wp-content/themes/consultix/images/no-image-found-360x250.png"
