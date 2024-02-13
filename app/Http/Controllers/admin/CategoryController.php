@@ -39,7 +39,7 @@ class CategoryController extends Controller
         $data =  $request->validate([
             'name' => 'required',
             'type' => 'required',
-            'type_affichage' => 'required',
+            // 'type_affichage' => 'required',
 
 
 
@@ -52,7 +52,7 @@ class CategoryController extends Controller
             // 'id' => Str::random(9),
             'name' => $request['name'],
             'type' => $request['type'],
-            'type_affichage' => $request['type_affichage'],
+            // 'type_affichage' => $request['type_affichage'],
 
         ]);
 
@@ -106,7 +106,7 @@ class CategoryController extends Controller
         $category = tap(Category::find($id))->update([
             'name' => $request['name'],
             'type' => $request['type'],
-            'type_affichage' => $request['type_affichage'],
+            // 'type_affichage' => $request['type_affichage'],
             // 'position' => $new_position,
 
         ]);

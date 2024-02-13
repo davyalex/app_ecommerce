@@ -44,7 +44,7 @@ class SubCategoryController extends Controller
         $subcategory = SubCategory::firstOrCreate([
             'name' => $request['name'],
             'category_id' => $request['category'],
-            'type_affichage' => $request['type_affichage'],
+            // 'type_affichage' => $request['type_affichage'],
 
         ]);
 
@@ -92,7 +92,7 @@ class SubCategoryController extends Controller
         $subcategory = tap(SubCategory::find($id))->update([
             'name' => $request['name'],
             'category_id' => $request['category'],
-            'type_affichage' => $request['type_affichage'],
+            // 'type_affichage' => $request['type_affichage'],
         ]);
 
         //upload category_image
