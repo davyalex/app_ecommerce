@@ -29,6 +29,7 @@ Route::prefix('v1')->group(function () {
         Route::post('register', 'register');
         Route::post('login', 'login')->name('login');
         Route::get('userAuth', 'user_auth')->middleware('auth:sanctum');
+        Route::post('updateProfil', 'update_profil')->middleware('auth:sanctum');
         Route::post('logout', 'logout')->middleware('auth:sanctum');
     });
 

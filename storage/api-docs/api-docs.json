@@ -48,6 +48,20 @@
                 }
             }
         },
+        "/api/v1/updateProfil": {
+            "post": {
+                "tags": [
+                    "User upadate profil "
+                ],
+                "summary": "Utilisateur connecté",
+                "operationId": "09e124a9770e96f996c27c12a46a6122",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            }
+        },
         "/api/v1/logout": {
             "get": {
                 "tags": [

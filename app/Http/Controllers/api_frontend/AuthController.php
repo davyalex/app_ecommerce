@@ -209,6 +209,75 @@ class AuthController extends Controller
     }
 
 
+    /**
+     * @OA\Post(
+     *     path="/api/v1/updateProfil",
+     *     summary="Utilisateur connecté",
+     *     tags={"User upadate profil "},
+     *     @OA\Response(response=200, description="Successful operation"),
+     * )
+     * 
+     */
+
+    public function update_profil(Request $request)
+    {
+
+        if ($request->has('old_password')) {
+            //verification de l'ancien mot de passe
+            if (!Hash::check($request->old_password, auth()->user()->password)) {
+                return response()->json(['error' => 'Ancien Mot de passe incorrect'], 401);
+            }else{
+                $request->validate([
+                    'name' => 'required',
+                    'phone' => 'required',
+                    'email' => 'required',
+                    'old_password' => 'required',
+                    'new_password' => 'required',
+                ]);
+                $user = tap(User::whereId(Auth::user()->id))->update([
+                    'name' => $request['name'],
+                    'phone' => $request['phone'],
+                    'email' => $request['email'],
+                    // 'shop_name' => $request['shop_name'],
+                    // 'localisation' => $request['localisation'],
+                    'password' => Hash::make($request['new_password']),
+                ]);
+
+                $user = User::whereId(Auth::user()->id)->first();
+
+                return response()->json([
+                    'message' => 'Compte modifié avec success',
+                    'user' => $user
+                ], 200);
+            }
+
+           
+        } else {
+
+            $request->validate([
+                'name' => 'required',
+                'phone' => 'required',
+                'email' => 'required',
+               
+            ]);
+            $user = tap(User::whereId(Auth::user()->id))->update([
+                'name' => $request['name'],
+                'phone' => $request['phone'],
+                'email' => $request['email'],
+                // 'shop_name' => $request['shop_name'],
+                // 'localisation' => $request['localisation'],
+                // 'password' => Hash::make($request['new_password']),
+            ]);
+            $user = User::whereId(Auth::user()->id)->first();
+
+            return response()->json([
+                'message' => 'Compte modifié avec success',
+                'user' => $user
+            ], 200);
+        }
+    }
+
+
 
 
 
