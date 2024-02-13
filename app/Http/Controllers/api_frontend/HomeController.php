@@ -62,7 +62,7 @@ class HomeController extends Controller
     {
         try {
             $data = Category::with(['media', 'products' => fn ($q) => $q->with('media')])
-                ->orderBy('created_at', 'DESC')
+                ->orderBy('created_at', 'ASC')
                 ->whereType('section')
                 ->get();
 
