@@ -42,7 +42,7 @@
                             <option disabled selected value>Choisir un type</option>
                             <option value="principale" {{$category['type']=='principale' ? 'selected' : ''}}>Principale</option>
                             <option value="section"  {{$category['type']=='section' ? 'selected' : ''}}>Section</option>
-                            <option value="pack"  {{$category['type']=='pack' ? 'selected' : ''}}>Pack</option>
+                            {{-- <option value="pack"  {{$category['type']=='pack' ? 'selected' : ''}}>Pack</option> --}}
                        
                         </select>
                         <div class="invalid-feedback">
