@@ -143,7 +143,7 @@ class CategoryController extends Controller
             ->delete();
 
                 //delete subcategorie of this category
-            SubCategory::whereHas('categories', fn ($q) => $q->where('category_id', $id))->delete();
+            SubCategory::where('category_id', $id)->delete();
 
 
         return response()->json([
