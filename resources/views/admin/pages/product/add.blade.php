@@ -278,7 +278,6 @@
                     });
                     fileReader.readAsDataURL(f);
                 }
-                console.log(img);
             });
         } else {
             alert("Your browser doesn't support to File API")
