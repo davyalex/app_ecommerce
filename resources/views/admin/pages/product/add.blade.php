@@ -328,9 +328,9 @@
 
         //hide elements
         $('#sectionDiv').hide();
-        $('#collectionDiv').hide();
-        $('#pointureDiv').hide();
-        $('#tailleDiv').hide();
+        // $('#collectionDiv').hide();
+        // $('#pointureDiv').hide();
+        // $('#tailleDiv').hide();
 
         //show if checked
 
