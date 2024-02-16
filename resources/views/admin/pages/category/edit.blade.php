@@ -12,47 +12,55 @@
         }
     </style>
 
-<section class="section">
-    @php
-        $msg_validation = 'Champs obligatoire'
-    @endphp
-    <div class="section-body">
-      <div class="row">
-        <div class="col-12 col-md-6 col-lg-8 m-auto">
-            @include('admin.components.validationMessage')
-          <div class="card">
-            <form action="{{ route('category.update', $category['id']) }}" class="needs-validation" novalidate="" method="post"
-            enctype="multipart/form-data">
-            @csrf
-            <div class="card-body">
-                <div class="form-group row">
-                    <label class="col-sm-3 col-form-label">Name</label>
-                    <div class="col-sm-9">
-                        <input type="text" name="name" value="{{$category['name']}}"  class="form-control" required="">
-                        <div class="invalid-feedback">
-                           {{$msg_validation}}
-                         </div>
-                    </div>
-                </div>
+    <section class="section">
+        @php
+            $msg_validation = 'Champs obligatoire';
+        @endphp
+        <div class="section-body">
+            <div class="row">
+                <div class="col-12 col-md-6 col-lg-8 m-auto">
+                    @include('admin.components.validationMessage')
+                    <div class="card">
+                        <form action="{{ route('category.update', $category['id']) }}" class="needs-validation" novalidate=""
+                            method="post" enctype="multipart/form-data">
+                            @csrf
+                            <div class="card-body">
 
-                <div class="form-group row">
-                    <label class="col-sm-3 col-form-label">Type</label>
-                    <div class="col-sm-9">
-                        <select name="type" class="form-control selectric " required>
-                            <option disabled selected value>Choisir un type</option>
-                            <option value="principale" {{$category['type']=='principale' ? 'selected' : ''}}>Principale</option>
-                            <option value="section"  {{$category['type']=='section' ? 'selected' : ''}}>Section</option>
-                            {{-- <option value="pack"  {{$category['type']=='pack' ? 'selected' : ''}}>Pack</option> --}}
-                       
-                        </select>
-                        <div class="invalid-feedback">
-                            Champ obligatoire
-                        </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">Type</label>
+                                    <div class="col-sm-9">
+                                        <select name="type" class="form-control selectric" id="categoryType" required>
+                                            <option disabled selected value>Choisir un type</option>
+                                            <option value="principale"
+                                                {{ $category['type'] == 'principale' ? 'selected' : '' }}>Principale
+                                            </option>
+                                            <option value="section" {{ $category['type'] == 'section' ? 'selected' : '' }}>
+                                                Section</option>
+                                            <option value="pack" {{ $category['type'] == 'pack' ? 'selected' : '' }}>Pack
+                                            </option>
 
-                    </div>
-                </div>
+                                        </select>
+                                        <div class="invalid-feedback">
+                                            Champ obligatoire
+                                        </div>
 
-                {{-- <div class="form-group row">
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">Name</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" name="name" value="{{ $category['name'] }}"
+                                            class="form-control" required="">
+                                        <div class="invalid-feedback">
+                                            {{ $msg_validation }}
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+                                {{-- <div class="form-group row">
                     <label class="col-sm-3 col-form-label">Type d'affichage</label>
                     <div class="col-sm-9">
                         <select name="type_affichage" class="form-control selectric " required>
@@ -67,7 +75,7 @@
                     </div>
                 </div> --}}
 
-                {{-- <div class="form-group row">
+                                {{-- <div class="form-group row">
                     <label class="col-sm-3 col-form-label">Position</label>
                     <div class="col-sm-9">
                         <select name="position" class="form-control">
@@ -78,41 +86,45 @@
                         </select>
                     </div>
                 </div> --}}
-    
-                <div class="form-group row">
-                    <label class="col-sm-3 col-form-label">category
-                        image</label>
-                    <div class="col-sm-9">
-                        <img id="_blah" src=" {{ $category->getFirstMediaUrl('category_image') }}" alt="{{$category->getFirstMediaUrl('category_image')}}" />
-                        <input type="file" name="cat_img" class="form-control" onchange="_readURL(this);">
+
+                                <div class="form-group row categoryImage">
+                                    <label class="col-sm-3 col-form-label">category
+                                        image</label>
+                                    <div class="col-sm-9">
+                                        <img id="_blah" src=" {{ $category->getFirstMediaUrl('category_image') }}"
+                                            alt="{{ $category->getFirstMediaUrl('category_image') }}" />
+                                        <input type="file" name="cat_img" class="form-control" id="cat_image"
+                                            onchange="_readURL(this);">
+                                    </div>
+                                </div>
+
+                                <div class="form-group row categoryBanner">
+                                    <label class="col-sm-3 col-form-label">category
+                                        banner</label>
+                                    <div class="col-sm-9">
+                                        <img id="blah" src=" {{ $category->getFirstMediaUrl('category_banner') }}"
+                                            alt="{{ $category->getFirstMediaUrl('category_banner') }}" />
+                                        <input type="file" name="cat_banner" class="form-control" id="cat_banner"
+                                            onchange="readURL(this);">
+
+                                    </div>
+                                </div>
+
+
+
+                            </div>
+                            <div class="card-footer text-right">
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                            </div>
+                        </form>
                     </div>
+
                 </div>
-    
-                <div class="form-group row">
-                    <label class="col-sm-3 col-form-label">category
-                        banner</label>
-                    <div class="col-sm-9">
-                        <img id="blah" src=" {{ $category->getFirstMediaUrl('category_banner') }}" alt="{{$category->getFirstMediaUrl('category_banner')}}" />
-                        <input type="file" name="cat_banner" class="form-control" onchange="readURL(this);">
-                       
-                    </div>
-                </div>
-    
-    
-    
+
             </div>
-            <div class="card-footer text-right">
-                <button type="submit" class="btn btn-primary">Submit</button>
-            </div>
-        </form>
-          </div>
-        
         </div>
-      
-      </div>
-    </div>
-  </section>
-  
+    </section>
+
 
     <script>
         function readURL(input) {
@@ -143,5 +155,33 @@
                 reader.readAsDataURL(input.files[0]);
             }
         }
+        //on verifie si le type en value est section ou pack
+
+        var type = $('#categoryType').val();
+        if (type === 'pack' || type === 'section') {
+            $('.categoryImage').hide(200);
+            $('.categoryBanner').hide(200);
+            $('#cat_image').prop("required", false);
+            $('#cat_banner').prop("required", false);
+        } else {
+            $('.categoryImage').show();
+            $('.categoryBanner').show();
+        }
+
+        //afficher les element en fonction du type
+        $('#categoryType').on('change', function() {
+            var selectVal = $("#categoryType option:selected").val();
+            if (selectVal === 'pack' || selectVal === 'section') {
+                $('.categoryImage').hide(200);
+                $('.categoryBanner').hide(200);
+                $('#cat_image').prop("required", false);
+                $('#cat_banner').prop("required", false);
+            } else {
+                $('.categoryImage').show(200);
+                $('.categoryBanner').show(200);
+                $('#cat_image').prop("required", true);
+                $('#cat_banner').prop("required", true);
+            }
+        });
     </script>
 @endsection

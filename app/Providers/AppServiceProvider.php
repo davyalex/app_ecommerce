@@ -35,10 +35,14 @@ class AppServiceProvider extends ServiceProvider
             ->whereType('section')
             ->get();
 
+        $pack_categories = Category::with(['products', 'media', 'subcategories'])->orderBy('created_at', 'DESC')
+            ->whereType('pack')
+            ->get();
+
         $collection = Collection::with('media')->orderBy('name')->get();
 
 
-        
+
         $roles_for_developpeur = Role::get();
         $roles = Role::where('name', '!=',  'developpeur')->get();
 
@@ -46,11 +50,12 @@ class AppServiceProvider extends ServiceProvider
 
 
 
-        View::composer('*', function ($view) use ($roles_for_developpeur, $category, $collection, $subcategory, $section_categories, $roles) {
+        View::composer('*', function ($view) use ($roles_for_developpeur, $category, $collection, $subcategory, $section_categories, $pack_categories, $roles) {
             $view->with([
                 'categories' => $category,
                 'subcategories' => $subcategory,
                 'section_categories' => $section_categories,
+                'pack_categories' => $pack_categories,
                 'roles' => $roles,
                 'roles_for_developpeur' => $roles_for_developpeur,
                 'collection' => $collection,

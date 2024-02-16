@@ -25,10 +25,7 @@
                                             <th>image</th>
                                             <th>Name</th>
                                             <th>categories</th>
-                                            {{-- <th>collection</th> --}}
                                             <th>prix</th>
-                                            {{-- <th>Pointure</th>
-                                            <th>Taille</th> --}}
                                             <th>date</th>
                                             <th>Action</th>
                                         </tr>
@@ -43,7 +40,7 @@
                                                     <img alt="{{ asset($item->getFirstMediaUrl('product_image')) }}"
                                                         src="{{ asset($item->getFirstMediaUrl('product_image')) }}"
                                                         width="35">
-                                                       <br> <small># {{$item['code']}} </small>
+                                                    <br> <small># {{ $item['code'] }} </small>
                                                 </td>
                                                 <td>{{ $item['title'] }}</td>
                                                 <td>
@@ -51,25 +48,14 @@
                                                         {{ $items['name'] }}
                                                     @endforeach
                                                 </td>
-                                                <td>{{ $item['collection'] ? $item['collection']['name'] : '' }}</td>
                                                 <td>{{ number_format($item['price'], 0) }} FCFA</td>
-                                                <td>
-                                                    @foreach ($item['pointures'] as $items)
-                                                        {{ $items['pointure'] }}
-                                                    @endforeach
-                                                </td>
-                                                <td>
-                                                    @foreach ($item['tailles'] as $items)
-                                                        {{ $items['taille'] }}
-                                                    @endforeach
-                                                </td>
                                                 <td>{{ \Carbon\Carbon::parse($item['created_at'])->diffForHumans() }}</td>
                                                 <td>
                                                     <div class="dropdown">
                                                         <a href="#" data-toggle="dropdown"
                                                             class="btn btn-warning dropdown-toggle">Options</a>
                                                         <div class="dropdown-menu">
-                                                            <a href="{{'https://dooya.ci/detail/'.$item['id']}}"
+                                                            <a href="{{ 'https://dooya.ci/detail/' . $item['id'] }}"
                                                                 class="dropdown-item has-icon"><i class="fas fa-eye"></i>
                                                                 View</a>
                                                             <a href="{{ route('product.edit', $item['id']) }}"
