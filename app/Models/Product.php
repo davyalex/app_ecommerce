@@ -27,6 +27,8 @@ class Product extends Model implements HasMedia
         'title',
         'slug',
         'price',
+        'type', //  normal, section, pack
+        'disponibilite', //disponible, rupture
         'description',
         'collection_id',
         'sub_category_id',

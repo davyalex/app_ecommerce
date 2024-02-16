@@ -103,7 +103,7 @@
                                     class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Categorie</label>
 
                                 <div class="col-sm-12 col-md-7">
-                                    <select name="categories" class="form-control select2" required>
+                                    <select name="categories" class="form-control select2 catDiv" required>
                                         <option value="">Selectionner une catégorie</option>
                                         @foreach ($categories as $item)
                                             <option value="{{ $item['id'] }}"> {{ $item['name'] }} </option>
@@ -125,7 +125,7 @@
 
                                 <div class="col-sm-12 col-md-7">
                                     <select style="width: 520px" name="subcategories"
-                                        class="form-control select2 subCat_required" required>
+                                        class="form-control select2 subCat_required  subCatDiv" required>
                                         @foreach ($subcategories as $item)
                                             {{-- <option value="{{ $item['id'] }}"> {{ $item['name'] }} </option> --}}
                                         @endforeach
@@ -143,7 +143,7 @@
                                     Categorie</label>
 
                                 <div class="col-sm-12 col-md-7">
-                                    <select style="width: 520px" name="category_section[]" class="form-control select2"
+                                    <select style="width: 520px" name="category_section[]" class="form-control select2 sectionDiv"
                                         multiple required>
                                         <option></option>
                                         @foreach ($section_categories as $item)
@@ -162,7 +162,7 @@
                                     Categorie</label>
 
                                 <div class="col-sm-12 col-md-7">
-                                    <select style="width: 520px" name="category_section[]" class="form-control select2"
+                                    <select style="width: 520px" name="categories" class="form-control select2 packDiv"
                                         required>
                                         <option></option>
 
@@ -251,7 +251,6 @@
                     });
                     fileReader.readAsDataURL(f);
                 }
-                console.log(img);
             });
         } else {
             alert("Your browser doesn't support to File API")

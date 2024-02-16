@@ -17,6 +17,8 @@ return new class extends Migration
             $table->string('title')->nullable();
             $table->string('slug')->nullable();
             $table->double('price')->nullable();
+            $table->string('type')->nullable();
+            $table->string('disponibilite')->nullable(); //disponible, rupture
             $table->longText('description')->nullable();
 
 

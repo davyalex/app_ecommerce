@@ -55,13 +55,15 @@ class ProductController extends Controller
             'description' => '',
             'price' => ['required'],
             'categories' => ['required'],
+            'type' => ['required'],
+
         ]);
 
         $getLastId = Product::max('id'); //recuperer le dernier ID
         $userId = '';
         if (request('user')) {
-           $userId  = request('user');
-        }else{
+            $userId  = request('user');
+        } else {
             $userId = Auth::user()->id;
         }
 
@@ -70,9 +72,11 @@ class ProductController extends Controller
             'title' => $request['title'],
             'description' => $request['description'],
             'price' => $request['price'],
+            'type' => $request['type'],
+            'disponibilite' => 'disponible', //disponible or rupture
             'collection_id' => $request['collection'],
             'sub_category_id' => $request['subcategories'],
-            'user_id' =>$userId
+            'user_id' => $userId
         ]);
 
         //insert category in pivot table
@@ -120,13 +124,6 @@ class ProductController extends Controller
         return back()->withSuccess('nouveau produit ajouté avec success');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
 
     /**
      * Show the form for editing the specified resource.
@@ -144,7 +141,7 @@ class ProductController extends Controller
 
         //sub cat of category selected
         $cat  = Product::with([
-            'categories' => fn ($q) => $q->whereType('principale'), 'subcategorie', 'collection', 'tailles', 'pointures', 'media'
+            'categories' , 'subcategorie', 'collection', 'tailles', 'pointures', 'media'
         ])
             ->whereId($id)
             ->first();
@@ -194,12 +191,15 @@ class ProductController extends Controller
             'description' => '',
             'price' => ['required'],
             'categories' => ['required'],
+            'type' => ['required']
         ]);
 
         $product = tap(Product::find($id))->update([
             'title' => $request['title'],
             'description' => $request['description'],
             'price' => $request['price'],
+            'type' => $request['type'],
+            'disponibilite' => 'disponible', //disponible or rupture
             'collection_id' => $request['collection'],
             'sub_category_id' => $request['subcategories']
 
