@@ -45,7 +45,8 @@
                                                 <td>{{ $item['title'] }}</td>
                                                 <td>
                                                     @foreach ($item['categories'] as $items)
-                                                        {{ $items['name'] }}
+                                                       <br> {{ $items['name'] }}
+                                                        <small class="text-danger"><b> #type :{{$items['type']}}</b> </small>
                                                     @endforeach
                                                 </td>
                                                 <td>{{ number_format($item['price'], 0) }} FCFA</td>

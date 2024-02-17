@@ -27,7 +27,11 @@ class HomeController extends Controller
         try {
             $data = Category::with([
                 'products' => function ($q) {
-                    return $q->with('subcategorie', 'media')->inRandomOrder();
+                    return $q->with(
+                        'subcategorie',
+                        fn ($q) => $q->orderBy('created_at', 'ASC'),
+                        'media'
+                    )->inRandomOrder();
                 }, 'media', 'subcategories' => fn ($q) => $q->with(['products', 'media'])
             ])
                 ->orderBy('created_at', 'ASC')
@@ -102,7 +106,7 @@ class HomeController extends Controller
                 // 'status' => true,
                 'message' => "Data Found",
                 "data" => $data,
-                "description" => 'recuperation de la categories dpack avec les produits',
+                "description" => 'recuperation de la categories pack avec les produits',
             ], 200);
         } catch (Exception $e) {
             $e->getMessage();

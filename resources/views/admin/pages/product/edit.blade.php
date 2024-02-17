@@ -50,7 +50,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4>Ajouter un produit</h4>
+                        <h4>Modifier un produit</h4>
                     </div>
                     @include('admin.components.validationMessage')
 
@@ -106,7 +106,7 @@
                                 </label>
 
                                 <div class="col-sm-12 col-md-7 ">
-                                    <select name="categories" class="form-control select2 catDiv" required>
+                                    <select name="categories[]" class="form-control select2 catDiv" required>
                                         @foreach ($categories as $item)
                                             {{-- @if ($product->categories->containsStrict('id', $item['id'])) @selected(true) @endif --}}
                                             <option value="{{ $item['id'] }}"
@@ -127,7 +127,8 @@
                                     categorie</label>
 
                                 <div class="col-sm-12 col-md-7">
-                                    <select style="width: 520px" name="subcategories" class="form-control select2 subCatDiv">
+                                    <select style="width: 520px" name="subcategories"
+                                        class="form-control select2 subCatDiv" required>
                                         @foreach ($subcategory_exist as $item)
                                             <option value="{{ $item['id'] }}"
                                                 {{ $item['id'] == $product['sub_category_id'] ? 'selected' : '' }}>
@@ -143,17 +144,18 @@
                             </div>
 
 
-                            <div class="form-group row mb-3 packDiv" id="">
+                            <div class="form-group row mb-3 packDiv">
                                 <label for="" class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Pack
                                     Categorie</label>
 
                                 <div class="col-sm-12 col-md-7">
-                                    <select style="width: 520px" name="categories" class="form-control select2 packDiv"
-                                        required>
+                                    <select style="width: 520px" name="category_pack[]"
+                                        class="form-control select2 packDiv" required>
                                         <option></option>
-
                                         @foreach ($pack_categories as $item)
-                                            <option value="{{ $item['id'] }}"> {{ $item['name'] }} </option>
+                                            <option value="{{ $item['id'] }}"
+                                                @if ($product->categories->containsStrict('id', $item['id'])) @selected(true) @endif>
+                                                {{ $item['name'] }}</option>
                                         @endforeach
                                     </select>
                                     <div class="invalid-feedback">
@@ -162,21 +164,23 @@
                                 </div>
 
                             </div>
-                            <div class="form-group row mb-4 sectionDiv" id="">
+                            <div class="form-group row mb-4 sectionDiv">
                                 <label for=""
                                     class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Section
                                     Categorie</label>
 
                                 <div class="col-sm-12 col-md-7">
-                                    <select style="width: 520px" name="category_section[]" class="form-control select2"
-                                        multiple>
+                                    <select style="width: 520px" name="category_section[]"
+                                        class="form-control select2 sectionDiv" multiple>
                                         @foreach ($section_categories as $item)
                                             <option value="{{ $item['id'] }}"
                                                 @if ($product->categories->containsStrict('id', $item['id'])) @selected(true) @endif>
                                                 {{ $item['name'] }}</option>
                                         @endforeach
                                     </select>
-
+                                    <div class="invalid-feedback">
+                                        Champs obligatoire
+                                    </div>
                                 </div>
 
                             </div>
@@ -295,7 +299,7 @@
         //load sub cat
         // $('.subcat').hide();
 
-        $('select[name="categories"]').on('change', function() {
+        $('select[name="categories[]"]').on('change', function() {
             var catId = $(this).val();
             if (catId) {
                 $.ajax({
@@ -304,7 +308,6 @@
                     dataType: "json",
                     success: function(data) {
                         $('select[name="subcategories"]').empty();
-
                         $.each(data, function(key, value) {
                             $('select[name="subcategories"]').append(
                                 '<option value=" ' + value
@@ -313,12 +316,13 @@
                         })
 
                         if (data.length > 0) {
-                            $('.subcat').show(200);
-
-
+                            $('.subCatDiv').show(200);
+                            $('.subCatDiv').prop("required", true);
 
                         } else {
-                            $('.subcat').hide(200);
+                            $('.subCatDiv').hide(200);
+                            $('.subCatDiv').prop("required", false);
+
                         }
                     }
 
@@ -329,7 +333,56 @@
         });
 
 
-//Afficher et cacher des element en fonction du type produit
+
+        //on verifie la valeur de categoryType pour afficher et cacher des elements
+        var type = $('#categoryType').val();
+
+        if (type === 'pack') {
+            $('.packDiv').show(200);
+            $('.catDiv').hide(200);
+            $('.subCatDiv').hide(200);
+            $('.sectionDiv').hide(200);
+            $('.catDiv').prop("required", false);
+            $('.subCatDiv').prop("required", false);
+            $('.sectionDiv').prop("required", false);
+
+            //viderles champs
+            $('.catDiv').val(' ');
+            $('.subCatDiv').val(' ');
+            $('.sectionDiv').val(' ');
+
+        } else if (type === 'section') {
+            $('.sectionDiv').show(200);
+            $('.catDiv').hide(200);
+            $('.subCatDiv').hide(200);
+            $('.packDiv').hide(200);
+            $('.sectionDiv').prop("required", true);
+            $('.catDiv').prop("required", false);
+            $('.subCatDiv').prop("required", false);
+            $('.packDiv').prop("required", false);
+
+            //vider les champs
+            $('.catDiv').val(' ');
+            $('.subCatDiv').val(' ');
+            $('.packDiv').val(' ');
+
+        } else if (type === 'normal') {
+            $('.catDiv').show(200);
+            // $('.subCatDiv').hide(200);
+            $('.packDiv').hide(200);
+            $('.sectionDiv').hide(200);
+            $('.subCatDiv').prop("required", false);
+            $('.sectionDiv').prop("required", false);
+            $('.packDiv').prop("required", false);
+
+            //vider  le champ de la section
+            $('.sectionDiv').val(' ');
+            $('.packDiv').val(' ');
+        }
+
+
+
+        //Afficher et cacher des element en fonction du type produit
         $('#categoryType').on('change', function() {
             var selectVal = $("#categoryType option:selected").val();
             if (selectVal === 'pack') {
@@ -337,31 +390,50 @@
                 $('.catDiv').hide(200);
                 $('.subCatDiv').hide(200);
                 $('.sectionDiv').hide(200);
+
+                $('.packDiv').prop("required", true);
                 $('.catDiv').prop("required", false);
                 $('.subCatDiv').prop("required", false);
                 $('.sectionDiv').prop("required", false);
+
+                //viderles champs
+                $('.catDiv').val(' ');
+                $('.subCatDiv').val(' ');
+                $('.sectionDiv').val(' ');
 
             } else if (selectVal === 'section') {
                 $('.sectionDiv').show(200);
                 $('.catDiv').hide(200);
                 $('.subCatDiv').hide(200);
                 $('.packDiv').hide(200);
+
+                $('.sectionDiv').prop("required", true);
                 $('.catDiv').prop("required", false);
                 $('.subCatDiv').prop("required", false);
                 $('.packDiv').prop("required", false);
 
+                //vider les champs
+                $('.catDiv').val(' ');
+                $('.subCatDiv').val(' ');
+                $('.packDiv').val(' ');
+
             } else if (selectVal === 'normal') {
                 $('.catDiv').show(200);
-                $('.subCatDiv').show(200);
+                // $('.subCatDiv').show(200);
                 $('.packDiv').hide(200);
                 $('.sectionDiv').hide(200);
+                $('.catDiv').prop("required", true);
+                // $('.subCatDiv').prop("required", true);
                 $('.sectionDiv').prop("required", false);
                 $('.packDiv').prop("required", false);
+
+                //vider  le champ de la section
+                $('.sectionDiv').val(' ');
+                $('.packDiv').val(' ');
+
             }
 
         });
-
-
 
 
 

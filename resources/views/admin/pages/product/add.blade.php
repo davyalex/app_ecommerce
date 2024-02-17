@@ -76,7 +76,7 @@
                                 {{-- <button type="button" data-toggle="modal" data-target="#modalAddCategory"
                                     class="btn btn-primary"><i data-feather="plus"></i> </button> --}}
                             </div>
-                            
+
                             <div class="form-group row mb-3">
                                 <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Titre du
                                     produit</label>
@@ -103,7 +103,7 @@
                                     class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Categorie</label>
 
                                 <div class="col-sm-12 col-md-7">
-                                    <select name="categories" class="form-control select2 catDiv" required>
+                                    <select name="categories[]" class="form-control select2 catDiv" required>
                                         <option value="">Selectionner une catégorie</option>
                                         @foreach ($categories as $item)
                                             <option value="{{ $item['id'] }}"> {{ $item['name'] }} </option>
@@ -113,8 +113,6 @@
                                         Champs obligatoire
                                     </div>
                                 </div>
-                                {{-- <button type="button" data-toggle="modal" data-target="#modalAddCategory"
-                                    class="btn btn-primary"><i data-feather="plus"></i> </button> --}}
                             </div>
 
 
@@ -143,8 +141,8 @@
                                     Categorie</label>
 
                                 <div class="col-sm-12 col-md-7">
-                                    <select style="width: 520px" name="category_section[]" class="form-control select2 sectionDiv"
-                                        multiple required>
+                                    <select style="width: 520px" name="category_section[]"
+                                        class="form-control select2 sectionDiv" multiple required>
                                         <option></option>
                                         @foreach ($section_categories as $item)
                                             <option value="{{ $item['id'] }}"> {{ $item['name'] }} </option>
@@ -162,8 +160,8 @@
                                     Categorie</label>
 
                                 <div class="col-sm-12 col-md-7">
-                                    <select style="width: 520px" name="categories" class="form-control select2 packDiv"
-                                        required>
+                                    <select style="width: 520px" name="category_pack"
+                                        class="form-control select2 packDiv" required>
                                         <option></option>
 
                                         @foreach ($pack_categories as $item)
@@ -259,7 +257,7 @@
         //load sub cat
         $('.subcat').hide();
 
-        $('select[name="categories"]').on('change', function() {
+        $('select[name="categories[]"]').on('change', function() {
             var catId = $(this).val();
             if (catId) {
                 $.ajax({
@@ -308,6 +306,8 @@
                 $('.catDiv').hide(200);
                 $('.subCatDiv').hide(200);
                 $('.sectionDiv').hide(200);
+                $('.packDiv').prop('required', true);
+
                 $('.catDiv').prop("required", false);
                 $('.subCatDiv').prop("required", false);
                 $('.sectionDiv').prop("required", false);
@@ -317,15 +317,17 @@
                 $('.catDiv').hide(200);
                 $('.subCatDiv').hide(200);
                 $('.packDiv').hide(200);
+                $('.sectionDiv').prop("required", true);
                 $('.catDiv').prop("required", false);
                 $('.subCatDiv').prop("required", false);
                 $('.packDiv').prop("required", false);
 
             } else if (selectVal === 'normal') {
                 $('.catDiv').show(200);
-                $('.subCatDiv').show(200);
+                // $('.subCatDiv').show(200);
                 $('.packDiv').hide(200);
                 $('.sectionDiv').hide(200);
+                $('.catDiv').prop("required", true);
                 $('.sectionDiv').prop("required", false);
                 $('.packDiv').prop("required", false);
             }

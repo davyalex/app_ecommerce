@@ -111,6 +111,7 @@
 
 
   <script>
+     // ###################### categorie image
       function readURL(input) {
           let noimage =
               "https://ami-sni.com/wp-content/themes/consultix/images/no-image-found-360x250.png";
@@ -129,7 +130,7 @@
           }
       }
 
-      // ######################
+      // ###################### banner image
       function _readURL(input) {
           let _noimage =
               "https://ami-sni.com/wp-content/themes/consultix/images/no-image-found-360x250.png";

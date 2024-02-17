@@ -20,7 +20,7 @@ class AuthAdminController extends Controller
     public function listUser()
     {
         $users = User::with('roles')
-        ->whereHas('roles', fn ($q) => $q->where('name' ,'!=','developpeur'))
+            ->whereHas('roles', fn ($q) => $q->where('name', '!=', 'developpeur'))
             ->orderBy('created_at', 'DESC')->get();
         // dd($users->toArray());
         return view('admin.pages.user.userList', compact('users'));
@@ -41,9 +41,9 @@ class AuthAdminController extends Controller
         if ($user_verify->count() > 0) {
             return back()->withError('Ce email est dejà associé un compte, veuillez utiliser un autre');
         } else {
-            // dd($request);
+            // dd($request->toArray());
             $request->validate([
-                'name' => 'required',
+                'name' => '',
                 'phone' => 'required',
                 'email' => 'required|unique:users',
                 // 'password' => 'required',
@@ -63,6 +63,11 @@ class AuthAdminController extends Controller
                 $user->assignRole([$request['role']]);
             }
 
+            //upload logo boutique
+            if ($request->hasFile('logo')) {
+                $user->addMediaFromRequest('logo')->toMediaCollection('logo_shop');
+            }
+
             $data = [
                 "email" => $request['email'],
                 "pwd" => $pwd_generate,
@@ -77,7 +82,7 @@ class AuthAdminController extends Controller
 
     public function edit($id)
     {
-        $user = User::with('roles')->whereId($id)->first();
+        $user = User::with(['roles', 'media'])->whereId($id)->first();
         return view('admin.pages.user.edit_user', compact('user'));
     }
 
@@ -99,6 +104,13 @@ class AuthAdminController extends Controller
         if ($request->has('role')) {
             $user->syncRoles($request['role']);
         }
+
+        //upload category_image
+        if ($request->has('cat_img')) {
+            $user->clearMediaCollection('logo');
+            $user->addMediaFromRequest('logo')->toMediaCollection('logo');
+        }
+
         return back()->with([
             'success' => "Utilisateur modifié avec success",
         ]);
@@ -110,8 +122,8 @@ class AuthAdminController extends Controller
 
         User::whereId($id)->delete();
 
-//delete order of this user
-Order::where("user_id",$id)->delete();
+        //delete order of this user
+        Order::where("user_id", $id)->delete();
 
         return response()->json([
             'status' => 200
