@@ -42,7 +42,6 @@ class MarketPlaceController extends Controller
      *     path="/api/v1/marketplace/productStore",
      *     summary="Voir les produits d'une boutique",
      *     tags={" Liste des produits d'une boutique "},
-     *     @OA\Parameter(BoutiqueId"),
      *     
      *     @OA\Response(response=200, description="Successful operation"),
      * )
@@ -66,7 +65,6 @@ class MarketPlaceController extends Controller
      *     path="/api/v1/marketplace/productDetail",
      *     summary="Voir les details du produits d'une boutique",
      *     tags={" Detail du produits d'une boutique "},
-     *     @OA\Parameter(productId"),
      *     
      *     @OA\Response(response=200, description="Successful operation"),
      * )

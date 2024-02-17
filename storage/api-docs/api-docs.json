@@ -146,13 +146,41 @@
                 }
             }
         },
-        "/api/v1/boutiqueAll": {
+        "/api/v1/marketplace/allStore": {
             "get": {
                 "tags": [
                     " Liste des boutique "
                 ],
                 "summary": "Liste boutique",
-                "operationId": "ff8765da441ba860361e7c741b07ce55",
+                "operationId": "ed6090bb995f6d7003f006409d121cfb",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            }
+        },
+        "/api/v1/marketplace/productStore": {
+            "get": {
+                "tags": [
+                    " Liste des produits d'une boutique "
+                ],
+                "summary": "Voir les produits d'une boutique",
+                "operationId": "1071460db93e3366e6a3a673e81f612f",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            }
+        },
+        "/api/v1/marketplace/productDetail": {
+            "get": {
+                "tags": [
+                    " Detail du produits d'une boutique "
+                ],
+                "summary": "Voir les details du produits d'une boutique",
+                "operationId": "acdc9712a467662777bf967c56816b6d",
                 "responses": {
                     "200": {
                         "description": "Successful operation"
