@@ -68,8 +68,10 @@ Route::prefix('v1')->group(function () {
     Route::controller(MarketPlaceController::class)->group(function () {
         // Liste des boutique de la marketplace
         Route::get('/marketplace/allStore', 'allStore');
-       
-
+        // Liste des produits d'une boutique de la marketplace
+        Route::get('/marketplace/productStore', 'productStore');
+        //Detail du produit
+        Route::get('/marketplace/productDetail', 'productDetail');
     });
 
 

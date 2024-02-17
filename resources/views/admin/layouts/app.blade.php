@@ -41,8 +41,8 @@
     https://cdn.jsdelivr.net/npm/sweetalert2@11.7.32/dist/sweetalert2.min.css
     " rel="stylesheet">
     <script src="
-                https://cdn.jsdelivr.net/npm/sweetalert2@11.7.32/dist/sweetalert2.all.min.js
-                "></script>
+                        https://cdn.jsdelivr.net/npm/sweetalert2@11.7.32/dist/sweetalert2.all.min.js
+                        "></script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.5/jspdf.min.js"></script>
 
@@ -220,7 +220,7 @@
                                     src="{{ asset('admin/assets/img/user.png') }}" class="user-img-radious-style">
                                 <span class="d-sm-none d-lg-inline-block"></span></a>
                             <div class="dropdown-menu dropdown-menu-right pullDown">
-                                <div class="dropdown-title">{{ Auth::user()->name }}
+                                <div class="dropdown-title">{{ Auth::user()->name ?? Auth::user()->shop_name }}
                                     <span>{{ Auth::user()->role }} </span>
                                 </div>
                                 <a href="{{ route('user.edit', Auth::user()->id) }}" class="dropdown-item has-icon">
@@ -248,13 +248,14 @@
 
 
                 {{-- Vertical nav --}}
+               @role([ 'administrateur', 'developpeur', 'gestionnaire'])
                 <div class="main-sidebar sidebar-style-2">
                     <aside id="sidebar-wrapper">
                         <div class="sidebar-brand">
                             <a href="{{ route('dashboard.index') }}">
                                 <span class="logo-name">
-                                    <img src="{{ asset('admin/assets/img/logo.jpg') }}"
-                                        width="80" class="m-auto" alt="">
+                                    <img src="{{ asset('admin/assets/img/logo.jpg') }}" width="80" class="m-auto"
+                                        alt="">
                                 </span>
                             </a>
                         </div>
@@ -302,9 +303,10 @@
                                         data-feather="users"></i><span>Utilisateurs</span></a>
                                 <ul class="dropdown-menu">
                                     @foreach ($roles as $item)
-                                          <li><a class="nav-link" href="/admin/auth?user={{$item['name']}}"> {{$item['name']}} </a></li>
+                                        <li><a class="nav-link" href="/admin/auth?user={{ $item['name'] }}">
+                                                {{ $item['name'] }} </a></li>
                                     @endforeach
-                                   
+
                                     <li><a class="nav-link" href="{{ route('user.list') }}">Liste des
                                             utilisateurs</a></li>
                                 </ul>
@@ -337,7 +339,36 @@
                         </ul>
                     </aside>
                 </div>
+               @endrole
                 {{-- End Vertical nav --}}
+
+
+<!-- ========== #####################################################################"" ========== -->
+
+
+
+                {{-- Vertical nav for boutique marketplace --}}
+                @role('boutique')
+                <div class="main-sidebar sidebar-style-2">
+                    <aside id="sidebar-wrapper">
+                        <div class="sidebar-brand">
+                            <a href="{{ route('dashboard.index') }}">
+                                <span class="logo-name">
+                                    <img src="{{ Auth::user()->getFirstMediaUrl('logo')}}" width="80"
+                                        class="m-auto" alt="">
+                                </span>
+                            </a>
+                        </div>
+                        <ul class="sidebar-menu">
+                            <li class="dropdown">
+                                <a href="{{ route('product.index') }}" class="nav-link"><i
+                                        data-feather="shopping-bag"></i><span>Produits</span></a>
+                            </li>
+                        </ul>
+                    </aside>
+                </div>
+                @endrole
+                {{-- Vertical nav for boutique marketplace --}}
             @endif
 
 

@@ -23,8 +23,10 @@
     <section class="section">
         <div class="container mt-1">
             <div class="row">
-                <a class="btn btn-primary fas fa-arrow-left mb-2" href="{{ route('user.list') }}"> Retour à la liste des
-                    utilisateurs</a>
+                @if (Auth::user()->roles[0]['name'] != 'boutique')
+                    <a class="btn btn-primary fas fa-arrow-left mb-2" href="{{ route('user.list') }}"> Retour à la liste des
+                        utilisateurs</a>
+                @endif
                 <div
                     class="col-12 col-sm-10 offset-sm-1 col-md-10 offset-md-2 col-lg-10 offset-lg-2 col-xl-10 offset-xl-2 m-auto">
                     @if (session('user_auth'))

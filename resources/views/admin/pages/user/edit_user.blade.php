@@ -11,8 +11,10 @@
     <section class="section">
         <div class="container mt-1">
             <div class="row">
-                <a class="btn btn-primary fas fa-arrow-left mb-2" href="{{ route('user.list') }}"> Retour à la liste des
-                    utilisateurs</a>
+                @if (Auth::user()->roles[0]['name'] != 'boutique')
+                    <a class="btn btn-primary fas fa-arrow-left mb-2" href="{{ route('user.list') }}"> Retour à la liste des
+                        utilisateurs</a>
+                @endif
                 <div
                     class="col-12 col-sm-10 offset-sm-1 col-md-10 offset-md-2 col-lg-10 offset-lg-2 col-xl-10 offset-xl-2 m-auto">
 
@@ -28,41 +30,44 @@
                             <form class="needs-validation" novalidate="" method="POST"
                                 action="{{ route('user.update', $user['id']) }}" enctype="multipart/form-data">
                                 @csrf
+                                @if (Auth::user()->roles[0]['name'] != 'boutique')
+                                    <div class="form-group col-12">
+                                        <label for="password2" class="d-block">Type utilisateur</label>
+                                        <select name="role" id="role" class="form-control select2" required>
+                                            <option disabled selected value>Choisir un role</option>
+                                            {{-- @if ($user->roles->containsStrict('id', $item['id'])) @selected(true) @endif --}}
 
-                                <div class="form-group col-12">
-                                    <label for="password2" class="d-block">Type utilisateur</label>
-                                    <select name="role" id="role" class="form-control select2" required>
-                                        <option disabled selected value>Choisir un role</option>
-                                        {{-- @if ($user->roles->containsStrict('id', $item['id'])) @selected(true) @endif --}}
+                                            @if (Auth::user()->hasRole('developpeur'))
+                                                @foreach ($roles_for_developpeur as $item)
+                                                    <option value="{{ $item['name'] }}"
+                                                        {{ $item['name'] == $user['role'] ? 'selected' : '' }}>
+                                                        {{ $item['name'] }} </option>
+                                                @endforeach
+                                            @else
+                                                @foreach ($roles as $item)
+                                                    <option value="{{ $item['name'] }}"
+                                                        {{ $item['name'] == $user['role'] ? 'selected' : '' }}>
+                                                        {{ $item['name'] }} </option>
+                                                @endforeach
+                                            @endif
 
-                                        @if (Auth::user()->hasRole('developpeur'))
-                                            @foreach ($roles_for_developpeur as $item)
-                                                <option value="{{ $item['name'] }}"
-                                                    {{ $item['name'] == $user['role'] ? 'selected' : '' }}>
-                                                    {{ $item['name'] }} </option>
-                                            @endforeach
-                                        @else
-                                            @foreach ($roles as $item)
-                                                <option value="{{ $item['name'] }}"
-                                                    {{ $item['name'] == $user['role'] ? 'selected' : '' }}>
-                                                    {{ $item['name'] }} </option>
-                                            @endforeach
-                                        @endif
-
-                                    </select>
-                                    <div class="invalid-feedback">
-                                        Champs obligatoire
+                                        </select>
+                                        <div class="invalid-feedback">
+                                            Champs obligatoire
+                                        </div>
                                     </div>
-                                </div>
-
-                                <div class="form-group col-12 fullName">
-                                    <label for="frist_name">Nom & prenoms</label>
-                                    <input id="fullName" value="{{ $user['name'] }}" type="text" class="form-control"
-                                        name="name" autofocus required>
-                                    <div class="invalid-feedback">
-                                        Champs obligatoire
+                                    <div class="form-group col-12 fullName">
+                                        <label for="frist_name">Nom & prenoms</label>
+                                        <input id="fullName" value="{{ $user['name'] }}" type="text"
+                                            class="form-control" name="name" autofocus required>
+                                        <div class="invalid-feedback">
+                                            Champs obligatoire
+                                        </div>
                                     </div>
-                                </div>
+                                    @else
+                                    <input type="text" hidden name="role" value="boutique"/>
+                                @endif
+
 
                                 <div class="row shop">
                                     <div class="form-group col-6">
@@ -106,9 +111,8 @@
 
                                 <div class="form-group col-12 logo">
                                     <label for="logo_boutique">Logo de la boutique</label>
-                                    <img id="img-preview"
-                                        src="{{$user->getFirstMediaUrl('logo')}}"
-                                        width="250px" alt="{{$user->getFirstMediaUrl('logo')}}" />
+                                    <img id="img-preview" src="{{ $user->getFirstMediaUrl('logo') }}" width="250px"
+                                        alt="{{ $user->getFirstMediaUrl('logo') }}" />
                                     <input type="file" name="logo" class="form-control" id="logo"
                                         onchange="readURL(this);">
                                 </div>
@@ -152,7 +156,7 @@
     <script>
         //logo preview img
         function readURL(input) {
-            
+
             if (input.files && input.files[0]) {
                 var reader = new FileReader();
 
@@ -208,7 +212,6 @@
                     $('.email').show(200);
                     $('#shopName').prop("required", true);
                     $('#localisation').prop("required", true);
-                    $('#logo').prop("required", true);
                     $('#fullName').prop("required", false);
                 }
 

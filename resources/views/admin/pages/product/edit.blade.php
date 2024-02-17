@@ -58,27 +58,34 @@
                         method="post" enctype="multipart/form-data">
                         @csrf
                         <div class="card-body">
-                            <div class="form-group row mb-3">
-                                <label for="" class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Type
-                                    de produit</label>
+                            @if (Auth::user()->roles[0]['name'] != 'boutique')
+                                <div class="form-group row mb-3">
+                                    <label for=""
+                                        class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Type
+                                        de produit</label>
 
-                                <div class="col-sm-12 col-md-7">
-                                    <select name="type" id="categoryType" class="form-control  select2" required>
-                                        <option></option>
-                                        <option value="normal" {{ $product['type'] == 'normal' ? 'selected' : '' }}>
-                                            Normal
-                                        </option>
-                                        <option value="section" {{ $product['type'] == 'section' ? 'selected' : '' }}>
-                                            Section</option>
-                                        <option value="pack" {{ $product['type'] == 'pack' ? 'selected' : '' }}>Pack
-                                        </option>
-                                    </select>
-                                    <div class="invalid-feedback">
-                                        Champs obligatoire
+                                    <div class="col-sm-12 col-md-7">
+                                        <select name="type" id="categoryType" class="form-control  select2" required>
+                                            <option></option>
+                                            <option value="normal" {{ $product['type'] == 'normal' ? 'selected' : '' }}>
+                                                Normal
+                                            </option>
+                                            <option value="section"
+                                                {{ $product['type'] == 'section' ? 'selected' : '' }}>
+                                                Section</option>
+                                            <option value="pack" {{ $product['type'] == 'pack' ? 'selected' : '' }}>
+                                                Pack
+                                            </option>
+                                        </select>
+                                        <div class="invalid-feedback">
+                                            Champs obligatoire
+                                        </div>
                                     </div>
-                                </div>
 
-                            </div>
+                                </div>
+                            @else
+                                <input type="text" value="normal" name="type" hidden>
+                            @endif
                             <div class="form-group row mb-4">
                                 <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Nom du
                                     produit</label>
@@ -139,12 +146,11 @@
                                         Champs obligatoire
                                     </div>
                                 </div>
-                                {{-- <button type="button" data-toggle="modal" data-target="#modalAddsousCategorie"
-                                    class="btn btn-primary"><i data-feather="plus"></i> Add New</button> --}}
+
                             </div>
 
-
-                            <div class="form-group row mb-3 packDiv">
+                            @if (Auth::user()->roles[0]['name'] != 'boutique')
+                                  <div class="form-group row mb-3 packDiv">
                                 <label for="" class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Pack
                                     Categorie</label>
 
@@ -185,6 +191,9 @@
 
                             </div>
 
+                            @endif
+
+                          
                             <div class="form-group row mb-4">
                                 <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Images</label>
                                 <div class="col-sm-12 col-md-7">

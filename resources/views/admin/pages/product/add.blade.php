@@ -58,23 +58,25 @@
                         enctype="multipart/form-data">
                         @csrf
                         <div class="card-body">
+                            
+                            @if (Auth::user()->roles[0]['name'] != 'boutique')
                             <div class="form-group row mb-3">
                                 <label for="" class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Type
                                     de produit</label>
-
-                                <div class="col-sm-12 col-md-7">
-                                    <select name="type" id="categoryType" class="form-control  select2" required>
-                                        <option></option>
-                                        <option value="normal">Normal</option>
-                                        <option value="pack">Pack</option>
-                                        <option value="section">Section</option>
-                                    </select>
-                                    <div class="invalid-feedback">
-                                        Champs obligatoire
+                                    <div class="col-sm-12 col-md-7">
+                                        <select name="type" id="categoryType" class="form-control  select2" required>
+                                            <option></option>
+                                            <option value="normal">Normal</option>
+                                            <option value="pack">Pack</option>
+                                            <option value="section">Section</option>
+                                        </select>
+                                        <div class="invalid-feedback">
+                                            Champs obligatoire
+                                        </div>
                                     </div>
-                                </div>
-                                {{-- <button type="button" data-toggle="modal" data-target="#modalAddCategory"
-                                    class="btn btn-primary"><i data-feather="plus"></i> </button> --}}
+                                @else
+                                    <input type="text" value="normal" name="type" hidden>
+                                @endif
                             </div>
 
                             <div class="form-group row mb-3">
@@ -135,7 +137,8 @@
 
                             </div>
 
-                            <div class="form-group row mb-3 sectionDiv" id="">
+                            @if (Auth::user()->roles[0]['name'] != 'boutique')
+                                <div class="form-group row mb-3 sectionDiv" id="">
                                 <label for=""
                                     class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Section
                                     Categorie</label>
@@ -174,6 +177,7 @@
                                 </div>
 
                             </div>
+                            @endif
 
                             <div class="form-group row mb-3">
                                 <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Description</label>
