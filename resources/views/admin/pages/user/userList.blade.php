@@ -7,23 +7,15 @@
                 <div class="col-12">
                     <div class="card">
                         @include('admin.components.validationMessage')
-                        <div class="card-header">
-                            <h4>Utilisateurs</h4>
-                            <div class="dropdown">
-                                <a href="{{route('user.register')}}" class="btn btn-primary">Ajouter un
-                                    utilsateur</a>
-                                {{-- <div class="dropdown-menu">
-                                    <a href="{{ route('user.register') }}" class="dropdown-item has-icon"><i
-                                            class="fas fa-users"></i>
-                                        Gestionnaires</a>
-                                    <a href="/admin/auth/register?u=fournisseur" class="dropdown-item has-icon"><i
-                                            class="fas fa-users"></i>
-                                        Fournisseurs</a>
+                        <div class="card-header d-flex justify-content-between">
+                            @if (request('user'))
+                                <h4>Liste des {{ request('user') }} ({{ count($users) }}) </h4>
+                            @else
+                                <h4>Liste de tous les utilisateurs</h4>
+                            @endif
 
-
-
-                                </div> --}}
-                            </div>
+                            <a href="{{ route('user.register') }}" class="btn btn-primary">Ajouter un
+                                utilsateur</a>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
@@ -31,12 +23,14 @@
                                     <thead>
                                         <tr>
                                             <th>#</th>
-                                            <th>Nom</th>
+                                            <th class="{{ request('user') == 'boutique' ? '' : 'd-none' }}">Logo</th>
+                                            <th class="{{ request('user') != 'boutique' ? '' : 'd-none' }}">Nom</th>
                                             <th>Contact</th>
                                             <th>Email</th>
-                                            {{-- <th>Boutique</th>
-                                            <th>Localisation</th> --}}
-                                            <th>Role</th>
+
+                                            <th class="{{ request('user') == 'boutique' ? '' : 'd-none' }}">Boutique</th>
+                                            <th class="{{ request('user') == 'boutique' ? '' : 'd-none' }}">Localisation</th>
+                                            <th>Type utilisateur</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
@@ -44,23 +38,32 @@
                                         @foreach ($users as $key => $item)
                                             <tr>
                                                 <td>{{ ++$key }} </td>
-                                                <td>{{ $item['name'] }}</td>
+                                                <td class="{{ request('user') == 'boutique' ? '' : 'd-none' }}">
+                                                    <img src="{{ $item->getFirstMediaUrl('logo') }}" width="50px"
+                                                        alt="">
+                                                </td>
+                                                <td class="{{ request('user') != 'boutique' ? '' : 'd-none' }}">
+                                                    {{ $item['name'] }}</td>
                                                 <td>{{ $item['phone'] }}</td>
                                                 <td>{{ $item['email'] }}</td>
-                                                {{-- <td>  {{ $item['shop_name'] }} </td>
-                                                <td>{{ $item['localisation'] }} </td> --}}
+                                                <td class="{{ request('user') == 'boutique' ? '' : 'd-none' }}">
+                                                    {{ $item['shop_name'] }} </td>
+                                                <td class="{{ request('user') == 'boutique' ? '' : 'd-none' }}">
+                                                    {{ $item['localisation'] }} </td>
                                                 <td>
-                                                    <span
-                                                            class="text-capitalize fw-bold">{{ $item['role'] }}</span>
+                                                    <span class="text-capitalize fw-bold">{{ $item['role'] }}</span>
                                                 </td>
                                                 <td>
                                                     <div class="dropdown">
                                                         <a href="#" data-toggle="dropdown"
                                                             class="btn btn-warning dropdown-toggle">Options</a>
                                                         <div class="dropdown-menu">
-                                                            <a href="/admin/product/add?user={{ $item['id'] }}"
-                                                                class="dropdown-item has-icon"><i class="fas fa-plus"></i>
-                                                                Ajouter un produit</a>
+                                                         
+                                                          {{-- <a href="{{ route('product.create') }}"
+                                                              class="dropdown-item has-icon"><i class="fas fa-plus"></i>
+                                                              Ajouter un produit</a> --}}
+                                                          
+                                                            
 
                                                             {{-- <a href="#" class="dropdown-item has-icon"><i
                                                                     class="fas fa-eye"></i> View</a> --}}

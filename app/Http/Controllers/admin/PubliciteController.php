@@ -38,12 +38,14 @@ class PubliciteController extends Controller
             'type' => 'required',
         ]);
 
+        // dd($request->toArray());
 
         $publicite = Publicite::create([
             'type' => $request['type'],
             'url' => $request['url'],
 
         ]);
+
 
              //upload category_image
              if ($request->has('image')) {

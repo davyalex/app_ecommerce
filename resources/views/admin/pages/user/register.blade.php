@@ -50,7 +50,7 @@
                         </div>
                         <div class="card-body">
                             <form class="needs-validation" novalidate="" method="POST"
-                                action="{{ route('user.register') }}">
+                                action="{{ route('user.register') }}" enctype="multipart/form-data">
                                 @csrf
 
                                 <!-- ========== Start role ========== -->
@@ -79,8 +79,7 @@
                                 <div class="row shop">
                                     <div class="form-group col-6">
                                         <label for="shopName">Nom de boutique</label>
-                                        <input type="text" class="form-control" id="shopName"
-                                            name="shop_name" required>
+                                        <input type="text" class="form-control" id="shopName" name="shop_name" required>
                                         <div class="invalid-feedback">
                                             Champs obligatoire
                                         </div>
@@ -88,8 +87,8 @@
                                     <div class="form-group col-6">
                                         <label for="shopName">Localisation (boutique) <small class="text-danger">Ex:
                                                 Abidjan, cocody angre</small> </label>
-                                        <input id="shopName" type="text" class="form-control"
-                                            name="localisation" required>
+                                        <input id="localisation" type="text" class="form-control" name="localisation"
+                                            required>
                                         <div class="invalid-feedback">
                                             Champs obligatoire
                                         </div>
@@ -108,8 +107,7 @@
                                 <div class="row">
                                     <div class="form-group col-6 phone">
                                         <label for="last_name">Telephone</label>
-                                        <input  type="number" id="phone" class="form-control"
-                                            name="phone" required>
+                                        <input type="number" id="phone" class="form-control" name="phone" required>
                                         <div class="invalid-feedback">
                                             Champs obligatoire
                                         </div>
@@ -117,8 +115,7 @@
 
                                     <div class="form-group col-6 email">
                                         <label for="email">Email</label>
-                                        <input  type="email" class="form-control" id="email"
-                                            name="email" required>
+                                        <input type="email" class="form-control" id="email" name="email" required>
                                         <div class="invalid-feedback">
                                             Champs obligatoire
                                         </div>
@@ -133,10 +130,11 @@
                                         width="250px" />
                                     <input type="file" name="logo" class="form-control" id="logo"
                                         onchange="readURL(this);">
+
+                                    <div class="invalid-feedback">
+                                        Champs obligatoire
+                                    </div>
                                 </div>
-
-
-
                                 <div class="form-group">
                                     <button type="submit" id="btnRegister" class="btn btn-primary btn-lg btn-block w-100">
                                         Enregistrer
@@ -185,7 +183,7 @@
 
 
             $('#role').change(function(e) {
-            $('#btnRegister').show(200);
+                $('#btnRegister').show(200);
                 var roleSelected = $("#role option:selected").val();
                 if (roleSelected === 'administrateur' || roleSelected === 'client') {
                     $('.shop').hide(200);
@@ -193,16 +191,18 @@
                     $('.fullName').show(200);
                     $('.phone').show(200);
                     $('.email').show(200);
+                    $('.fullName').prop("required", true);
                     $('#shopName').prop("required", false);
                     $('#localisation').prop("required", false);
                 } else if (roleSelected === 'boutique') {
                     $('.fullName').hide(200);
                     $('.shop').show(200);
                     $('.logo').show(200);
-                     $('.phone').show(200);
+                    $('.phone').show(200);
                     $('.email').show(200);
                     $('#shopName').prop("required", true);
                     $('#localisation').prop("required", true);
+                    $('#logo').prop("required", true);
                     $('#fullName').prop("required", false);
                 }
 

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\api_frontend\AuthController;
 use App\Http\Controllers\api_frontend\HomeController;
+use App\Http\Controllers\api_frontend\MarketPlaceController;
 use App\Http\Controllers\api_frontend\OrderController;
 use App\Http\Controllers\api_frontend\ProductController;
 
@@ -50,7 +51,6 @@ Route::prefix('v1')->group(function () {
 
         // quelques produits sur la page accueil
         Route::get('/someProduct', 'someProduct');
-
     });
 
 
@@ -59,8 +59,16 @@ Route::prefix('v1')->group(function () {
         Route::get('/detailProduct', 'detailProduct');
         // Liste de tous les produits || ou avec parametre 
         Route::get('/allProduct', 'allProduct');
-//Rechercher un produit
+        //Rechercher un produit
         Route::get('/product', 'searchProduct'); //search product
+
+    });
+
+
+    Route::controller(MarketPlaceController::class)->group(function () {
+        // Liste des boutique de la marketplace
+        Route::get('/marketplace/allStore', 'allStore');
+       
 
     });
 
@@ -73,13 +81,7 @@ Route::prefix('v1')->group(function () {
         //Afficher la liste des commandes du client
         Route::get('userOrderList', 'userOrder')->middleware('auth:sanctum');
         Route::get('userOrder/{id}', 'userOrderDetail')->middleware('auth:sanctum');
-
-
-
-       
-    });   
-
-
+    });
 });
 
 

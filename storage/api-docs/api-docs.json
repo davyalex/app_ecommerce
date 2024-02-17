@@ -146,6 +146,20 @@
                 }
             }
         },
+        "/api/v1/boutiqueAll": {
+            "get": {
+                "tags": [
+                    " Liste des boutique "
+                ],
+                "summary": "Liste boutique",
+                "operationId": "ff8765da441ba860361e7c741b07ce55",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            }
+        },
         "/api/v1/delivery": {
             "get": {
                 "tags": [

@@ -19,8 +19,10 @@ class AuthAdminController extends Controller
 
     public function listUser()
     {
-        $users = User::with('roles')
+        $role = request('user');
+        $users = User::with(['roles', 'products','media'])
             ->whereHas('roles', fn ($q) => $q->where('name', '!=', 'developpeur'))
+            ->when($role, fn ($q, $role) => $q->whereHas('roles', fn ($q) => $q->where('name', $role)))
             ->orderBy('created_at', 'DESC')->get();
         // dd($users->toArray());
         return view('admin.pages.user.userList', compact('users'));
@@ -65,7 +67,7 @@ class AuthAdminController extends Controller
 
             //upload logo boutique
             if ($request->hasFile('logo')) {
-                $user->addMediaFromRequest('logo')->toMediaCollection('logo_shop');
+                $user->addMediaFromRequest('logo')->toMediaCollection('logo');
             }
 
             $data = [
@@ -83,6 +85,7 @@ class AuthAdminController extends Controller
     public function edit($id)
     {
         $user = User::with(['roles', 'media'])->whereId($id)->first();
+        // dd($user->toArray());
         return view('admin.pages.user.edit_user', compact('user'));
     }
 
@@ -106,7 +109,7 @@ class AuthAdminController extends Controller
         }
 
         //upload category_image
-        if ($request->has('cat_img')) {
+        if ($request->has('logo')) {
             $user->clearMediaCollection('logo');
             $user->addMediaFromRequest('logo')->toMediaCollection('logo');
         }

@@ -301,6 +301,10 @@
                                 <a href="#" class="menu-toggle nav-link has-dropdown"><i
                                         data-feather="users"></i><span>Utilisateurs</span></a>
                                 <ul class="dropdown-menu">
+                                    @foreach ($roles as $item)
+                                          <li><a class="nav-link" href="/admin/auth?user={{$item['name']}}"> {{$item['name']}} </a></li>
+                                    @endforeach
+                                   
                                     <li><a class="nav-link" href="{{ route('user.list') }}">Liste des
                                             utilisateurs</a></li>
                                 </ul>

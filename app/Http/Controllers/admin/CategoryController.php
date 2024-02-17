@@ -46,7 +46,7 @@ class CategoryController extends Controller
         ]);
 
         // $count_category = Category::max('id');
-        // dd($request);
+        // dd($request->toArray());
 
         $category = Category::firstOrCreate([
             // 'id' => Str::random(9),

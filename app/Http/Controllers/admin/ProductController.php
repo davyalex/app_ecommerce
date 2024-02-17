@@ -21,8 +21,9 @@ class ProductController extends Controller
     public function index()
     {
         //
-        $product = Product::with(['categories', 'collection', 'tailles', 'pointures', 'media','user'])
-            ->orderBy('created_at', 'DESC')
+        $product = Product::with(['categories', 'subcategorie', 'media','user'])
+        ->where('user_id', Auth::user()->id)
+        ->orderBy('created_at', 'DESC')
             ->get();
         // dd($product->toArray());
         return view('admin.pages.product.index', compact('product'));
@@ -49,7 +50,6 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         //
-        // dd($request->toArray());
         $data = $request->validate([
             'title' => ['required'],
             'description' => '',
@@ -59,24 +59,15 @@ class ProductController extends Controller
 
         ]);
 
-        $getLastId = Product::max('id'); //recuperer le dernier ID
-        $userId = '';
-        if (request('user')) {
-            $userId  = request('user');
-        } else {
-            $userId = Auth::user()->id;
-        }
-
+        
         $product = Product::create([
-            // 'code' => 'Z-' . $getLastId,
             'title' => $request['title'],
             'description' => $request['description'],
             'price' => $request['price'],
             'type' => $request['type'],
             'disponibilite' => 'disponible', //disponible or rupture
-            'collection_id' => $request['collection'],
             'sub_category_id' => $request['subcategories'],
-            'user_id' => $userId
+            'user_id' => Auth::user()->id
         ]);
 
         //insert category principale in pivot table
