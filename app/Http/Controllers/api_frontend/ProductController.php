@@ -115,7 +115,7 @@ class ProductController extends Controller
             $product_related =
                 Product::with(['media', 'categories', 'subcategorie'])
                 ->whereHas('categories', fn ($q) => $q->where('category_product.category_id', $data['categories'][0]['id']))
-                ->orWhere('sub_category_id', $data['sub_category_id'])
+                ->where('sub_category_id', $data['sub_category_id'])
                 ->where('id', '!=',  $product_id)
                 ->inRandomOrder()->take(30)->get();
 
