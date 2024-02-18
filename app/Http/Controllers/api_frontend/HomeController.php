@@ -33,7 +33,7 @@ class HomeController extends Controller
                         fn ($q) => $q->orderBy('created_at', 'ASC'),
                     )
                         ->whereHas('user', fn ($q) => $q->where('role', '!=', 'boutique'))
-                        ->inRandomOrder()->get();
+                      ;
                 }, 'media', 'subcategories' => fn ($q) => $q->with(['products', 'media'])
             ])
                 ->orderBy('created_at', 'ASC')
