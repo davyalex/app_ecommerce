@@ -28,12 +28,12 @@ class HomeController extends Controller
             $data = Category::with([
                 'products' => function ($q) {
                     return $q->with(
+                        'media',
                         'subcategorie',
                         fn ($q) => $q->orderBy('created_at', 'ASC'),
-                        'media'
                     )
                         ->whereHas('user', fn ($q) => $q->where('role', '!=', 'boutique'))
-                        ->inRandomOrder();
+                        ->inRandomOrder()->get();
                 }, 'media', 'subcategories' => fn ($q) => $q->with(['products', 'media'])
             ])
                 ->orderBy('created_at', 'ASC')
@@ -102,7 +102,7 @@ class HomeController extends Controller
         try {
             $data = Category::with([
                 'media', 'products' => fn ($q) =>
-                $q->with(['subcategorie', 'media'  , 'user'])
+                $q->with(['subcategorie', 'media', 'user'])
                     ->whereHas('user', fn ($q) => $q->where('role', '!=', 'boutique')),
             ])
                 ->orderBy('created_at', 'DESC')
