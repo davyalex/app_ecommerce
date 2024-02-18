@@ -23,8 +23,9 @@ class MarketPlaceController extends Controller
     public function allStore()
     {
         $store = User::with([
-            'roles', 'products' => fn ($q) => $q->with(['media', 'categories', 'subcategorie']), 'media'
-        ])
+            'roles', 'products' => fn ($q) => $q->with(['media', 'categories', 'subcategorie']),
+            'media'
+        ])->withCount('products')
         
             ->whereHas('roles', fn ($q) => $q->where('name', 'boutique'))
             ->orderBy('created_at', 'DESC')->get();
