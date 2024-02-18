@@ -50,6 +50,7 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         //
+        // dd($request->toArray());
         $data = $request->validate([
             'title' => ['required'],
             'description' => '',

@@ -58,11 +58,12 @@
                         enctype="multipart/form-data">
                         @csrf
                         <div class="card-body">
-                            
+
                             @if (Auth::user()->roles[0]['name'] != 'boutique')
-                            <div class="form-group row mb-3">
-                                <label for="" class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Type
-                                    de produit</label>
+                                <div class="form-group row mb-3">
+                                    <label for=""
+                                        class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Type
+                                        de produit</label>
                                     <div class="col-sm-12 col-md-7">
                                         <select name="type" id="categoryType" class="form-control  select2" required>
                                             <option></option>
@@ -76,69 +77,69 @@
                                     </div>
                                 @else
                                     <input type="text" value="normal" name="type" hidden>
-                                @endif
-                            </div>
+                            @endif
+                        </div>
 
-                            <div class="form-group row mb-3">
-                                <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Titre du
-                                    produit</label>
-                                <div class="col-sm-12 col-md-7">
-                                    <input name="title" type="text" placeholder="Ex: matelas super dooya"
-                                        class="form-control" required>
-                                    <div class="invalid-feedback">
-                                        Champs obligatoire
-                                    </div>
+                        <div class="form-group row mb-3">
+                            <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Titre du
+                                produit</label>
+                            <div class="col-sm-12 col-md-7">
+                                <input name="title" type="text" placeholder="Ex: matelas super dooya"
+                                    class="form-control" required>
+                                <div class="invalid-feedback">
+                                    Champs obligatoire
                                 </div>
                             </div>
-                            <div class="form-group row mb-3">
-                                <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Prix</label>
-                                <div class="col-sm-12 col-md-7">
-                                    <input name="price" type="number" placeholder="Ex: 30000"
-                                        class="form-control currency" required>
-                                    <div class="invalid-feedback">
-                                        Champs obligatoire
-                                    </div>
+                        </div>
+                        <div class="form-group row mb-3">
+                            <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Prix</label>
+                            <div class="col-sm-12 col-md-7">
+                                <input name="price" type="number" placeholder="Ex: 30000"
+                                    class="form-control currency" required>
+                                <div class="invalid-feedback">
+                                    Champs obligatoire
                                 </div>
                             </div>
-                            <div class="form-group row mb-3 catDiv">
-                                <label for=""
-                                    class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Categorie</label>
+                        </div>
+                        <div class="form-group row mb-3 catDiv">
+                            <label for=""
+                                class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Categorie</label>
 
-                                <div class="col-sm-12 col-md-7">
-                                    <select name="categories[]" class="form-control select2 catDiv" required>
-                                        <option value="">Selectionner une catégorie</option>
-                                        @foreach ($categories as $item)
-                                            <option value="{{ $item['id'] }}"> {{ $item['name'] }} </option>
-                                        @endforeach
-                                    </select>
-                                    <div class="invalid-feedback">
-                                        Champs obligatoire
-                                    </div>
+                            <div class="col-sm-12 col-md-7">
+                                <select name="categories[]" class="form-control select2 catDiv" required>
+                                    <option value="">Selectionner une catégorie</option>
+                                    @foreach ($categories as $item)
+                                        <option value="{{ $item['id'] }}"> {{ $item['name'] }} </option>
+                                    @endforeach
+                                </select>
+                                <div class="invalid-feedback">
+                                    Champs obligatoire
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        <div class="form-group row mb-3 subcat  subCatDiv">
+                            <label for="" class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Sous
+                                categorie</label>
+
+                            <div class="col-sm-12 col-md-7">
+                                <select style="width: 520px" name="subcategories"
+                                    class="form-control select2 subCat_required  subCatDiv" required>
+                                    @foreach ($subcategories as $item)
+                                        {{-- <option value="{{ $item['id'] }}"> {{ $item['name'] }} </option> --}}
+                                    @endforeach
+                                </select>
+                                <div class="invalid-feedback">
+                                    Champs obligatoire
                                 </div>
                             </div>
 
+                        </div>
 
-
-                            <div class="form-group row mb-3 subcat  subCatDiv">
-                                <label for="" class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Sous
-                                    categorie</label>
-
-                                <div class="col-sm-12 col-md-7">
-                                    <select style="width: 520px" name="subcategories"
-                                        class="form-control select2 subCat_required  subCatDiv" required>
-                                        @foreach ($subcategories as $item)
-                                            {{-- <option value="{{ $item['id'] }}"> {{ $item['name'] }} </option> --}}
-                                        @endforeach
-                                    </select>
-                                    <div class="invalid-feedback">
-                                        Champs obligatoire
-                                    </div>
-                                </div>
-
-                            </div>
-
-                            @if (Auth::user()->roles[0]['name'] != 'boutique')
-                                <div class="form-group row mb-3 sectionDiv" id="">
+                        @if (Auth::user()->roles[0]['name'] != 'boutique')
+                            <div class="form-group row mb-3 sectionDiv" id="">
                                 <label for=""
                                     class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Section
                                     Categorie</label>
@@ -177,41 +178,41 @@
                                 </div>
 
                             </div>
-                            @endif
+                        @endif
 
-                            <div class="form-group row mb-3">
-                                <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Description</label>
-                                <div class="col-sm-12 col-md-7">
-                                    <textarea name="description" class="summernote-simple"></textarea>
-                                </div>
+                        <div class="form-group row mb-3">
+                            <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Description</label>
+                            <div class="col-sm-12 col-md-7">
+                                <textarea name="description" class="summernote-simple"></textarea>
                             </div>
-                            <div class="form-group row mb-3">
-                                <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Images</label>
-                                <div class="col-sm-12 col-md-7">
-                                    <p class="card-text">
-                                        <input type="file" id="files" class="form-control" name="files[]"
-                                            accept="image/*" multiple hidden required />
-                                        <label for="files" class="btn btn-light btn-lg border">
-                                            <i data-feather="image"></i>
-                                            Ajoutez des images</label>
-                                    <div class="invalid-feedback">Champs obligatoire</div>
-                                    </p>
+                        </div>
+                        <div class="form-group row mb-3">
+                            <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Images</label>
+                            <div class="col-sm-12 col-md-7">
+                                <p class="card-text">
+                                    <input type="file" id="files" class="form-control" name="files[]"
+                                        accept="image/*" multiple hidden required />
+                                    <label for="files" class="btn btn-light btn-lg border">
+                                        <i data-feather="image"></i>
+                                        Ajoutez des images</label>
+                                <div class="invalid-feedback">Champs obligatoire</div>
+                                </p>
 
-                                </div>
-                            </div>
-
-                            <div class="form-group row mb-3">
-                                <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"></label>
-                                <div class="col-sm-12 col-md-7 text-lg-right">
-                                    <button type="submit" class="btn btn-primary w-100">Enregistrer</button>
-                                </div>
                             </div>
                         </div>
 
-                    </form>
+                        <div class="form-group row mb-3">
+                            <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"></label>
+                            <div class="col-sm-12 col-md-7 text-lg-right">
+                                <button type="submit" class="btn btn-primary w-100">Enregistrer</button>
+                            </div>
+                        </div>
                 </div>
+
+                </form>
             </div>
         </div>
+    </div>
     </div>
 </section>
 
@@ -316,6 +317,11 @@
                 $('.subCatDiv').prop("required", false);
                 $('.sectionDiv').prop("required", false);
 
+                //viderles champs
+                $('.catDiv').val(' ');
+                $('.subCatDiv').val(' ');
+                $('.sectionDiv').val(' ');
+
             } else if (selectVal === 'section') {
                 $('.sectionDiv').show(200);
                 $('.catDiv').hide(200);
@@ -326,6 +332,11 @@
                 $('.subCatDiv').prop("required", false);
                 $('.packDiv').prop("required", false);
 
+                //vider les champs
+                $('.catDiv').val(' ');
+                $('.subCatDiv').val(' ');
+                $('.packDiv').val(' ');
+
             } else if (selectVal === 'normal') {
                 $('.catDiv').show(200);
                 // $('.subCatDiv').show(200);
@@ -334,6 +345,10 @@
                 $('.catDiv').prop("required", true);
                 $('.sectionDiv').prop("required", false);
                 $('.packDiv').prop("required", false);
+
+                //vider  le champ de la section
+                $('.sectionDiv').val(' ');
+                $('.packDiv').val(' ');
             }
 
         });
