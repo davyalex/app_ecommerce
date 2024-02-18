@@ -23,8 +23,9 @@ class MarketPlaceController extends Controller
     public function allStore()
     {
         $store = User::with([
-            'roles', 'products'=>fn ($q) => $q->with(['media', 'categories', 'subcategorie']), 'media'
+            'roles', 'products' => fn ($q) => $q->with(['media', 'categories', 'subcategorie']), 'media'
         ])
+        
             ->whereHas('roles', fn ($q) => $q->where('name', 'boutique'))
             ->orderBy('created_at', 'DESC')->get();
 
@@ -48,16 +49,18 @@ class MarketPlaceController extends Controller
      * 
      */
 
-   public function  productStore(Request $request){
+    public function  productStore(Request $request)
+    {
         $data = Product::with(['media', 'categories', 'user'])
-            ->where('user_id',$request['id'])->inRandomOrder()->paginate(15);
+            ->where('user_id', $request['id'])
+            ->inRandomOrder()->paginate(15);
 
         return response()->json([
             "data" => $data,
             "requestId" => $request['id'],
             "description" => 'Liste des produits d\'une boutique de la marketplace',
         ], 200);
-   }
+    }
 
 
     /**
@@ -76,8 +79,8 @@ class MarketPlaceController extends Controller
     {
 
         try {
-            $data = Product::with(['user','media', 'categories', 'subcategorie'])
-            ->whereId($request['id'])->first();
+            $data = Product::with(['user', 'media', 'categories', 'subcategorie'])
+                ->whereId($request['id'])->first();
 
             return response()->json([
                 // 'status' => true,
@@ -93,6 +96,4 @@ class MarketPlaceController extends Controller
             ], 200);
         }
     }
-      
-
 }

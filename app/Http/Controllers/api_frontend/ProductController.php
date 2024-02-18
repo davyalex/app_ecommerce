@@ -39,20 +39,21 @@ class ProductController extends Controller
             // ])->whereId($category_id)->first();
 
             $data_category = "";
-                
+
             if ($category_id) {
 
                 // Get infos category if request category_id
                 $data_category = Category::with([
                     'subcategories' => fn ($q) => $q->with(['media', 'products']), 'media'
                 ])->whereId($category_id)->first();
-                
+
 
                 $data_product = Product::whereHas(
                     'categories',
                     fn ($q) => $q->where('category_product.category_id', $category_id),
 
-                )->with(['collection', 'media', 'categories', 'subcategorie'])
+                )->with(['user', 'media', 'categories', 'subcategorie', 'user'])
+                    ->whereHas('user', fn ($q) => $q->where('role', '!=', 'boutique'))
                     ->inRandomOrder()->paginate(36);
             } elseif ($subcategory_id) {
 
@@ -60,12 +61,15 @@ class ProductController extends Controller
                 $data_category = SubCategory::with([
                     'category' => fn ($q) => $q->with(['media', 'products']), 'media'
                 ])->whereId($subcategory_id)->first();
-                
 
-                $data_product = Product::with(['subcategorie','collection', 'media', 'categories'])
-                    ->where('sub_category_id', $subcategory_id)->inRandomOrder()->paginate(36);
+
+                $data_product = Product::with(['subcategorie', 'user', 'media', 'categories'])
+                    ->where('sub_category_id', $subcategory_id)
+                    ->whereHas('user', fn ($q) => $q->where('role', '!=', 'boutique'))
+                    ->inRandomOrder()->paginate(36);
             } else {
-                $data_product = Product::with([ 'subcategorie','collection', 'media', 'categories'])
+                $data_product = Product::with(['subcategorie', 'user', 'media', 'categories'])
+                    ->whereHas('user', fn ($q) => $q->where('role', '!=', 'boutique'))
                     ->inRandomOrder()->paginate(36);
             }
 
@@ -113,7 +117,8 @@ class ProductController extends Controller
 
 
             $product_related =
-                Product::with(['media', 'categories', 'subcategorie'])
+                Product::with(['media', 'user', 'categories', 'subcategorie'])
+                ->whereHas('user', fn ($q) => $q->where('role', '!=', 'boutique'))
                 ->whereHas('categories', fn ($q) => $q->where('category_product.category_id', $data['categories'][0]['id']))
                 ->where('sub_category_id', $data['sub_category_id'])
                 ->where('id', '!=',  $product_id)
@@ -152,8 +157,9 @@ class ProductController extends Controller
 
         try {
             $search = request('q');
-            $data = Product::with(['categories', 'subcategorie', 'media'])
+            $data = Product::with(['categories','user' ,'subcategorie', 'media'])
                 ->where('title', 'Like', "%{$search}%")
+                ->whereHas('user', fn ($q) => $q->where('role', '!=', 'boutique'))
                 ->orderBy('created_at', 'desc')->paginate(36);
 
             return response()->json([

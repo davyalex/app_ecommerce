@@ -31,7 +31,9 @@ class HomeController extends Controller
                         'subcategorie',
                         fn ($q) => $q->orderBy('created_at', 'ASC'),
                         'media'
-                    )->inRandomOrder();
+                    )
+                        ->whereHas('user', fn ($q) => $q->where('role', '!=', 'boutique'))
+                        ->inRandomOrder();
                 }, 'media', 'subcategories' => fn ($q) => $q->with(['products', 'media'])
             ])
                 ->orderBy('created_at', 'ASC')
@@ -65,7 +67,11 @@ class HomeController extends Controller
     public function sectionCategory()
     {
         try {
-            $data = Category::with(['media', 'products' => fn ($q) => $q->with('media')])
+            $data = Category::with([
+                'media', 'products' => fn ($q) => $q
+                    ->with(['media', 'user'])
+                    ->whereHas('user', fn ($q) => $q->where('role', '!=', 'boutique'))
+            ])
                 ->orderBy('created_at', 'ASC')
                 ->whereType('section')
                 ->get();
@@ -96,7 +102,8 @@ class HomeController extends Controller
         try {
             $data = Category::with([
                 'media', 'products' => fn ($q) =>
-                $q->with(['subcategorie', 'media']),
+                $q->with(['subcategorie', 'media'  , 'user'])
+                    ->whereHas('user', fn ($q) => $q->where('role', '!=', 'boutique')),
             ])
                 ->orderBy('created_at', 'DESC')
                 ->whereType('pack')
@@ -125,7 +132,9 @@ class HomeController extends Controller
 
     public function someProduct()
     {
-        $data = Product::with(['categories', 'subcategorie', 'media'])->inRandomOrder()->take(30)->get();
+        $data = Product::with(['categories', 'subcategorie', 'media', 'user'])
+            ->whereHas('user', fn ($q) => $q->where('role', '!=', 'boutique'))
+            ->inRandomOrder()->take(30)->get();
 
         return response()->json([
             // 'status' => true,
