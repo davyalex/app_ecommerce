@@ -132,10 +132,12 @@
                                         timer: 500,
                                         timerProgressBar: true,
                                     });
-                                    setTimeout(function() {
-                                        window.location.href =
-                                            "{{ route('user.list') }}";
-                                    }, 500);
+
+                                    location.reload()
+                                    // setTimeout(function() {
+                                    //     window.location.href =
+                                    //         "{{ route('user.list') }}";
+                                    // }, 500);
                                 }
                             }
                         });
