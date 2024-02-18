@@ -28,12 +28,14 @@ class HomeController extends Controller
             $data = Category::with([
                 'products' => function ($q) {
                     return $q->with(
-                        'media',
-                        'subcategorie',
-                        fn ($q) => $q->orderBy('created_at', 'ASC'),
+                        [
+                            'subcategorie' =>
+                            fn ($q) => $q->orderBy('created_at', 'ASC'),
+                            'user', 'media'
+                        ]
                     )
                         ->whereHas('user', fn ($q) => $q->where('role', '!=', 'boutique'))
-                      ;
+                        ->inRandomOrder()->paginate(15);
                 }, 'media', 'subcategories' => fn ($q) => $q->with(['products', 'media'])
             ])
                 ->orderBy('created_at', 'ASC')

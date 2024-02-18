@@ -54,7 +54,7 @@ class ProductController extends Controller
 
                 )->with(['user', 'media', 'categories', 'subcategorie', 'user'])
                     ->whereHas('user', fn ($q) => $q->where('role', '!=', 'boutique'))
-                    ->inRandomOrder()->paginate(36);
+                    ->inRandomOrder()->take(36);
             } elseif ($subcategory_id) {
 
                 // Get infos category if request subcategory_id
