@@ -49,6 +49,9 @@ Route::prefix('v1')->group(function () {
         //Section Category pack with products
         Route::get('/categoryPack', 'CategoryPack');
 
+        //Pack product
+        Route::get('/productPack', 'productPack');
+
         // quelques produits sur la page accueil
         Route::get('/someProduct', 'someProduct');
     });

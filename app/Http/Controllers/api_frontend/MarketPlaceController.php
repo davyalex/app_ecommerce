@@ -23,7 +23,7 @@ class MarketPlaceController extends Controller
     public function allStore()
     {
         $store = User::with([
-            'roles', 'products' => fn ($q) => $q->with(['media', 'categories', 'subcategorie']),
+            'roles', 'products' => fn ($q) => $q->with(['media', 'categories', 'subcategorie']), 
             'media'
         ])->withCount('products')
         

@@ -118,6 +118,20 @@
                 }
             }
         },
+        "/api/v1/productPack": {
+            "get": {
+                "tags": [
+                    "Liste des produits packs"
+                ],
+                "summary": "Liste des produits packs",
+                "operationId": "41cad9512ba025990241ccf61e025c72",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            }
+        },
         "/api/v1/someProduct": {
             "get": {
                 "tags": [

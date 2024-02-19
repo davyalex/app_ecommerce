@@ -123,6 +123,38 @@ class HomeController extends Controller
     }
 
 
+
+    /**
+     * @OA\Get(
+     *     path="/api/v1/productPack",
+     *     summary="Liste des produits packs",
+     *     tags={"Liste des produits packs"},
+     *     @OA\Response(response=200, description="Successful operation"),
+     * )
+     */
+
+    public function productPack()
+    {
+        $data = Product::with([
+            'categories', 'subcategorie', 'media', 'user'
+        ])
+            ->whereType('pack')
+            ->whereHas('user', fn ($q) => $q->where('role', '!=', 'boutique'))
+            ->inRandomOrder()->get();
+
+        return response()->json([
+            // 'status' => true,
+            'message' => "Data Found",
+            "data" => $data,
+            "description" => 'Liste des produits packs',
+
+        ], 200);
+    }
+
+
+
+
+
     /**
      * @OA\Get(
      *     path="/api/v1/someProduct",
