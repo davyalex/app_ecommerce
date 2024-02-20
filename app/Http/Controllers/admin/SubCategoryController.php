@@ -116,13 +116,14 @@ class SubCategoryController extends Controller
     public function destroy(string $id)
     {
         //
+        //delete product  of this sub-category
+        Product::where("sub_category_id", $id)->delete();
+
         SubCategory::whereId($id)->delete();
-//delete product  of this sub-category
-        Product::where("sub_category_id",$id)->delete();
-        
+
 
         return response()->json([
-            'status'=>200
+            'status' => 200
         ]);
     }
 }
