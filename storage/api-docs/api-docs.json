@@ -174,6 +174,20 @@
                 }
             }
         },
+        "/api/v1/marketplace/productAllStore": {
+            "get": {
+                "tags": [
+                    " Liste de tous les produits de toute les boutiques "
+                ],
+                "summary": "Liste de tous les produits de toute les boutiques",
+                "operationId": "d4c15f0abe2b40cf02c0ae51a026c3a7",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            }
+        },
         "/api/v1/marketplace/productStore": {
             "get": {
                 "tags": [

@@ -38,7 +38,43 @@ class MarketPlaceController extends Controller
     }
 
 
-    //
+
+
+    /**
+     * @OA\Get(
+     *     path="/api/v1/marketplace/productAllStore",
+     *     summary="Liste de tous les produits de toute les boutiques",
+     *     tags={" Liste de tous les produits de toute les boutiques "},
+     *     
+     *     @OA\Response(response=200, description="Successful operation"),
+     * )
+     **/
+
+    public function productAllStore()
+    {
+
+        $data = Product::with(['user', 'subcategorie', 'media', 'categories'])
+        ->whereHas('user', fn ($q) => $q->where('role', 'boutique'))
+        ->inRandomOrder()->paginate(36);
+    
+        return response()->json([
+            'message' => "Data Found",
+            "data" => $data,
+            "description" => 'Liste des produits de toutes les boutiques de la marketplace',
+        ], 200);
+    }
+
+
+
+
+
+
+
+
+
+    
+
+   
     /**
      * @OA\Get(
      *     path="/api/v1/marketplace/productStore",

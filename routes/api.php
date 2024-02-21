@@ -73,6 +73,8 @@ Route::prefix('v1')->group(function () {
         Route::get('/marketplace/allStore', 'allStore');
         // Liste des produits d'une boutique de la marketplace
         Route::get('/marketplace/productStore', 'productStore');
+        // Liste de tous les produits des boutique de la marketplace
+        Route::get('/marketplace/productAllStore', 'productAllStore');
         //Detail du produit
         Route::get('/marketplace/productDetail', 'productDetail');
     });
