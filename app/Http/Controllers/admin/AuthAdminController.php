@@ -122,11 +122,11 @@ class AuthAdminController extends Controller
 
     public function destroy($id)
     {
+        //delete order of this user
+        Order::where("user_id", $id)->delete();
 
         User::whereId($id)->delete();
 
-        //delete order of this user
-        Order::where("user_id", $id)->delete();
 
         return response()->json([
             'status' => 200
