@@ -69,6 +69,8 @@ class OrderController extends Controller
                     'total' => $delivery['tarif']  + $request['sous_total'],
                     'delivery_price' => $delivery['tarif'],
                     'delivery_name' =>   $delivery['zone'],
+                    'total_livraison' => $delivery['total_livraison'],
+                    'mode_livraison' =>   $delivery['mode_livraison'], // Expedition(Interieur) ou  Abidjan
                     // 'discount' => '',
                     'delivery_planned' => Carbon::now()->addDay(3), //date de livraison prevue
                     // 'delivery_date' => '', //date de livraison

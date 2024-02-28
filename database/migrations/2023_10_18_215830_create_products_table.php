@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('title')->nullable();
             $table->string('slug')->nullable();
             $table->double('price')->nullable();
+
             $table->string('type')->nullable();
             $table->string('disponibilite')->nullable(); //disponible, rupture
             $table->longText('description')->nullable();
@@ -39,6 +40,9 @@ return new class extends Migration
             ->constrained('users')
             ->onUpdate('cascade')
             ->onDelete('set null');
+
+            $table->double('delivery_interieur')->nullable(); //livraison hors abidjan
+            $table->double('delivery_abidjan')->nullable(); //livraison sur abidjan
 
             $table->softDeletes();
             

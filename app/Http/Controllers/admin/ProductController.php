@@ -20,10 +20,13 @@ class ProductController extends Controller
      */
     public function index()
     {
-        //
-        $product = Product::with(['categories', 'subcategorie', 'media','user'])
-        ->where('user_id', Auth::user()->id)
-        ->orderBy('created_at', 'DESC')
+        //filtre par type de produit
+        $type = request('type');
+        $product = Product::with(['categories', 'subcategorie', 'media', 'user'])
+            ->where('user_id', Auth::user()->id)
+            // ->whereHas('user', fn ($q) => $q->where('role','!=' ,'boutique'))
+            ->when($type,fn($q)=>$q->whereType($type))
+            ->orderBy('created_at', 'DESC')
             ->get();
         // dd($product->toArray());
         return view('admin.pages.product.index', compact('product'));
@@ -57,10 +60,14 @@ class ProductController extends Controller
             'price' => ['required'],
             'categories' => '',
             'type' => ['required'],
+            'delivery_interieur' => ['required'],
+            'delivery_abidjan' => ['required'],
+
+
 
         ]);
 
-        
+
         $product = Product::create([
             'title' => $request['title'],
             'description' => $request['description'],
@@ -68,7 +75,10 @@ class ProductController extends Controller
             'type' => $request['type'],
             'disponibilite' => 'disponible', //disponible or rupture
             'sub_category_id' => $request['subcategories'],
-            'user_id' => Auth::user()->id
+            'user_id' => Auth::user()->id,
+            'delivery_interieur' => $request['delivery_interieur'],
+            'delivery_abidjan' => $request['delivery_abidjan']
+
         ]);
 
         //insert category principale in pivot table
@@ -193,7 +203,9 @@ class ProductController extends Controller
             'description' => '',
             'price' => ['required'],
             'categories' => '',
-            'type' => ['required']
+            'type' => ['required'],
+            'delivery_interieur' => ['required'],
+            'delivery_abidjan' => ['required'],
         ]);
 
         $product = tap(Product::find($id))->update([
@@ -203,7 +215,9 @@ class ProductController extends Controller
             'type' => $request['type'],
             'disponibilite' => 'disponible', //disponible or rupture
             'collection_id' => $request['collection'],
-            'sub_category_id' => $request['subcategories']
+            'sub_category_id' => $request['subcategories'],
+            'delivery_interieur' => $request['delivery_interieur'],
+            'delivery_abidjan' => $request['delivery_abidjan']
 
         ]);
 

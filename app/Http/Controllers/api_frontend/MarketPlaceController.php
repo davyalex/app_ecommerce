@@ -66,14 +66,6 @@ class MarketPlaceController extends Controller
 
 
 
-
-
-
-
-
-
-    
-
    
     /**
      * @OA\Get(

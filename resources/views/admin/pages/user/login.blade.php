@@ -9,21 +9,21 @@
           <div class="card card-primary">
             @include('admin.components.validationMessage')
             <div class="card-header">
-              <h3 class="m-auto">Connexion dashboard </h3>
+              <h3 class="m-auto">Connexion au Tableau de bord </h3>
             </div>
             <div class="card-body">
               <form class="needs-validation" novalidate="" method="POST" action="{{route('auth.login')}}">
                 @csrf
                 <div class="form-group">
-                  <label for="email">Email</label>
-                  <input id="email" type="email" class="form-control" name="email" required>
+                  <label for="email">Email ou Numero de telephone</label>
+                  <input id="email" type="text" class="form-control" name="email" required>
                   <div class="invalid-feedback">
                     Champs obligatoire
                 </div>
                 </div>
                
                   <div class="form-group">
-                    <label for="password" class="d-block">Password</label>
+                    <label for="password" class="d-block">Mot de passe</label>
                     <input id="password" type="password" class="form-control pwstrength" data-indicator="pwindicator"
                       name="password" required>
                     {{-- <div id="pwindicator" class="pwindicator">

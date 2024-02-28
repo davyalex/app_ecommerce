@@ -22,6 +22,8 @@ class Order extends Model
         'delivery_name',
         'discount',
         'total',
+        'total_livraison', // Montant total de la livraison 
+        'mode_livraison', // mode livraison : interieur, Abidjan
         'delivery_planned', //date de livraison prevue
         'delivery_date', //date de livraison
         'status', //livre , en attente
@@ -29,6 +31,8 @@ class Order extends Model
         'available_product', //disponibilite
         'user_id',
         'date_order',
+        'delivery_interieur', //expedition ou livraison à l'interieur
+        'delivery_abidjan', //livraison sur abidjan
         'created_at',
         'updated_at',
     ];

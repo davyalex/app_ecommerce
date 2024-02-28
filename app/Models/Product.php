@@ -33,6 +33,8 @@ class Product extends Model implements HasMedia
         'collection_id',
         'sub_category_id',
         'user_id',
+        'delivery_interieur', // livraison hors abidjan
+        'delivery_abidjan',  //livraison sur abidjan
         'created_at',
         'updated_at',
         'deleted_at'

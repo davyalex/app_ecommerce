@@ -162,8 +162,10 @@ class AuthController extends Controller
         //verify data in
 
         $data = $request->only('phone', 'password');
-
         $auth = Auth::attempt($data);
+
+        // $fieldType = filter_var($request->phone, FILTER_VALIDATE_EMAIL) ? 'email' : 'phone';
+        // $auth = Auth::attempt((array($fieldType => $request['phone'], 'password' => $request['password'])));
 
         if (!$auth) {
             return response()->json([
@@ -226,7 +228,7 @@ class AuthController extends Controller
             //verification de l'ancien mot de passe
             if (!Hash::check($request->old_password, auth()->user()->password)) {
                 return response()->json(['error' => 'Ancien Mot de passe incorrect'], 401);
-            }else{
+            } else {
                 $request->validate([
                     'name' => 'required',
                     'phone' => 'required',
@@ -250,15 +252,13 @@ class AuthController extends Controller
                     'user' => $user
                 ], 200);
             }
-
-           
         } else {
 
             $request->validate([
                 'name' => 'required',
                 'phone' => 'required',
                 'email' => 'required',
-               
+
             ]);
             $user = tap(User::whereId(Auth::user()->id))->update([
                 'name' => $request['name'],

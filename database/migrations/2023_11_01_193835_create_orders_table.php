@@ -20,6 +20,8 @@ return new class extends Migration
             $table->string('delivery_name')->nullable(); // Lieu de livraison
             $table->double('discount')->nullable();
             $table->string('total')->nullable();
+            $table->string('mode_livraison')->nullable(); //Expedition ou Abidjan
+            $table->double('total_livraison')->nullable();
             $table->dateTime('delivery_planned')->nullable(); //date de livraison prevue
             $table->dateTime('delivery_date')->nullable(); //date de livraison
             $table->string('status')->nullable(); // attente", en cour ,livré

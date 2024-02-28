@@ -50,7 +50,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4>Ajouter un produit</h4>
+                        <h4> Ajouter un produit</h4>
                     </div>
                     @include('admin.components.validationMessage')
 
@@ -200,6 +200,37 @@
 
                             </div>
                         </div>
+
+                        @if (Auth::user()->roles[0]['name'] != 'boutique')
+                            <!-- ========== Start livraison ========== -->
+                            <hr class="w-100 bg-primary">
+                            <h6 class="text-dark"> <i class="fas fa-shipping-fast"></i> Definir les tarifs de
+                                Livraison</h6>
+                            <div class="form-group row mb-3">
+                                <div class="col-sm-6 col-md-6">
+                                    <label class="col-form-label  col-12 col-md-12 col-lg-12">Tarif Livraison
+                                        interieur ou Expedition</label>
+                                    <input name="delivery_interieur" type="number" placeholder="3000"
+                                        class="form-control" required>
+                                    <div class="invalid-feedback">
+                                        Champs obligatoire
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 col-md-6">
+                                    <label class="col-form-label  col-12 col-md-12 col-lg-12">Tarif livraison
+                                        abidjan</label>
+                                    <input name="delivery_abidjan" type="number" placeholder="2000"
+                                        class="form-control" required>
+                                    <div class="invalid-feedback">
+                                        Champs obligatoire
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- ========== End livraison ========== -->
+                        @endif
+
+
+
 
                         <div class="form-group row mb-3">
                             <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"></label>

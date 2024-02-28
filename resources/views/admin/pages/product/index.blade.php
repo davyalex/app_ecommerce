@@ -7,9 +7,26 @@
             <div class="row">
                 <div class="col-12">
                     <div class="card">
-                        <div class="card-header">
-                            <h4>Produits</h4>
+                        <div class="card-header d-flex justify-content-around">
+                            <h4>Produits  {{request('type') ?? ''}}  </h4>
                             <a href="{{ route('product.create') }}" class="btn btn-primary">Ajouter un produit</a>
+
+                            <div class="dropdown">
+                                @php
+                                    $type = ['normal', 'pack', 'section'];
+                                @endphp
+                                <a href="#" data-toggle="dropdown" class="btn btn-primary dropdown-toggle">
+                                    <i class="fa fa-filter"></i>
+                                    Filtre par type</a>
+                                <div class="dropdown-menu">
+                                    @foreach ($type as $item)
+                                        <a href="/admin/product?type={{ $item }}"
+                                            class="dropdown-item has-icon text-capitalize"><i class="fa fa-shopping-cart"></i>
+                                            {{ $item }}
+                                        </a>
+                                    @endforeach
+                                </div>
+                            </div>
                         </div>
 
                         @include('admin.components.validationMessage')
@@ -26,6 +43,7 @@
                                             <th>Name</th>
                                             <th>categories</th>
                                             <th>prix</th>
+                                            <th>Tarif Livraison</th>
                                             <th>date</th>
                                             <th>Action</th>
                                         </tr>
@@ -45,11 +63,17 @@
                                                 <td>{{ $item['title'] }}</td>
                                                 <td>
                                                     @foreach ($item['categories'] as $items)
-                                                       <br> {{ $items['name'] }}
-                                                        <small class="text-danger"><b> #type :{{$items['type']}}</b> </small>
+                                                        <br> {{ $items['name'] }}
+                                                        <small class="text-danger"><b> #type :{{ $items['type'] }}</b>
+                                                        </small>
                                                     @endforeach
                                                 </td>
                                                 <td>{{ number_format($item['price'], 0) }} FCFA</td>
+                                                <td>
+                                                    <p>Expedition: {{ number_format($item['delivery_interieur'], 0) }} </p>
+                                                    <p>Abidjan: {{ number_format($item['delivery_abidjan'], 0) }} </p>
+
+                                                </td>
                                                 <td>{{ \Carbon\Carbon::parse($item['created_at'])->diffForHumans() }}</td>
                                                 <td>
                                                     <div class="dropdown">

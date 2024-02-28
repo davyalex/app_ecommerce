@@ -35,7 +35,7 @@ class DeliveryController extends Controller
         //
         $data =  $request->validate([
             'zone' => 'required',
-            'tarif' => 'required',
+            'tarif' => '',
         ]);
 
       
@@ -75,7 +75,7 @@ class DeliveryController extends Controller
         //
         $data =  $request->validate([
             'zone' => 'required',
-            'tarif' => 'required',
+            'tarif' => '',
         ]);
 
       

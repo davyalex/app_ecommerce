@@ -20,7 +20,7 @@ class AuthAdminController extends Controller
     public function listUser()
     {
         $role = request('user');
-        $users = User::with(['roles', 'products','media'])
+        $users = User::with(['roles', 'products', 'media'])
             ->whereHas('roles', fn ($q) => $q->where('name', '!=', 'developpeur'))
             ->when($role, fn ($q, $role) => $q->whereHas('roles', fn ($q) => $q->where('name', $role)))
             ->orderBy('created_at', 'DESC')->get();
@@ -144,10 +144,13 @@ class AuthAdminController extends Controller
                 'email' => ['required',],
                 'password' => ['required'],
             ]);
-            if (Auth::attempt($credentials)) {
+
+            $fieldType = filter_var($request->email, FILTER_VALIDATE_EMAIL) ? 'email' : 'phone';
+
+            if (Auth::attempt((array($fieldType => $request['email'], 'password' => $request['password']))))  {
                 return redirect()->route('dashboard.index')->withSuccess('Connexion réussi,  Bienvenue  ' . Auth::user()->name);
             } else {
-                return back()->withError('Email ou mot de passe incorrect');
+                return back()->withError('Identifiant ou mot de passe incorrect');
             }
         }
     }
