@@ -37,6 +37,10 @@ class ProductController extends Controller
                 ->when($type, fn ($q) => $q->whereType($type))
                 ->orderBy('created_at', 'DESC')
                 ->get();
+
+            // dd($product->toArray());
+            return view('admin.pages.product.index', compact('product'));
+            
         } elseif ($auth = Auth::check()  && $auth_role == 'administrateur') {
             //recuperation des produits en fonction du filtre
             $product = Product::with(['categories', 'subcategorie', 'media', 'user'])
@@ -44,11 +48,13 @@ class ProductController extends Controller
                 ->when($type, fn ($q) => $q->whereType($type))
                 ->orderBy('created_at', 'DESC')
                 ->get();
+
+
+            // dd($product->toArray());
+            return view('admin.pages.product.index', compact('product'));
         }
 
 
-        // dd($product->toArray());
-        return view('admin.pages.product.index', compact('product'));
     }
 
     /**
