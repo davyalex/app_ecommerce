@@ -21,20 +21,33 @@ class ProductController extends Controller
     public function index()
     {
         //get role user
-        $auth = Auth::user();
+        $auth = Auth::check();
         $auth_role = Auth::user()->roles[0]->name;
 
+        // dd($auth);
 
         //filtre par type de produit
         $type = request('type');
+        if ($auth = Auth::check()  && $auth_role == 'boutique') {
+            //recuperation des produits en fonction du filtre
+            $product = Product::with(['categories', 'subcategorie', 'media', 'user'])
+                ->where('user_id', Auth::user()->id)
+                ->whereHas('user', fn ($q) => $q->where('role', 'boutique'))
 
-        $product = Product::with(['categories', 'subcategorie', 'media', 'user'])
-            ->where('user_id', Auth::user()->id)
-            ->when($type, fn ($q) => $q->whereType($type))
-            ->when($auth, fn ($q) => $q->whereHas('user', fn ($q) => $q->where('role', '==', 'administrateur')))
-            ->orderBy('created_at', 'DESC')
-            ->get();
-        dd($product->toArray());
+                ->when($type, fn ($q) => $q->whereType($type))
+                ->orderBy('created_at', 'DESC')
+                ->get();
+        } elseif ($auth = Auth::check()  && $auth_role == 'administrateur') {
+            //recuperation des produits en fonction du filtre
+            $product = Product::with(['categories', 'subcategorie', 'media', 'user'])
+                ->whereHas('user', fn ($q) => $q->where('role', 'administrateur'))
+                ->when($type, fn ($q) => $q->whereType($type))
+                ->orderBy('created_at', 'DESC')
+                ->get();
+        }
+
+
+        // dd($product->toArray());
         return view('admin.pages.product.index', compact('product'));
     }
 
