@@ -20,15 +20,21 @@ class ProductController extends Controller
      */
     public function index()
     {
+        //get role user
+        $auth = Auth::user();
+        $auth_role = Auth::user()->roles[0]->name;
+
+
         //filtre par type de produit
         $type = request('type');
+
         $product = Product::with(['categories', 'subcategorie', 'media', 'user'])
             ->where('user_id', Auth::user()->id)
-            // ->whereHas('user', fn ($q) => $q->where('role','!=' ,'boutique'))
-            ->when($type,fn($q)=>$q->whereType($type))
+            ->when($type, fn ($q) => $q->whereType($type))
+            ->when($auth, fn ($q) => $q->whereHas('user', fn ($q) => $q->where('role', '==', 'administrateur')))
             ->orderBy('created_at', 'DESC')
             ->get();
-        // dd($product->toArray());
+        dd($product->toArray());
         return view('admin.pages.product.index', compact('product'));
     }
 
