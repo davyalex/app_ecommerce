@@ -64,7 +64,7 @@ class OrderController extends Controller
                     "user_id" => Auth::user()->id,
                     'quantity_product' => $request['qte_des_articles'],
                     'subtotal' => $request['sous_total'],
-                    'total' => $delivery['tarif']  + $request['sous_total'],
+                    'total' => $request['total_livraison']  + $request['sous_total'],
                     'delivery_price' => $delivery['tarif'],
                     'delivery_name' =>   $delivery['zone'],
                     'total_livraison' => $request['total_livraison'],
