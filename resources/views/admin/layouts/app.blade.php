@@ -41,8 +41,8 @@
     https://cdn.jsdelivr.net/npm/sweetalert2@11.7.32/dist/sweetalert2.min.css
     " rel="stylesheet">
     <script src="
-                        https://cdn.jsdelivr.net/npm/sweetalert2@11.7.32/dist/sweetalert2.all.min.js
-                        "></script>
+                            https://cdn.jsdelivr.net/npm/sweetalert2@11.7.32/dist/sweetalert2.all.min.js
+                            "></script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.5/jspdf.min.js"></script>
 
@@ -248,86 +248,86 @@
 
 
                 {{-- Vertical nav --}}
-               @role([ 'administrateur', 'developpeur', 'gestionnaire'])
-                <div class="main-sidebar sidebar-style-2">
-                    <aside id="sidebar-wrapper">
-                        <div class="sidebar-brand">
-                            <a href="{{ route('dashboard.index') }}">
-                                <span class="logo-name">
-                                    <img src="{{ asset('admin/assets/img/logo.jpg') }}" width="80" class="m-auto"
-                                        alt="">
-                                </span>
-                            </a>
-                        </div>
-                        <ul class="sidebar-menu">
-                            <li class="dropdown active">
-                                <a href="/dashboard" class="nav-link"><i data-feather="monitor"></i><span>Tableau de
-                                        bord</span></a>
-                            </li>
+                @role(['administrateur', 'developpeur', 'gestionnaire'])
+                    <div class="main-sidebar sidebar-style-2">
+                        <aside id="sidebar-wrapper">
+                            <div class="sidebar-brand">
+                                <a href="{{ route('dashboard.index') }}">
+                                    <span class="logo-name">
+                                        <img src="{{ asset('admin/assets/img/logo.jpg') }}" width="80" class="m-auto"
+                                            alt="">
+                                    </span>
+                                </a>
+                            </div>
+                            <ul class="sidebar-menu">
+                                <li class="dropdown active">
+                                    <a href="/dashboard" class="nav-link"><i data-feather="monitor"></i><span>Tableau de
+                                            bord</span></a>
+                                </li>
 
-                            <li class="dropdown">
-                                <a href="{{ route('category.index') }}" class="nav-link"><i
-                                        data-feather="grid"></i><span>Categories</span></a>
-                            </li>
+                                <li class="dropdown">
+                                    <a href="{{ route('category.index') }}" class="nav-link"><i
+                                            data-feather="grid"></i><span>Categories</span></a>
+                                </li>
 
-                            <li class="dropdown">
-                                <a href="{{ route('sub-category.index') }}" class="nav-link"><i
-                                        data-feather="grid"></i><span>Sous Categories</span></a>
-                            </li>
-                            {{-- <li class="dropdown">
+                                <li class="dropdown">
+                                    <a href="{{ route('sub-category.index') }}" class="nav-link"><i
+                                            data-feather="grid"></i><span>Sous Categories</span></a>
+                                </li>
+                                {{-- <li class="dropdown">
                                 <a href="{{ route('collection.index') }}" class="nav-link"><i
                                         data-feather="grid"></i><span>Collections</span></a>
                             </li> --}}
 
-                            <li class="dropdown">
-                                <a href="{{ route('product.index') }}" class="nav-link"><i
-                                        data-feather="shopping-bag"></i><span>Produits</span></a>
-                            </li>
+                                <li class="dropdown">
+                                    <a href="{{ route('product.index') }}" class="nav-link"><i
+                                            data-feather="shopping-bag"></i><span>Produits</span></a>
+                                </li>
 
-                            <li class="dropdown">
-                                <a href="#" class="menu-toggle nav-link has-dropdown"><i
-                                        data-feather="shopping-cart"></i><span>Commandes</span></a>
-                                <ul class="dropdown-menu">
-                                    <li><a class="nav-link" href="/admin/order?d=jour">Jour</a></li>
-                                    <li><a class="nav-link" href="/admin/order?s=attente">Attentes</a></li>
-                                    <li><a class="nav-link" href="/admin/order?s=livrée">Livrées</a></li>
-                                    <li><a class="nav-link" href="/admin/order?s=annulée">Annulées</a></li>
+                                <li class="dropdown">
+                                    <a href="#" class="menu-toggle nav-link has-dropdown"><i
+                                            data-feather="shopping-cart"></i><span>Commandes</span></a>
+                                    <ul class="dropdown-menu">
+                                        <li><a class="nav-link" href="/admin/order?d=jour">Jour</a></li>
+                                        <li><a class="nav-link" href="/admin/order?s=attente">Attentes</a></li>
+                                        <li><a class="nav-link" href="/admin/order?s=livrée">Livrées</a></li>
+                                        <li><a class="nav-link" href="/admin/order?s=annulée">Annulées</a></li>
 
-                                    <li><a class="nav-link" href="{{ route('order.index') }}">Toutes les
-                                            commandes</a></li>
+                                        <li><a class="nav-link" href="{{ route('order.index') }}">Toutes les
+                                                commandes</a></li>
 
-                                </ul>
-                            </li>
-                            <li class="dropdown">
-                                <a href="#" class="menu-toggle nav-link has-dropdown"><i
-                                        data-feather="users"></i><span>Utilisateurs</span></a>
-                                <ul class="dropdown-menu">
-                                    @foreach ($roles as $item)
-                                        <li><a class="nav-link" href="/admin/auth?user={{ $item['name'] }}">
-                                                {{ $item['name'] }} </a></li>
-                                    @endforeach
+                                    </ul>
+                                </li>
+                                <li class="dropdown">
+                                    <a href="#" class="menu-toggle nav-link has-dropdown"><i
+                                            data-feather="users"></i><span>Utilisateurs</span></a>
+                                    <ul class="dropdown-menu">
+                                        @foreach ($roles as $item)
+                                            <li><a class="nav-link" href="/admin/auth?user={{ $item['name'] }}">
+                                                    {{ $item['name'] }} </a></li>
+                                        @endforeach
 
-                                    <li><a class="nav-link" href="{{ route('user.list') }}">Liste des
-                                            utilisateurs</a></li>
-                                </ul>
-                                {{-- <ul class="dropdown-menu">
+                                        <li><a class="nav-link" href="{{ route('user.list') }}">Liste des
+                                                utilisateurs</a></li>
+                                    </ul>
+                                    {{-- <ul class="dropdown-menu">
                                 <li><a class="nav-link" href="/admin/auth/register?u=fournisseur">Fournisseur</a></li>
                             </ul>
                             <ul class="dropdown-menu">
                                 <li><a class="nav-link" href="{{route('user.list')}}">Vendeur</a></li>
                             </ul> --}}
-                            </li>
-                            <li class="dropdown">
-                                <a href="{{ route('delivery.index') }}" class="nav-link"><i
-                                        data-feather="truck"></i><span>Livraisons</span></a>
-                            </li>
+                                </li>
+                                <li class="dropdown">
+                                    <a href="{{ route('delivery.index') }}" class="nav-link"><i
+                                            data-feather="truck"></i><span>Livraisons</span></a>
+                                </li>
 
-                            <li class="dropdown">
-                                <a href="{{ route('publicite.index') }}" class="nav-link"><i
-                                        data-feather="image"></i><span>Publicités</span></a>
-                            </li>
+                                <li class="dropdown">
+                                    <a href="{{ route('publicite.index') }}" class="nav-link"><i
+                                            data-feather="image"></i><span>Publicités</span></a>
+                                </li>
 
-                            {{-- <li class="dropdown">
+                                {{-- <li class="dropdown">
                                 <a href="#" class="menu-toggle nav-link has-dropdown"><i
                                         data-feather="settings"></i><span>Parametres</span></a>
                                 <ul class="dropdown-menu">
@@ -336,37 +336,37 @@
 
                                 </ul>
                             </li> --}}
-                        </ul>
-                    </aside>
-                </div>
-               @endrole
+                            </ul>
+                        </aside>
+                    </div>
+                @endrole
                 {{-- End Vertical nav --}}
 
 
-<!-- ========== #####################################################################"" ========== -->
+                <!-- ========== #####################################################################"" ========== -->
 
 
 
                 {{-- Vertical nav for boutique marketplace --}}
                 @role('boutique')
-                <div class="main-sidebar sidebar-style-2">
-                    <aside id="sidebar-wrapper">
-                        <div class="sidebar-brand">
-                            <a href="{{ route('dashboard.index') }}">
-                                <span class="logo-name">
-                                    <img src="{{ Auth::user()->getFirstMediaUrl('logo')}}" width="80"
-                                        class="m-auto" alt="">
-                                </span>
-                            </a>
-                        </div>
-                        <ul class="sidebar-menu">
-                            <li class="dropdown">
-                                <a href="{{ route('product.index') }}" class="nav-link"><i
-                                        data-feather="shopping-bag"></i><span>Produits</span></a>
-                            </li>
-                        </ul>
-                    </aside>
-                </div>
+                    <div class="main-sidebar sidebar-style-2">
+                        <aside id="sidebar-wrapper">
+                            <div class="sidebar-brand">
+                                <a href="{{ route('dashboard.index') }}">
+                                    <span class="logo-name">
+                                        <img src="{{ Auth::user()->getFirstMediaUrl('logo') }}" width="80"
+                                            class="m-auto" alt="">
+                                    </span>
+                                </a>
+                            </div>
+                            <ul class="sidebar-menu">
+                                <li class="dropdown">
+                                    <a href="{{ route('product.index') }}" class="nav-link"><i
+                                            data-feather="shopping-bag"></i><span>Produits</span></a>
+                                </li>
+                            </ul>
+                        </aside>
+                    </div>
                 @endrole
                 {{-- Vertical nav for boutique marketplace --}}
             @endif

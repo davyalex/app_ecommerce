@@ -28,7 +28,7 @@ class ProductController extends Controller
 
         //filtre par type de produit
         $type = request('type');
-        if ($auth = Auth::check()  && $auth_role == 'boutique') {
+        if (Auth::check()  && $auth_role == 'boutique') {
             //recuperation des produits en fonction du filtre
             $product = Product::with(['categories', 'subcategorie', 'media', 'user'])
                 ->where('user_id', Auth::user()->id)
@@ -37,13 +37,15 @@ class ProductController extends Controller
                 ->when($type, fn ($q) => $q->whereType($type))
                 ->orderBy('created_at', 'DESC')
                 ->get();
-        } elseif ($auth = Auth::check()  && $auth_role == 'administrateur') {
+        } elseif (Auth::check()  && in_array($auth_role, ['developpeur', 'administrateur'])) {
             //recuperation des produits en fonction du filtre
             $product = Product::with(['categories', 'subcategorie', 'media', 'user'])
-                ->whereHas('user', fn ($q) => $q->where('role', 'administrateur'))
+                ->whereHas('user', fn ($q) => $q->whereNotIn('role', ['boutique', 'client']))
                 ->when($type, fn ($q) => $q->whereType($type))
                 ->orderBy('created_at', 'DESC')
                 ->get();
+        }else{
+            return abort('404');
         }
 
 
