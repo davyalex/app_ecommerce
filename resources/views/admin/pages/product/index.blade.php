@@ -43,7 +43,7 @@
                                             </th>
                                             <th>image</th>
                                             <th>Name</th>
-                                            <th>categories</th>
+                                            <th class="{{ request('store') ? 'd-none' : '' }}">categories</th>
                                             <th>prix</th>
                                             <th class="{{ request('store') ? 'd-none' : '' }}">Tarif Livraison</th>
                                             <th>date</th>
@@ -63,7 +63,7 @@
                                                     <br> <small># {{ $item['code'] }} </small>
                                                 </td>
                                                 <td>{{ $item['title'] }}</td>
-                                                <td>
+                                                <td class="{{ request('store') ? 'd-none' : '' }}">
                                                     @foreach ($item['categories'] as $items)
                                                         <br> {{ $items['name'] }}
                                                         <small class="text-danger"><b> #type :{{ $items['type'] }}</b>

@@ -25,7 +25,7 @@
                                     </div>
                                 </div>
 
-                                <div class="form-group row">
+                                {{-- <div class="form-group row">
                                     <label class="col-sm-3 col-form-label">Tarif</label>
                                     <div class="col-sm-9">
                                         <input type="number" name="tarif" value="{{ $delivery['tarif'] }}"
@@ -34,11 +34,11 @@
                                             {{ $msg_validation }}
                                         </div>
                                     </div>
-                                </div>
+                                </div> --}}
 
                             </div>
                             <div class="card-footer text-right">
-                                <button type="submit" class="btn btn-primary">Submit</button>
+                                <button type="submit" class="btn btn-primary">Valider</button>
                             </div>
                         </form>
                     </div>

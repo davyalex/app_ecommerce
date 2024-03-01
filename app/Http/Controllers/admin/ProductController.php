@@ -182,7 +182,7 @@ class ProductController extends Controller
     public function edit(string $id)
     {
         // 
-       
+
         // $collection = Collection::orderBy('name', 'DESC')->get();
 
         $product = Product::with([
@@ -194,11 +194,15 @@ class ProductController extends Controller
         // dd($product->toArray());
 
         //sub cat of category selected
+        if (!request('store')) {
+            $catId = $product['categories'][0]['id'];
+            $subcategory_exist = SubCategory::where('category_id', $catId)
+                ->orderBy('name', 'ASC')
+                ->get();
+        }else{
+             $subcategory_exist = '';
+        }
 
-        $catId = $product['categories'][0]['id'];
-        $subcategory_exist = SubCategory::where('category_id', $catId)
-            ->orderBy('name', 'ASC')
-            ->get();
 
         //get Image from database
         $images = [];

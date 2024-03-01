@@ -91,32 +91,43 @@ class AuthAdminController extends Controller
 
     public function update(Request $request, $id)
     {
-        // dd($request);
-        $user = tap(User::find($id))->update([
-            'name' => $request['name'],
-            'phone' => $request['phone'],
-            'email' => $request->email,
-            'shop_name' => $request->shop_name,
-            'role' => $request->role,
-            'localisation' => $request->localisation,
-            'password' => Hash::make($request['password']),
-        ]);
+        // $user = User::whereEmail($request['email'])->first();
+        $email_exist = User::
+        where('id', '!=', $id)
+        ->whereEmail($request['email'])
+        ->get();
 
-        // DB::table('model_has_roles')->where('model_id', $id)->delete();
+        // dd($email_exist->count());
+        if ($email_exist->count() >0) {
+            return back()->withError('Ce email est dejà associé un compte, veuillez utiliser un autre');
+        } else {
+            // dd($request);
+            $user = tap(User::find($id))->update([
+                'name' => $request['name'],
+                'phone' => $request['phone'],
+                'email' => $request->email,
+                'shop_name' => $request->shop_name,
+                'role' => $request->role,
+                'localisation' => $request->localisation,
+                'password' => Hash::make($request['password']),
+            ]);
 
-        if ($request->has('role')) {
-            $user->syncRoles($request['role']);
+            // DB::table('model_has_roles')->where('model_id', $id)->delete();
+
+            if ($request->has('role')) {
+                $user->syncRoles($request['role']);
+            }
+
+            //upload category_image
+            if ($request->has('logo')) {
+                $user->clearMediaCollection('logo');
+                $user->addMediaFromRequest('logo')->toMediaCollection('logo');
+            }
+
+            return back()->with([
+                'success' => "Utilisateur modifié avec success",
+            ]);
         }
-
-        //upload category_image
-        if ($request->has('logo')) {
-            $user->clearMediaCollection('logo');
-            $user->addMediaFromRequest('logo')->toMediaCollection('logo');
-        }
-
-        return back()->with([
-            'success' => "Utilisateur modifié avec success",
-        ]);
     }
 
 
@@ -147,7 +158,7 @@ class AuthAdminController extends Controller
 
             $fieldType = filter_var($request->email, FILTER_VALIDATE_EMAIL) ? 'email' : 'phone';
 
-            if (Auth::attempt((array($fieldType => $request['email'], 'password' => $request['password']))))  {
+            if (Auth::attempt((array($fieldType => $request['email'], 'password' => $request['password'])))) {
                 return redirect()->route('dashboard.index')->withSuccess('Connexion réussi,  Bienvenue  ' . Auth::user()->name);
             } else {
                 return back()->withError('Identifiant ou mot de passe incorrect');

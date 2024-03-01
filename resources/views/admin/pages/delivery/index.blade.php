@@ -25,7 +25,7 @@
                                   #
                               </th>
                               <th>Zone</th>
-                              <th>Tarif</th>
+                              {{-- <th>Tarif</th> --}}
                              
                               <th>Action</th>
                           </tr>
@@ -38,7 +38,7 @@
                                   </td>
                                   <td> {{ $item['zone'] }} </td>
                               
-                                  <td> {{ number_format($item['tarif'],0) }} </td>
+                                  {{-- <td> {{ number_format($item['tarif'],0) }} </td> --}}
                                 
 
                                   <td>

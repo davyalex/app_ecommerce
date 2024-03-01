@@ -23,10 +23,10 @@ class MarketPlaceController extends Controller
     public function allStore()
     {
         $store = User::with([
-            'roles', 'products' => fn ($q) => $q->with(['media', 'categories', 'subcategorie']), 
+            'roles', 'products' => fn ($q) => $q->with(['media', 'categories', 'subcategorie']),
             'media'
         ])->withCount('products')
-        
+
             ->whereHas('roles', fn ($q) => $q->where('name', 'boutique'))
             ->orderBy('created_at', 'DESC')->get();
 
@@ -53,10 +53,12 @@ class MarketPlaceController extends Controller
     public function productAllStore()
     {
 
-        $data = Product::with(['user', 'subcategorie', 'media', 'categories'])
-        ->whereHas('user', fn ($q) => $q->where('role', 'boutique'))
-        ->inRandomOrder()->paginate(36);
-    
+        $data = Product::with([
+            'user'=>fn($q) => $q->with('media'), 'subcategorie', 'media', 'categories'
+        ])
+            ->whereHas('user', fn ($q) => $q->where('role', 'boutique'))
+            ->inRandomOrder()->paginate(36);
+
         return response()->json([
             'message' => "Data Found",
             "data" => $data,
@@ -66,7 +68,7 @@ class MarketPlaceController extends Controller
 
 
 
-   
+
     /**
      * @OA\Get(
      *     path="/api/v1/marketplace/productStore",
@@ -80,7 +82,10 @@ class MarketPlaceController extends Controller
 
     public function  productStore(Request $request)
     {
-        $data = Product::with(['media', 'categories', 'user'])
+        $data = Product::with([
+            'media', 'categories', 'user' => fn ($q) => $q->with('media')
+
+        ])
             ->where('user_id', $request['id'])
             ->inRandomOrder()->paginate(15);
 
@@ -108,7 +113,9 @@ class MarketPlaceController extends Controller
     {
 
         try {
-            $data = Product::with(['user', 'media', 'categories', 'subcategorie'])
+            $data = Product::with([
+                'user' => fn ($q) => $q->with('media'), 'media', 'categories', 'subcategorie'
+            ])
                 ->whereId($request['id'])->first();
 
             return response()->json([

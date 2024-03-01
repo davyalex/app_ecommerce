@@ -236,7 +236,7 @@
                                     <div class="col-sm-6 col-md-6">
                                         <label class="col-form-label  col-12 col-md-12 col-lg-12">Tarif livraison
                                             abidjan</label>
-                                        <input name="delivery_abidjan" value="delivery_abidjan" type="number"
+                                        <input name="delivery_abidjan" value="{{ $product['delivery_abidjan'] }}" type="number"
                                             placeholder="2000" class="form-control" required>
                                         <div class="invalid-feedback">
                                             Champs obligatoire

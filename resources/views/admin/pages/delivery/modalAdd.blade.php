@@ -6,7 +6,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="formModal">New delivery</h5>
+                <h5 class="modal-title" id="formModal">Nouvelle Zone de livraison</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -25,7 +25,7 @@
                             </div>
                         </div>
 
-                        <div class="form-group row">
+                        {{-- <div class="form-group row">
                             <label class="col-sm-3 col-form-label">Tarif</label>
                             <div class="col-sm-9">
                                 <input type="number" name="tarif" class="form-control" required="">
@@ -33,11 +33,11 @@
                                    {{$msg_validation}}
                                 </div>
                             </div>
-                        </div>
+                        </div> --}}
 
                     </div>
                     <div class="card-footer text-right">
-                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <button type="submit" class="btn btn-primary">Valider</button>
                     </div>
                 </form>
             </div>
