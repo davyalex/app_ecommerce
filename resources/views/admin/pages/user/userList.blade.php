@@ -65,8 +65,8 @@
                                                           
                                                             
 
-                                                            {{-- <a href="#" class="dropdown-item has-icon"><i
-                                                                    class="fas fa-eye"></i> View</a> --}}
+                                                            <a href="/admin/product?store={{$item['id']}} && storeName={{$item['shop_name']}}" class="dropdown-item has-icon"><i
+                                                                    class="fas fa-eye"></i> Voir les produits</a>
 
 
                                                             <a href="{{ route('user.edit', $item['id']) }}"

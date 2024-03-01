@@ -28,12 +28,22 @@ class ProductController extends Controller
 
         //filtre par type de produit
         $type = request('type');
+
+        //recuperer les produits d'une boutique
+        $store = request('store');
         if (Auth::check()  && $auth_role == 'boutique') {
             //recuperation des produits en fonction du filtre
             $product = Product::with(['categories', 'subcategorie', 'media', 'user'])
                 ->where('user_id', Auth::user()->id)
                 ->whereHas('user', fn ($q) => $q->where('role', 'boutique'))
 
+                ->when($type, fn ($q) => $q->whereType($type))
+
+                ->orderBy('created_at', 'DESC')
+                ->get();
+        } elseif ($store && in_array($auth_role, ['developpeur', 'administrateur'])) {
+            $product = Product::with(['categories', 'subcategorie', 'media', 'user'])
+                ->where('user_id', $store)
                 ->when($type, fn ($q) => $q->whereType($type))
                 ->orderBy('created_at', 'DESC')
                 ->get();
@@ -42,9 +52,13 @@ class ProductController extends Controller
             $product = Product::with(['categories', 'subcategorie', 'media', 'user'])
                 ->whereHas('user', fn ($q) => $q->whereNotIn('role', ['boutique', 'client']))
                 ->when($type, fn ($q) => $q->whereType($type))
+                ->when(
+                    $store,
+                    fn ($q) => $q->where('user_id', $store)
+                )
                 ->orderBy('created_at', 'DESC')
                 ->get();
-        }else{
+        } else {
             return abort('404');
         }
 
@@ -74,20 +88,21 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         //
-        // dd($request->toArray());
+        // dd($request['storeId']);
         $data = $request->validate([
             'title' => ['required'],
             'description' => '',
             'price' => ['required'],
             'categories' => '',
             'type' => ['required'],
-            'delivery_interieur' => ['required'],
-            'delivery_abidjan' => ['required'],
+            'delivery_interieur' => [''],
+            'delivery_abidjan' => [''],
 
 
 
         ]);
 
+        $user = $request['storeId']  ??  Auth::user()->id;
 
         $product = Product::create([
             'title' => $request['title'],
@@ -96,7 +111,7 @@ class ProductController extends Controller
             'type' => $request['type'],
             'disponibilite' => 'disponible', //disponible or rupture
             'sub_category_id' => $request['subcategories'],
-            'user_id' => Auth::user()->id,
+            'user_id' => $user,
             'delivery_interieur' => $request['delivery_interieur'],
             'delivery_abidjan' => $request['delivery_abidjan']
 
@@ -166,7 +181,8 @@ class ProductController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        // 
+       
         // $collection = Collection::orderBy('name', 'DESC')->get();
 
         $product = Product::with([
@@ -218,15 +234,15 @@ class ProductController extends Controller
     public function update(Request $request, string $id)
     {
         //
-        // dd($request->toArray());
+        // dd($id);
         $data = $request->validate([
             'title' => ['required'],
             'description' => '',
             'price' => ['required'],
             'categories' => '',
             'type' => ['required'],
-            'delivery_interieur' => ['required'],
-            'delivery_abidjan' => ['required'],
+            'delivery_interieur' => [''],
+            'delivery_abidjan' => [''],
         ]);
 
         $product = tap(Product::find($id))->update([
@@ -290,7 +306,7 @@ class ProductController extends Controller
         //     Pointure::where('product_id', $id)->delete();
         // }
 
-        return redirect()->route('product.index')->withSuccess('Produit modifié avec success ');
+        return back()->withSuccess('Produit modifié avec success ');
     }
 
     /**

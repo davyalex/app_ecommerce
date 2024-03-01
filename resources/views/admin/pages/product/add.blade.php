@@ -50,7 +50,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4> Ajouter un produit</h4>
+                        <h4> {{request('storeName') ?? ''}}  Ajouter un produit   </h4>
                     </div>
                     @include('admin.components.validationMessage')
 
@@ -58,8 +58,7 @@
                         enctype="multipart/form-data">
                         @csrf
                         <div class="card-body">
-
-                            @if (Auth::user()->roles[0]['name'] != 'boutique')
+                            @if (Auth::user()->roles[0]['name'] != 'boutique' && !request('store'))
                                 <div class="form-group row mb-3">
                                     <label for=""
                                         class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Type
@@ -101,44 +100,45 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group row mb-3 catDiv">
-                            <label for=""
-                                class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Categorie</label>
 
-                            <div class="col-sm-12 col-md-7">
-                                <select name="categories[]" class="form-control select2 catDiv" required>
-                                    <option value="">Selectionner une catégorie</option>
-                                    @foreach ($categories as $item)
-                                        <option value="{{ $item['id'] }}"> {{ $item['name'] }} </option>
-                                    @endforeach
-                                </select>
-                                <div class="invalid-feedback">
-                                    Champs obligatoire
+
+
+                        @if (Auth::user()->roles[0]['name'] != 'boutique' && !request('store'))
+                            <div class="form-group row mb-3 catDiv">
+                                <label for=""
+                                    class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Categorie</label>
+
+                                <div class="col-sm-12 col-md-7">
+                                    <select name="categories[]" class="form-control select2 catDiv" required>
+                                        <option value="">Selectionner une catégorie</option>
+                                        @foreach ($categories as $item)
+                                            <option value="{{ $item['id'] }}"> {{ $item['name'] }} </option>
+                                        @endforeach
+                                    </select>
+                                    <div class="invalid-feedback">
+                                        Champs obligatoire
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                            <div class="form-group row mb-3 subcat  subCatDiv">
+                                <label for="" class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Sous
+                                    categorie</label>
 
-
-
-                        <div class="form-group row mb-3 subcat  subCatDiv">
-                            <label for="" class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Sous
-                                categorie</label>
-
-                            <div class="col-sm-12 col-md-7">
-                                <select style="width: 520px" name="subcategories"
-                                    class="form-control select2 subCat_required  subCatDiv" required>
-                                    @foreach ($subcategories as $item)
-                                        {{-- <option value="{{ $item['id'] }}"> {{ $item['name'] }} </option> --}}
-                                    @endforeach
-                                </select>
-                                <div class="invalid-feedback">
-                                    Champs obligatoire
+                                <div class="col-sm-12 col-md-7">
+                                    <select style="width: 520px" name="subcategories"
+                                        class="form-control select2 subCat_required  subCatDiv" required>
+                                        @foreach ($subcategories as $item)
+                                            {{-- <option value="{{ $item['id'] }}"> {{ $item['name'] }} </option> --}}
+                                        @endforeach
+                                    </select>
+                                    <div class="invalid-feedback">
+                                        Champs obligatoire
+                                    </div>
                                 </div>
+
                             </div>
 
-                        </div>
 
-                        @if (Auth::user()->roles[0]['name'] != 'boutique')
                             <div class="form-group row mb-3 sectionDiv" id="">
                                 <label for=""
                                     class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Section
@@ -201,7 +201,7 @@
                             </div>
                         </div>
 
-                        @if (Auth::user()->roles[0]['name'] != 'boutique')
+                        @if (Auth::user()->roles[0]['name'] != 'boutique' && !request('store'))
                             <!-- ========== Start livraison ========== -->
                             <hr class="w-100 bg-primary">
                             <h6 class="text-dark"> <i class="fas fa-shipping-fast"></i> Definir les tarifs de
@@ -230,7 +230,9 @@
                         @endif
 
 
-
+                        @if (request('store'))
+                        <input type="text" name="storeId" value="{{ request('store') }}" hidden/>
+                        @endif
 
                         <div class="form-group row mb-3">
                             <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"></label>

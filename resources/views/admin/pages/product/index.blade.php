@@ -8,10 +8,11 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header d-flex justify-content-around">
-                            <h4>Produits  {{request('type') ?? ''}}  </h4>
-                            <a href="{{ route('product.create') }}" class="btn btn-primary">Ajouter un produit</a>
+                            <h4>Produits {{ request('type') ?? request('storeName') }} </h4>
+                            <a href="{{ request('store') ? route('product.create', 'store=' . request('store') . '&& storeName=' . request('storeName')) : route('product.create') }}"
+                                class="btn btn-primary">Ajouter un produit</a>
 
-                            <div class="dropdown">
+                            <div class="dropdown {{ request('store')  ? 'd-none' : (Auth::user()->roles[0]['name'] == 'boutique'  ? 'd-none' : '') }}">
                                 @php
                                     $type = ['normal', 'pack', 'section'];
                                 @endphp
@@ -21,7 +22,8 @@
                                 <div class="dropdown-menu">
                                     @foreach ($type as $item)
                                         <a href="/admin/product?type={{ $item }}"
-                                            class="dropdown-item has-icon text-capitalize"><i class="fa fa-shopping-cart"></i>
+                                            class="dropdown-item has-icon text-capitalize"><i
+                                                class="fa fa-shopping-cart"></i>
                                             {{ $item }}
                                         </a>
                                     @endforeach
@@ -43,14 +45,14 @@
                                             <th>Name</th>
                                             <th>categories</th>
                                             <th>prix</th>
-                                            <th>Tarif Livraison</th>
+                                            <th class="{{ request('store') ? 'd-none' : '' }}">Tarif Livraison</th>
                                             <th>date</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @foreach ($product as $key => $item)
-                                            <tr>
+                                            <tr id="row_{{$item['id']}}">
                                                 <td>
                                                     {{ ++$key }}
                                                 </td>
@@ -69,7 +71,7 @@
                                                     @endforeach
                                                 </td>
                                                 <td>{{ number_format($item['price'], 0) }} FCFA</td>
-                                                <td>
+                                                <td class="{{ request('store') ? 'd-none' : '' }}">
                                                     <p>Expedition: {{ number_format($item['delivery_interieur'], 0) }} </p>
                                                     <p>Abidjan: {{ number_format($item['delivery_abidjan'], 0) }} </p>
 
@@ -83,7 +85,7 @@
                                                             <a href="{{ 'https://dooya.ci/detail/' . $item['id'] }}"
                                                                 class="dropdown-item has-icon"><i class="fas fa-eye"></i>
                                                                 View</a>
-                                                            <a href="{{ route('product.edit', $item['id']) }}"
+                                                            <a href="{{ route('product.edit', $item['id'] . '?store='.request('store')) }}"
                                                                 class="dropdown-item has-icon"><i class="far fa-edit"></i>
                                                                 Edit</a>
 
@@ -146,10 +148,7 @@
                                         timer: 500,
                                         timerProgressBar: true,
                                     });
-                                    setTimeout(function() {
-                                        window.location.href =
-                                            "{{ route('product.index') }}";
-                                    }, 500);
+                                   $( "#row_" + Id ).remove();
                                 }
                             }
                         });

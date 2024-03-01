@@ -58,7 +58,7 @@
                         method="post" enctype="multipart/form-data">
                         @csrf
                         <div class="card-body">
-                            @if (Auth::user()->roles[0]['name'] != 'boutique')
+                            @if (Auth::user()->roles[0]['name'] != 'boutique' && !request('store'))
                                 <div class="form-group row mb-3">
                                     <label for=""
                                         class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Type
@@ -107,49 +107,52 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="form-group row mb-4 catDiv">
-                                <label for=""
-                                    class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Categorie
-                                </label>
 
-                                <div class="col-sm-12 col-md-7 ">
-                                    <select name="categories[]" class="form-control select2 catDiv" required>
-                                        @foreach ($categories as $item)
-                                            {{-- @if ($product->categories->containsStrict('id', $item['id'])) @selected(true) @endif --}}
-                                            <option value="{{ $item['id'] }}"
-                                                @if ($product->categories->containsStrict('id', $item['id'])) @selected(true) @endif>
-                                                {{ $item['name'] }}</option>
-                                        @endforeach
-                                    </select>
-                                    <div class="invalid-feedback">
-                                        Champs obligatoire
+                            @if (Auth::user()->roles[0]['name'] != 'boutique' && !request('store'))
+                                <div class="form-group row mb-4 catDiv">
+                                    <label for=""
+                                        class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Categorie
+                                    </label>
+
+                                    <div class="col-sm-12 col-md-7 ">
+                                        <select name="categories[]" class="form-control select2 catDiv" required>
+                                            @foreach ($categories as $item)
+                                                {{-- @if ($product->categories->containsStrict('id', $item['id'])) @selected(true) @endif --}}
+                                                <option value="{{ $item['id'] }}"
+                                                    @if ($product->categories->containsStrict('id', $item['id'])) @selected(true) @endif>
+                                                    {{ $item['name'] }}</option>
+                                            @endforeach
+                                        </select>
+                                        <div class="invalid-feedback">
+                                            Champs obligatoire
+                                        </div>
                                     </div>
+
                                 </div>
 
-                            </div>
 
+                                <div class="form-group row mb-4 subcat subCatDiv">
+                                    <label for=""
+                                        class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Sous
+                                        categorie</label>
 
-                            <div class="form-group row mb-4 subcat subCatDiv">
-                                <label for="" class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Sous
-                                    categorie</label>
-
-                                <div class="col-sm-12 col-md-7">
-                                    <select style="width: 520px" name="subcategories"
-                                        class="form-control select2 subCatDiv" required>
-                                        @foreach ($subcategory_exist as $item)
-                                            <option value="{{ $item['id'] }}"
-                                                {{ $item['id'] == $product['sub_category_id'] ? 'selected' : '' }}>
-                                                {{ $item['name'] }} </option>
-                                        @endforeach
-                                    </select>
-                                    <div class="invalid-feedback">
-                                        Champs obligatoire
+                                    <div class="col-sm-12 col-md-7">
+                                        <select style="width: 520px" name="subcategories"
+                                            class="form-control select2 subCatDiv" required>
+                                            @foreach ($subcategory_exist as $item)
+                                                <option value="{{ $item['id'] }}"
+                                                    {{ $item['id'] == $product['sub_category_id'] ? 'selected' : '' }}>
+                                                    {{ $item['name'] }} </option>
+                                            @endforeach
+                                        </select>
+                                        <div class="invalid-feedback">
+                                            Champs obligatoire
+                                        </div>
                                     </div>
+
                                 </div>
 
-                            </div>
 
-                            @if (Auth::user()->roles[0]['name'] != 'boutique')
                                 <div class="form-group row mb-3 packDiv">
                                     <label for=""
                                         class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Pack
@@ -193,7 +196,14 @@
                                 </div>
                             @endif
 
-
+                            <div class="form-group row mb-3">
+                                <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Description</label>
+                                <div class="col-sm-12 col-md-7">
+                                    <textarea name="description" class="summernote-simple">
+                                        {{ $product['description'] }}
+                                    </textarea>
+                                </div>
+                            </div>
                             <div class="form-group row mb-4">
                                 <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Images</label>
                                 <div class="col-sm-12 col-md-7">
@@ -208,7 +218,7 @@
                                 </div>
                             </div>
 
-                            @if (Auth::user()->roles[0]['name'] != 'boutique')
+                            @if (Auth::user()->roles[0]['name'] != 'boutique' && !request('store'))
                                 <!-- ========== Start livraison ========== -->
                                 <hr class="w-100 bg-primary">
                                 <h6 class="text-dark"> <i class="fas fa-shipping-fast"></i> Definir les tarifs de
@@ -217,8 +227,8 @@
                                     <div class="col-sm-6 col-md-6">
                                         <label class="col-form-label  col-12 col-md-12 col-lg-12">Tarif Livraison
                                             interieur ou Expedition</label>
-                                        <input name="delivery_interieur" value="{{$product['delivery_interieur']}}" type="number" placeholder="3000"
-                                            class="form-control" required>
+                                        <input name="delivery_interieur" value="{{ $product['delivery_interieur'] }}"
+                                            type="number" placeholder="3000" class="form-control" required>
                                         <div class="invalid-feedback">
                                             Champs obligatoire
                                         </div>
@@ -226,8 +236,8 @@
                                     <div class="col-sm-6 col-md-6">
                                         <label class="col-form-label  col-12 col-md-12 col-lg-12">Tarif livraison
                                             abidjan</label>
-                                        <input name="delivery_abidjan" value="delivery_abidjan" type="number" placeholder="2000"
-                                            class="form-control" required>
+                                        <input name="delivery_abidjan" value="delivery_abidjan" type="number"
+                                            placeholder="2000" class="form-control" required>
                                         <div class="invalid-feedback">
                                             Champs obligatoire
                                         </div>
