@@ -189,7 +189,7 @@
                                             </td>
                                             <td>
                                                 <div class="text-right">
-                                                    <span>{{ $orders['delivery_price'] }}</span>
+                                                    <span>{{ $orders['total_livraison'] }}</span>
                                                 </div>
                                             </td>
                                         </tr>
@@ -237,12 +237,12 @@
                                             </td>
                                             <td>
                                                 <div class="text-right">
-                                                    @php
+                                                    {{-- @php
                                                         $delivery_price = str_replace("," , "" ,$orders['delivery_price']);
                                                         $delivery_price =  str_replace("FCFA" , "" ,$delivery_price);
                                                         $total = $delivery_price + $subTotal ;
-                                                    @endphp
-                                                    <span class="font-weight-bold">{{number_format($total)}} FCFA </span>
+                                                    @endphp --}}
+                                                    <span class="font-weight-bold">{{number_format($orders['total'])}} FCFA </span>
                                                 </div>
                                             </td>
                                         </tr>

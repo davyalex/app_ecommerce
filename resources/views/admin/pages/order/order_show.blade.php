@@ -115,24 +115,21 @@
                     </li>
                 @endforeach
 
-                <h6 class="p-2" style="background-color: #e1e6ea">Adresse de Livraison</h6>
+                <h6 class="p-2" style="background-color: #e1e6ea">Livraison & Expedition</h6>
 
                 <div class="fst-italic p-2">
                     <span class="text-dark">#Livraison à domicile</span><br>
                     <span class="">Lieu de livraison: <b>{{ $orders['delivery_name'] }}</b> </span><br>
-                    <span>Tarif livraison: <b>{{ $orders['delivery_price'] }}</b> </span><br>
-                    <span>Client: <b>{{ $orders['user']['name'] }}</b> </span><br>
-
-                </div>
-
-
-                <h6 class="p-2" style="background-color: #e1e6ea">Expédition</h6>
-
-                <div class="fst-italic p-2">
-                    <span class="">Livraison prevue le :  <b>{{ \Carbon\Carbon::parse($orders['delivery_planned'])->isoFormat('dddd D MMMM YYYY') }}</b> </span><br>
+                    <span>Mode de livraison: <b>{{ $orders['mode_livraison'] }}</b> </span><br>
+                    <span>Total livraison: <b>{{ $orders['total_livraison'] }}</b> </span><br>
+                     <span class="">Livraison prevue le :  <b>{{ \Carbon\Carbon::parse($orders['delivery_planned'])->isoFormat('dddd D MMMM YYYY') }}</b> </span><br>
                     <span class="">Date de livraison : <b>{{ $orders['delivery_date']!==null ? \Carbon\Carbon::parse($orders['delivery_date'])->isoFormat('dddd D MMMM YYYY') : 'En attende livraison'  }}</b> </span><br>
 
+
                 </div>
+
+
+              
 
 
 

@@ -34,11 +34,11 @@
                                             <tr>
                                                 <td>{{ ++$key }} </td>
                                                 <td><span style="font-weight:bold">{{ $item['code'] }}</span>
-                                                    <br> <span class="{{$item['status']=='attente' ? 'bg-primary': ($item['status']=='livrée' ? 'bg-success' : ($item['status']=='confirmée' ? 'bg-blue' :  ($item['status']=='annulée' ? 'bg-danger' : '')))}} text-white p-1 px-3">{{ $item['status'] }}
+                                                    <br> <span class="badge {{$item['status']=='attente' ? 'badge-primary': ($item['status']=='livrée' ? 'bg-success' : ($item['status']=='confirmée' ? 'bg-blue' :  ($item['status']=='annulée' ? 'bg-danger' : '')))}} text-white p-1 px-3">{{ $item['status'] }}
                                                     </span>
                                                 </td>
                                                 <td>{{ $item['user']['name'] }} </td>
-                                                <td>{{ $item['delivery_name'] }} - {{ $item['delivery_price'] }} </td>
+                                                <td>{{ $item['delivery_name'] }} - {{ $item['total_livraison'] }} </td>
                                                 <td>{{ $item['total'] }} </td>
                                                 <td>
                                                     {{ \Carbon\Carbon::parse($item['created_at'])->diffForHumans() }}

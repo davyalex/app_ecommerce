@@ -43,7 +43,7 @@
                                                         alt="">
                                                 </td>
                                                 <td class="{{ request('user') != 'boutique' ? '' : 'd-none' }}">
-                                                    {{ $item['name'] }}</td>
+                                                    {{ $item['name'] ?? $item['shop_name'] }}</td>
                                                 <td>{{ $item['phone'] }}</td>
                                                 <td>{{ $item['email'] }}</td>
                                                 <td class="{{ request('user') == 'boutique' ? '' : 'd-none' }}">
