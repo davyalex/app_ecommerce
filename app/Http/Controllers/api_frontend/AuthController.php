@@ -234,7 +234,7 @@ class AuthController extends Controller
                     'phone' => 'required',
                     'email' => 'required',
                     'old_password' => '',
-                    'new_password' => 'required',
+                    'new_password' => '',
                 ]);
                 $user = tap(User::whereId(Auth::user()->id))->update([
                     'name' => $request['name'],
