@@ -161,7 +161,7 @@
                                             </td>
                                             <td>
                                                 <div class="text-right">
-                                                    <span>{{ number_format($orders['subtotal']) }} </span>
+                                                    <span>{{ number_format($orders['subtotal']) }} FCFA </span>
                                                 </div>
                                             </td>
                                         </tr>
@@ -177,7 +177,7 @@
                                             </td>
                                             <td>
                                                 <div class="text-right">
-                                                    <span>{{ number_format($orders['total_livraison']) }}</span>
+                                                    <span>{{ number_format($orders['total_livraison']) }}FCFA</span>
                                                 </div>
                                             </td>
                                         </tr>

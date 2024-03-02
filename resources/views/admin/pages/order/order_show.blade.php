@@ -46,7 +46,7 @@
                     <span class="text-dark fw-bold">Commande: #{{ $orders['code'] }} <span class="bg-secondary text-white p-1">{{$orders['status']}} </span>  </span><br>
                     <span>Commandé le: {{ $orders['created_at']->format('d-m-Y') }} </span><br>
                     <span>Nbre articles: {{ $orders['quantity_product'] }} </span><br>
-                    <span class="text-dark fw-bold">Total: {{ number_format($orders['total']) }} </span><br>
+                    <span class="text-dark fw-bold">Total: {{ number_format($orders['total']) }} FCFA </span><br>
                     <span>Méthode de paiement: {{ $orders['payement_method'] }} </span><br>
 
                    </div>
@@ -78,6 +78,7 @@
                                         {{ $item['pivot']['options'] }}</span><br> --}}
                                     <span class="fst-italic">Qté :{{ $item['pivot']['quantity'] }} </span><br>
                                     <span class="fst-italic">Pu :{{ number_format($item['pivot']['unit_price']) }} FCFA
+
                                     </span>
 
                                     {{-- <br><h5 class="text-dark fw-bold">{{$item['pivot']['available']==null ? 'En attente de verification' : $item['pivot']['available'] }} </h5> --}}
@@ -121,7 +122,7 @@
                     <span class="text-dark">#Livraison à domicile</span><br>
                     <span class="">Lieu de livraison: <b>{{ $orders['delivery_name'] }}</b> </span><br>
                     <span>Mode de livraison: <b>{{ $orders['mode_livraison'] }}</b> </span><br>
-                    <span>Total livraison: <b>{{ number_format($orders['total_livraison'] )}}</b> </span><br>
+                    <span>Total livraison: <b>{{ number_format($orders['total_livraison'] )}}FCFA</b> </span><br>
                      <span class="">Livraison prevue le :  <b>{{ \Carbon\Carbon::parse($orders['delivery_planned'])->isoFormat('dddd D MMMM YYYY') }}</b> </span><br>
                     <span class="">Date de livraison : <b>{{ $orders['delivery_date']!==null ? \Carbon\Carbon::parse($orders['delivery_date'])->isoFormat('dddd D MMMM YYYY') : 'En attende livraison'  }}</b> </span><br>
 
