@@ -7,12 +7,12 @@
 @include('admin.components.validationMessage')
             
             <div class="py-3 d-flex justify-content-between">
-                <a href="{{route('order.index')}}" class="btn btn-dark text-white py-3" href="#"><i data-feather="arrow-left"></i>Retour</a>
+                <a href="{{route('order.index')}}" class="btn btn-secondary text-white py-3" href="#"><i data-feather="arrow-left"></i>Retour</a>
                 
                 @if ($orders['status']!='livrée')
                 <div class="dropdown">
                     <a href="#" data-toggle="dropdown"
-                        class="btn btn-dark dropdown-toggle">Options</a>
+                        class="btn btn-secondary dropdown-toggle">Options</a>
                     <div class="dropdown-menu">
                         <a href="/admin/order/changeState?cs=confirmée && id={{$orders['id']}}"
                         class="dropdown-item has-icon"><i
@@ -43,10 +43,10 @@
 
                 <div class="fst-italic p-2 d-flex  justify-content-between">
                    <div>
-                    <span class="text-dark fw-bold">Commande: #{{ $orders['code'] }} <span class="bg-dark text-white p-1">{{$orders['status']}} </span>  </span><br>
+                    <span class="text-dark fw-bold">Commande: #{{ $orders['code'] }} <span class="bg-secondary text-white p-1">{{$orders['status']}} </span>  </span><br>
                     <span>Commandé le: {{ $orders['created_at']->format('d-m-Y') }} </span><br>
                     <span>Nbre articles: {{ $orders['quantity_product'] }} </span><br>
-                    <span class="text-dark fw-bold">Total: {{ $orders['total'] }} </span><br>
+                    <span class="text-dark fw-bold">Total: {{ number_format($orders['total']) }} </span><br>
                     <span>Méthode de paiement: {{ $orders['payement_method'] }} </span><br>
 
                    </div>
@@ -121,7 +121,7 @@
                     <span class="text-dark">#Livraison à domicile</span><br>
                     <span class="">Lieu de livraison: <b>{{ $orders['delivery_name'] }}</b> </span><br>
                     <span>Mode de livraison: <b>{{ $orders['mode_livraison'] }}</b> </span><br>
-                    <span>Total livraison: <b>{{ $orders['total_livraison'] }}</b> </span><br>
+                    <span>Total livraison: <b>{{ number_format($orders['total_livraison'] )}}</b> </span><br>
                      <span class="">Livraison prevue le :  <b>{{ \Carbon\Carbon::parse($orders['delivery_planned'])->isoFormat('dddd D MMMM YYYY') }}</b> </span><br>
                     <span class="">Date de livraison : <b>{{ $orders['delivery_date']!==null ? \Carbon\Carbon::parse($orders['delivery_date'])->isoFormat('dddd D MMMM YYYY') : 'En attende livraison'  }}</b> </span><br>
 

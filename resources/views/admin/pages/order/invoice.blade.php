@@ -107,17 +107,9 @@
                             <table class="table table-borderless">
 
                                 <tbody>
-                                    @php
-                                        //pu * qte
-                                        $price = 0;
-                                        $subTotal = 0;
-                                    @endphp
+                                   
                                     @foreach ($orders['products'] as $item)
-                                        @php
-                                            
-                                             $price =  $item['pivot']['quantity'] * $item['pivot']['unit_price'] ;
-                                              $subTotal +=$price
-                                        @endphp
+                                      
                                             
                                         <tr>
                                             <td width="20%">
@@ -129,11 +121,7 @@
                                             <td width="60%">
                                                 <span class="font-weight-bold">{{ $item['title'] }} </span>
                                                 <div class="product-qty">
-                                                    <span class="d-block">Quantity: {{ $item['pivot']['quantity'] }}</span>
-                                                    <span
-                                                        class="fst-italic">{{ $item['pivot']['options'] && is_numeric($item['pivot']['options'][0]) ? 'Pointure: ' : ($item['pivot']['options'] && ctype_alpha($item['pivot']['options'][0]) ? 'Taille:' : '') }}
-                                                        {{ $item['pivot']['options'] }}</span>
-
+                                                    <span class="d-block">Quantité: {{ $item['pivot']['quantity'] }}</span>
                                                 </div>
                                             </td>
                                             <td width="20%">
@@ -173,7 +161,7 @@
                                             </td>
                                             <td>
                                                 <div class="text-right">
-                                                    <span>{{ number_format($subTotal) }} </span>
+                                                    <span>{{ number_format($orders['subtotal']) }} </span>
                                                 </div>
                                             </td>
                                         </tr>
@@ -189,7 +177,7 @@
                                             </td>
                                             <td>
                                                 <div class="text-right">
-                                                    <span>{{ $orders['total_livraison'] }}</span>
+                                                    <span>{{ number_format($orders['total_livraison']) }}</span>
                                                 </div>
                                             </td>
                                         </tr>
