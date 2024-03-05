@@ -14,9 +14,16 @@ class DeliveryController extends Controller
     public function index()
     {
         //
-        $delivery = Delivery::orderBy('zone','ASC')->get();
+      
+        $delivery = Delivery::with(['parent_region', 'child_zone'])
+            ->when(request('deli')=='region', fn ($q) => $q->whereNotNull('region'))
+            ->when(request('deli')== 'ville-commune', fn ($q) => $q->whereNotNull('region_id')) //ville-commune
+            ->get();
 
-        return view('admin.pages.delivery.index',compact('delivery'));
+        //Liste des regions dans la table livraison
+        $regions = Delivery::orderBy('region', 'ASC')->whereNotNull('region')->get();
+        // dd($delivery->toArray());
+        return view('admin.pages.delivery.index', compact('delivery', 'regions'));
     }
 
     /**
@@ -34,16 +41,17 @@ class DeliveryController extends Controller
     {
         //
         $data =  $request->validate([
-            'zone' => 'required',
+            'zone' => '',
             'tarif' => '',
+            'region' => '',
+            'region_id' => '',
+            'parent_id' => '',
+
         ]);
 
-      
 
-        $delivery = delivery::firstOrCreate([
-            'zone' => $request['zone'],
-            'tarif' => $request['tarif'],
-        ]);
+
+        $delivery = delivery::firstOrCreate($data);
 
         return back()->with('success', 'Nouvelle delivery ajoutée avec success');
     }
@@ -74,11 +82,15 @@ class DeliveryController extends Controller
     {
         //
         $data =  $request->validate([
-            'zone' => 'required',
+            'zone' => '',
             'tarif' => '',
+            'region' => '',
+            'parent_id' => '',
+
+
         ]);
 
-      
+
         delivery::whereId($id)->update([
             'zone' => $request['zone'],
             'tarif' => $request['tarif'],
@@ -96,7 +108,7 @@ class DeliveryController extends Controller
         //
         Delivery::whereId($id)->delete();
         return response()->json([
-            'status'=>200
+            'status' => 200
         ]);
     }
 }

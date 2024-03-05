@@ -41,8 +41,8 @@
     https://cdn.jsdelivr.net/npm/sweetalert2@11.7.32/dist/sweetalert2.min.css
     " rel="stylesheet">
     <script src="
-                            https://cdn.jsdelivr.net/npm/sweetalert2@11.7.32/dist/sweetalert2.all.min.js
-                            "></script>
+                                                https://cdn.jsdelivr.net/npm/sweetalert2@11.7.32/dist/sweetalert2.all.min.js
+                                                "></script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.5/jspdf.min.js"></script>
 
@@ -317,10 +317,20 @@
                                 <li><a class="nav-link" href="{{route('user.list')}}">Vendeur</a></li>
                             </ul> --}}
                                 </li>
+
                                 <li class="dropdown">
-                                    <a href="{{ route('delivery.index') }}" class="nav-link"><i
-                                            data-feather="truck"></i><span>Livraisons</span></a>
+                                    <a href="#" class="menu-toggle nav-link has-dropdown"><i
+                                            data-feather="truck"></i><span>Livraison</span></a>
+                                    <ul class="dropdown-menu">
+                                        <li><a class="nav-link" href="{{ route('delivery.index','deli=region') }}">
+                                                Regions</a></li>
+
+                                        <li><a class="nav-link" href="{{ route('delivery.index','deli=ville-commune') }}">
+                                               Commune-Ville </a></li>
+                                    </ul>
+
                                 </li>
+
 
                                 <li class="dropdown">
                                     <a href="{{ route('publicite.index') }}" class="nav-link"><i

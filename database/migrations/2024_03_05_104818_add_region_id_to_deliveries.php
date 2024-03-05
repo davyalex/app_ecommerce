@@ -11,22 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('deliveries', function (Blueprint $table) {
-            $table->id();
-            $table->string('region')->nullable(); // abidjan, sassandra
-            $table->string('zone')->nullable(); //cocody, adzope
-            // $table->integer('parent_id')->nullable(); //cocody, adzope
-            $table->double('tarif')->nullable();
-
+        Schema::table('deliveries', function (Blueprint $table) {
+            //
             $table->foreignId('region_id')
                 ->nullable()
                 ->constrained('deliveries')
                 ->onUpdate('cascade')
                 ->onDelete('set null');
 
-
-
-            $table->timestamps();
         });
     }
 
@@ -35,6 +27,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('deliveries');
+        Schema::table('deliveries', function (Blueprint $table) {
+            //
+        });
     }
 };
