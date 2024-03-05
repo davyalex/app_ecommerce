@@ -40,7 +40,7 @@
                                                     {{ ++$key }}
                                                 </td>
                                                 @if (request('deli') == 'ville-commune')
-                                                    <td class=""> {{ $item['parent_region']['region'] }} </td>
+                                                    <td class=""> {{ $item['parent_region']['region'] ?? 'Ville' }} </td>
                                                     <td class=""> {{ $item['zone'] }} </td>
                                                 @elseif (request('deli') == 'region')
                                                     <td class=""> {{ $item['region'] }} </td>

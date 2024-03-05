@@ -17,7 +17,7 @@ class DeliveryController extends Controller
       
         $delivery = Delivery::with(['parent_region', 'child_zone'])
             ->when(request('deli')=='region', fn ($q) => $q->whereNotNull('region'))
-            ->when(request('deli')== 'ville-commune', fn ($q) => $q->whereNotNull('region_id')) //ville-commune
+            ->when(request('deli')== 'ville-commune', fn ($q) => $q->whereNull('region')) //ville-commune
             ->get();
 
         //Liste des regions dans la table livraison

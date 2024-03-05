@@ -30,15 +30,15 @@
                             <div class="form-group row">
                                 <label class="col-sm-3 col-form-label">Region</label>
                                 <div class="col-sm-9">
-                                    <select name="region_id" id="" class="form-control" required>
+                                    <select name="region_id" id="" class="form-control">
                                         <option disabled selected value> Choisir une region</option>
                                         @foreach ($regions as $r)
                                             <option value="{{$r->id}}"> {{$r->region}} </option>
                                         @endforeach
                                     </select>
-                                    <div class="invalid-feedback">
+                                    {{-- <div class="invalid-feedback">
                                         {{ $msg_validation }}
-                                    </div>
+                                    </div> --}}
                                 </div>
                             </div>
                             <div class="form-group row">
