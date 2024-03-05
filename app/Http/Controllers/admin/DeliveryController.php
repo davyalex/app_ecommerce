@@ -106,6 +106,9 @@ class DeliveryController extends Controller
     public function destroy(string $id)
     {
         //
+        Delivery::where('region_id', $id)
+        ->delete();
+        
         Delivery::whereId($id)->delete();
         return response()->json([
             'status' => 200

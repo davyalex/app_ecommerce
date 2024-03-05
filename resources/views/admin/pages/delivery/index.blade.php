@@ -35,19 +35,20 @@
                                     </thead>
                                     <tbody>
                                         @foreach ($delivery as $key => $item)
-                                            <tr>
+                                            <tr id="row_{{ $item['id'] }}">
                                                 <td>
                                                     {{ ++$key }}
                                                 </td>
                                                 @if (request('deli') == 'ville-commune')
-                                                    <td class=""> {{ $item['parent_region']['region'] ?? 'Ville' }} </td>
+                                                    <td class=""> {{ $item['parent_region']['region'] ?? 'Ville' }}
+                                                    </td>
                                                     <td class=""> {{ $item['zone'] }} </td>
                                                 @elseif (request('deli') == 'region')
                                                     <td class=""> {{ $item['region'] }} </td>
 
-                                                    <td class=""> 
-                                                        @foreach ($item['child_zone'] as $item)
-                                                           <br> {{ $item['zone'] }}
+                                                    <td class="">
+                                                        @foreach ($item['child_zone'] as $ville)
+                                                            <br> {{ $ville['zone'] }}
                                                         @endforeach
                                                     </td>
                                                 @endif
@@ -91,6 +92,7 @@
             $('.delete').on("click", function(e) {
                 e.preventDefault();
                 var Id = $(this).attr('data-id');
+                // console.log(Id);
                 swal({
                     title: "Suppression",
                     text: "Veuillez confirmer la suppression",
@@ -123,10 +125,11 @@
                                         timer: 500,
                                         timerProgressBar: true,
                                     });
-                                    setTimeout(function() {
-                                        window.location.href =
-                                            "{{ route('delivery.index') }}";
-                                    }, 500);
+                                   $( "#row_" + Id ).remove();
+                                    // setTimeout(function() {
+                                    //     window.location.href =
+                                    //         "{{ route('delivery.index') }}";
+                                    // }, 500);
                                 }
                             }
                         });
