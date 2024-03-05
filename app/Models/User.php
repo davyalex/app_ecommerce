@@ -55,6 +55,10 @@ class User extends Authenticatable implements HasMedia
         return $this->hasMany(Product::class);
     }
 
+    public function commentaires()
+    {
+        return $this->hasMany(Commentaire::class);
+    }
     
 
     /**

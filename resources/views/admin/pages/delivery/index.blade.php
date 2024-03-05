@@ -63,7 +63,7 @@
                                                             class="btn btn-warning dropdown-toggle">Options</a>
                                                         <div class="dropdown-menu">
 
-                                                            <a href="{{ route('delivery.edit', $item['id']) }}"
+                                                            <a href="{{ route('delivery.edit', $item['id']. '?deli='.request('deli'))}}"
                                                                 class="dropdown-item has-icon"><i class="far fa-edit"></i>
                                                                 Edit</a>
 

@@ -70,9 +70,12 @@ class DeliveryController extends Controller
     public function edit(string $id)
     {
         //
-        $delivery = Delivery::whereId($id)->first();
+        $delivery = Delivery::with(['parent_region', 'child_zone'])
+            ->whereId($id)->first();
 
-        return view('admin.pages.delivery.edit', compact('delivery'));
+        $regions = Delivery::orderBy('region', 'ASC')->whereNotNull('region')->get();
+//  dd($delivery);
+        return view('admin.pages.delivery.edit', compact('delivery','regions'));
     }
 
     /**
@@ -81,20 +84,21 @@ class DeliveryController extends Controller
     public function update(Request $request, string $id)
     {
         //
-        $data =  $request->validate([
+        $data =  $request->validate(['zone' => '',
             'zone' => '',
             'tarif' => '',
             'region' => '',
+            'region_id' => '',
             'parent_id' => '',
-
 
         ]);
 
 
         delivery::whereId($id)->update([
             'zone' => $request['zone'],
-            'tarif' => $request['tarif'],
-
+            // 'tarif' => $request['tarif'],
+            'region' => $request['region'],
+            'region_id' => $request['region_id'],
         ]);
 
         return back()->withSuccess('delivery modifiée avec success');

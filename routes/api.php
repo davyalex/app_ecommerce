@@ -64,6 +64,9 @@ Route::prefix('v1')->group(function () {
         Route::get('/allProduct', 'allProduct');
         //Rechercher un produit
         Route::get('/product', 'searchProduct'); //search product
+        //commenter un produit  // add comments
+        Route::post('/productComment', 'comments'); //comment product
+
 
     });
 

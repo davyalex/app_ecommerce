@@ -95,6 +95,11 @@ class Product extends Model implements HasMedia
             ->withTimestamps();
     }
 
+    public function commentaires()
+    {
+        return $this->hasMany(Commentaire::class);
+    }
+
     /*******resize image */
 
     //     public function registerMediaConversions(Media $media = null)

@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\api_frontend;
 
 use App\Models\Product;
+use App\Models\Category;
+use App\Models\Commentaire;
+use App\Models\SubCategory;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Category;
-use App\Models\SubCategory;
+use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller
 {
@@ -52,7 +54,7 @@ class ProductController extends Controller
                     'categories',
                     fn ($q) => $q->where('category_product.category_id', $category_id),
 
-                )->with(['user', 'media', 'categories', 'subcategorie', 'user'])
+                )->with(['user', 'media', 'categories', 'subcategorie', 'user', 'commentaires'])
                     ->whereHas('user', fn ($q) => $q->where('role', '!=', 'boutique'))
                     ->inRandomOrder()->paginate(36);
             } elseif ($subcategory_id) {
@@ -63,12 +65,12 @@ class ProductController extends Controller
                 ])->whereId($subcategory_id)->first();
 
 
-                $data_product = Product::with(['subcategorie', 'user', 'media', 'categories'])
+                $data_product = Product::with(['subcategorie', 'user', 'media', 'categories', 'commentaires'])
                     ->where('sub_category_id', $subcategory_id)
                     ->whereHas('user', fn ($q) => $q->where('role', '!=', 'boutique'))
                     ->inRandomOrder()->paginate(36);
             } else {
-                $data_product = Product::with(['subcategorie', 'user', 'media', 'categories'])
+                $data_product = Product::with(['subcategorie', 'user', 'media', 'categories', 'commentaires'])
                     ->whereHas('user', fn ($q) => $q->where('role', '!=', 'boutique'))
                     ->inRandomOrder()->paginate(36);
             }
@@ -112,12 +114,12 @@ class ProductController extends Controller
 
         try {
             $product_id = request('product');
-            $data = Product::with(['media', 'categories', 'subcategorie'])
+            $data = Product::with(['media', 'categories', 'subcategorie', 'commentaires'])
                 ->whereId($product_id)->first();
 
 
             $product_related =
-                Product::with(['media', 'user', 'categories', 'subcategorie'])
+                Product::with(['media', 'user', 'categories', 'subcategorie', 'commentaires'])
                 ->whereHas('user', fn ($q) => $q->where('role', '!=', 'boutique'))
                 ->whereHas('categories', fn ($q) => $q->where('category_product.category_id', $data['categories'][0]['id']))
                 ->where('sub_category_id', $data['sub_category_id'])
@@ -157,7 +159,7 @@ class ProductController extends Controller
 
         try {
             $search = request('q');
-            $data = Product::with(['categories','user' ,'subcategorie', 'media'])
+            $data = Product::with(['categories', 'user', 'subcategorie', 'media'])
                 ->where('title', 'Like', "%{$search}%")
                 ->whereHas('user', fn ($q) => $q->where('role', '!=', 'boutique'))
                 ->orderBy('created_at', 'desc')->paginate(36);
@@ -174,5 +176,37 @@ class ProductController extends Controller
                 'message' => "Data not Found",
             ], 200);
         }
+    }
+
+
+
+    /**
+     * @OA\Get(
+     *     path="/api/v1/productComment",
+     *     summary="Commenter un produit",
+     *     tags={"Commenter un produit "},
+     *     @OA\Response(response=200, description="Successful operation"),
+     * )
+     * 
+     */
+
+    //creer un commentaire lié a un produits
+    public function comments(Request $request)
+    {
+
+        $commentaire = Commentaire::create([
+            'note' => $request['note'],
+            'description' => $request['description'],
+            'product_id' => $request['productId'],
+            'user_id' => Auth::user()->id,
+        ]);
+
+        $data = Commentaire::with(['user', 'product'])
+            ->whereId($commentaire['id'])->first();
+
+        return response()->json([
+            'status'  => 200,
+            'data'  => $data
+        ], 200);
     }
 }
