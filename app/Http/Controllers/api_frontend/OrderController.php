@@ -28,6 +28,8 @@ class OrderController extends Controller
     public function delivery()
     {
         $data = Delivery::with('child_zone')
+         ->whereNotNull('region')
+        ->orWhereNull('region_id')
         ->orderBy('zone', 'ASC')->get();
 
         return response()->json([
