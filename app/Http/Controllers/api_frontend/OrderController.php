@@ -27,7 +27,7 @@ class OrderController extends Controller
 
     public function delivery()
     {
-        $data = Delivery::with(['parent_region', 'child_zone'])
+        $data = Delivery::with('child_zone')
         ->orderBy('zone', 'ASC')->get();
 
         return response()->json([
