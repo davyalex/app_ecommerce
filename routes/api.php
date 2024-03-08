@@ -65,7 +65,7 @@ Route::prefix('v1')->group(function () {
         //Rechercher un produit
         Route::get('/product', 'searchProduct'); //search product
         //commenter un produit  // add comments
-        Route::post('/productComment', 'comments'); //comment product
+        Route::post('/productComment', 'comments')->middleware('auth:sanctum'); //comment product
 
 
     });
