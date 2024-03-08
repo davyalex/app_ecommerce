@@ -193,19 +193,26 @@ class ProductController extends Controller
     //creer un commentaire lié a un produits
     public function comments(Request $request)
     {
-        $commentaire = Commentaire::create([
-            'note' => $request['note'],
-            'description' => $request['description'],
-            'product_id' => $request['productId'],
-            'user_id' => $request['userId'],
-        ]);
+        if (Auth::check()) {
+            $commentaire = Commentaire::create([
+                'note' => $request['note'],
+                'description' => $request['description'],
+                'product_id' => $request['productId'],
+                'user_id' => $request['userId'],
+            ]);
 
-        $data = Commentaire::with(['user', 'product'])
-            ->whereId($commentaire['id'])->first();
+            $data = Commentaire::with(['user', 'product'])
+                ->whereId($commentaire['id'])->first();
 
-        return response()->json([
-            'status'  => 200,
-            'data'  => $data
-        ], 200);
+            return response()->json([
+                'status'  => 200,
+                'data'  => $data
+            ], 200);
+        } else {
+            return response()->json([
+                'status'  => 200,
+                'message'  => 'vous devez etre connecté'
+            ], 200);
+        }
     }
 }
