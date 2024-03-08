@@ -54,7 +54,7 @@ class ProductController extends Controller
                     'categories',
                     fn ($q) => $q->where('category_product.category_id', $category_id),
 
-                )->with(['user', 'media', 'categories', 'subcategorie', 'user', 'commentaires'])
+                )->with(['user', 'media', 'categories', 'subcategorie', 'user', 'commentaires' => fn ($q) => $q->with('user')])
                     ->whereHas('user', fn ($q) => $q->where('role', '!=', 'boutique'))
                     ->inRandomOrder()->paginate(36);
             } elseif ($subcategory_id) {
@@ -65,12 +65,12 @@ class ProductController extends Controller
                 ])->whereId($subcategory_id)->first();
 
 
-                $data_product = Product::with(['subcategorie', 'user', 'media', 'categories', 'commentaires'])
+                $data_product = Product::with(['subcategorie', 'user', 'media', 'categories', 'commentaires' => fn ($q) => $q->with('user')])
                     ->where('sub_category_id', $subcategory_id)
                     ->whereHas('user', fn ($q) => $q->where('role', '!=', 'boutique'))
                     ->inRandomOrder()->paginate(36);
             } else {
-                $data_product = Product::with(['subcategorie', 'user', 'media', 'categories', 'commentaires'])
+                $data_product = Product::with(['subcategorie', 'user', 'media', 'categories', 'commentaires' => fn ($q) => $q->with('user')])
                     ->whereHas('user', fn ($q) => $q->where('role', '!=', 'boutique'))
                     ->inRandomOrder()->paginate(36);
             }
@@ -114,12 +114,12 @@ class ProductController extends Controller
 
         try {
             $product_id = request('product');
-            $data = Product::with(['media', 'categories', 'subcategorie', 'commentaires'])
+            $data = Product::with(['media', 'categories', 'subcategorie', 'commentaires'=>fn($q)=>$q->with('user')])
                 ->whereId($product_id)->first();
 
 
             $product_related =
-                Product::with(['media', 'user', 'categories', 'subcategorie', 'commentaires'])
+                Product::with(['media', 'user', 'categories', 'subcategorie', 'commentaires' => fn ($q) => $q->with('user')])
                 ->whereHas('user', fn ($q) => $q->where('role', '!=', 'boutique'))
                 ->whereHas('categories', fn ($q) => $q->where('category_product.category_id', $data['categories'][0]['id']))
                 ->where('sub_category_id', $data['sub_category_id'])
