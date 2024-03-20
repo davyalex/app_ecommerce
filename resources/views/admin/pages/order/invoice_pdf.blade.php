@@ -124,7 +124,7 @@
 
         .signature {
             display: flex;
-            justify-content: space-around;
+            /* justify-content: space-around; */
             /* font-size: 18px; */
             font-family: 'Bell MT';
             /* text-decoration: underline */
