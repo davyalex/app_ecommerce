@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>Facture-#1000 </title>
+    <title>Facture-#{{ $orders['code'] }} </title>
 
     <style>
         .invoice-box {
