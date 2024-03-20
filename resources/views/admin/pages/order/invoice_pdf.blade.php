@@ -5,17 +5,17 @@
     <meta charset="utf-8" />
     <title>Facture-#{{ $orders['code'] }} </title>
 
-   <style>
+    <style>
         .invoice-box {
             max-width: 800px;
             margin: auto;
             padding: 10px;
             border: 1px solid #ececec;
             /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.15); */
-            font-size: 12px;
+            font-size: 14px;
             line-height: 24px;
             font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
-            color: #000000;
+            color: black;
         }
 
         .invoice-box table {
@@ -48,20 +48,30 @@
         }
 
         .invoice-box table tr.heading td {
-            background: #eee;
-            border-bottom: 1px solid #ddd;
-            font-weight: bold;
-            text-align: justify;
+            /* background: #eee; */
+            border: 1px solid #090909;
+            /* font-weight: bold; */
+            font-family: 'Bell MT';
+            font-size: 18px;
+            text-align: center;
+            padding: auto;
 
         }
 
         .invoice-box table tr.details td {
             padding-bottom: 20px;
+
         }
 
         .invoice-box table tr.item td {
-            border-bottom: 1px solid #eee;
+            /* border-bottom: 1px solid #eee; */
             text-align: justify;
+            border: 1px solid #090909;
+            /* font-weight: bold; */
+            font-family: 'Bell MT';
+            font-size: 18px;
+            text-align: center;
+            padding: auto;
 
         }
 
@@ -69,9 +79,12 @@
             border-bottom: none;
         }
 
-        .invoice-box table tr.total td:nth-child(2) {
+        .invoice-box table td.total {
             border-top: 2px solid #ffffff;
-            font-weight: bold;
+            font-weight: 500;
+            font-size: 24px;
+            border: 1px solid #090909;
+            font-family: 'Bell MT';
 
         }
 
@@ -101,6 +114,24 @@
 
         .invoice-box.rtl table tr td:nth-child(2) {
             text-align: left;
+        }
+
+        .thanks {
+            font-weight: 700;
+            font-size: 18px;
+            font-family: 'Bell MT';
+        }
+
+        .signature {
+            display: flex;
+            justify-content: space-around;
+            /* font-size: 18px; */
+            font-family: 'Bell MT';
+            /* text-decoration: underline */
+        }
+
+        .visa small {
+            text-decoration: none;
         }
     </style>
 </head>
@@ -187,9 +218,9 @@
 
         </table>
         <p class="thanks">Merci d’avoir choisi notre entreprise pour vous servir </p>
-        <div class="d-flex">
+        <div class="signature">
             <h3 class="visa"><u>VISA DU CLIENT </u>
-                <br><small class="text-danger" style="margin:8px;">(Signature, et date)</small>
+                <br><small  style="margin:8px;">(Signature, et date)</small>
             </h3>
             <h3><u>DOOYA.CI</u></h3>
         </div>
