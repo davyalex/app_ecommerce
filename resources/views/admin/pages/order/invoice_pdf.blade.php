@@ -143,8 +143,8 @@
 
             <tr class="information">
                 <td colspan="5">
-                    {{-- <table>
-                        <tr style="display:flex; justify-content:space-between;">
+                    <table>
+                        <tr >
                             <td>
 
                                 <img src="https://www.dooya.ci/logos/dooya.png" width="50" />
@@ -160,7 +160,7 @@
                                 </p>
                             </td>
                         </tr>
-                    </table> --}}
+                    </table>
                 </td>
             </tr>
 
