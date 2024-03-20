@@ -116,23 +116,7 @@
             text-align: left;
         }
 
-        .thanks {
-            font-weight: 700;
-            font-size: 18px;
-            font-family: 'Bell MT';
-        }
-
-        .signature {
-            display: flex;
-            justify-content: space-around;
-            /* font-size: 18px; */
-            font-family: 'Bell MT';
-            /* text-decoration: underline */
-        }
-
-        .visa small {
-            text-decoration: none;
-        }
+        
     </style>
 </head>
 
