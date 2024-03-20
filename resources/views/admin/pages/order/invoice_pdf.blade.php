@@ -51,8 +51,8 @@
             /* background: #eee; */
             border: 1px solid #090909;
             /* font-weight: bold; */
-            font-family: 'Bell MT';
-            font-size: 18px;
+            /* font-family: 'Bell MT'; */
+            font-size: 14px;
             text-align: center;
             padding: auto;
 
@@ -82,7 +82,7 @@
         .invoice-box table td.total {
             border-top: 2px solid #ffffff;
             font-weight: 500;
-            font-size: 24px;
+            font-size: 14px;
             border: 1px solid #090909;
             font-family: 'Bell MT';
 
@@ -118,15 +118,14 @@
 
         .thanks {
             font-weight: 700;
-            font-size: 18px;
-            font-family: 'Bell MT';
+            font-size: 14px;
         }
 
         .signature {
-            display: flex;
+            /* display: flex; */
             /* justify-content: space-around; */
             /* font-size: 18px; */
-            font-family: 'Bell MT';
+            /* font-family: 'Bell MT'; */
             /* text-decoration: underline */
         }
 
@@ -177,18 +176,14 @@
                 <tr class="item">
                     <td> {{ $orders['code'] }}</td>
                     <td>{{ $item['title'] }}
-                        <br><br>
-                        Livraison
                     </td>
                     <td> {{ $item['pivot']['quantity'] }}
-                        <br><br>
-                        {{ $item['pivot']['quantity'] }}
                     </td>
                     @php
                         $total = $item['pivot']['quantity'] * $item['pivot']['unit_price'];
                     @endphp
                     <td>{{ $item['pivot']['unit_price'] }} FCFA</td>
-                    <td>{{ number_format($total, 0, ',', ' ') }} </td>
+                    <td>{{ number_format($total, 0, ',', ' ') }} FCFA </td>
 
                 </tr>
             @endforeach
@@ -219,10 +214,10 @@
         </table>
         <p class="thanks">Merci d’avoir choisi notre entreprise pour vous servir </p>
         <div class="signature">
-            <h3 class="visa"><u>VISA DU CLIENT </u>
+            <h3 style="text-align:left" class="visa"><u>VISA DU CLIENT </u>
                 <br><small  style="margin:8px;">(Signature, et date)</small>
             </h3>
-            <h3><u>DOOYA.CI</u></h3>
+            <h3 style="text-align: :right"><u>DOOYA.CI</u></h3>
         </div>
     </div>
 </body>
