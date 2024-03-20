@@ -12,10 +12,10 @@
             padding: 10px;
             border: 1px solid #ececec;
             /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.15); */
-            font-size: 14px;
+            font-size: 12px;
             line-height: 24px;
             font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
-            color: black;
+            color: #000000;
         }
 
         .invoice-box table {
@@ -48,30 +48,20 @@
         }
 
         .invoice-box table tr.heading td {
-            /* background: #eee; */
-            border: 1px solid #090909;
-            /* font-weight: bold; */
-            font-family: 'Bell MT';
-            font-size: 18px;
-            text-align: center;
-            padding: auto;
+            background: #eee;
+            border-bottom: 1px solid #ddd;
+            font-weight: bold;
+            text-align: justify;
 
         }
 
         .invoice-box table tr.details td {
             padding-bottom: 20px;
-
         }
 
         .invoice-box table tr.item td {
-            /* border-bottom: 1px solid #eee; */
+            border-bottom: 1px solid #eee;
             text-align: justify;
-            border: 1px solid #090909;
-            /* font-weight: bold; */
-            font-family: 'Bell MT';
-            font-size: 18px;
-            text-align: center;
-            padding: auto;
 
         }
 
@@ -79,12 +69,9 @@
             border-bottom: none;
         }
 
-        .invoice-box table td.total {
+        .invoice-box table tr.total td:nth-child(2) {
             border-top: 2px solid #ffffff;
-            font-weight: 500;
-            font-size: 24px;
-            border: 1px solid #090909;
-            font-family: 'Bell MT';
+            font-weight: bold;
 
         }
 
@@ -115,115 +102,98 @@
         .invoice-box.rtl table tr td:nth-child(2) {
             text-align: left;
         }
-
-        .thanks {
-            font-weight: 700;
-            font-size: 18px;
-            font-family: 'Bell MT';
-        }
-
-        .d-flex {
-            display: flex;
-            justify-content: space-around;
-            /* font-size: 18px; */
-            font-family: 'Bell MT';
-            /* text-decoration: underline */
-        }
-
-        .visa small {
-            text-decoration: none;
-        }
     </style>
 </head>
 
 <body>
     <div class="invoice-box">
-        <table cellpadding="" cellspacing="0">
-
-
-            <tr class="information">
-                <td colspan="5">
+        <table cellpadding="0" cellspacing="0">
+            <tr class="top">
+                <td colspan="4">
                     <table>
-                        <tr style="display:flex; justify-content:space-between;">
-                            <td>
-
-                                <img src="https://www.dooya.ci/logos/dooya.png" width="50" />
-
+                        <tr>
+                            <td class="title">
+                                {{-- https://akadi.ci/wp-content/uploads/2023/10/cropped-logo-site-ak.png --}}
+                                <img src="https://akadi.ci/site/assets/img/custom/logo.png" width="50" />
                             </td>
 
-
-                            <td colspan="" style="">
-                                <p style="border:1px solid black; text-align:justify; padding:10px; font-weight:bold">
-                                    <span>CLIENT: {{ $orders['user']['name'] }} </span><br>
-                                    <span>VILLE: {{ $orders['delivery_name'] }} </span><br>
-                                    <span>TEL: {{ $orders['user']['phone'] }} </span><br>
-                                </p>
+                            <td>
+                                N°Cmd #: {{ $orders['code'] }} <br />
+                                Date Cmd: {{ $orders['created_at']->format('d-m-Y') }} <br />
                             </td>
                         </tr>
                     </table>
                 </td>
             </tr>
 
+            <tr class="information">
+                <td colspan="4">
+                    <table>
+                        <tr>
+                            <td>
+                                <span>SAV: <b>07 58 83 83 38</b> </span><br>
+                                <span>Email: <b>info@akadi.ci</b> </span><br>
+                                <span>Adresse: <b>Plateau Dokui</b> </span><br>
 
-            <tr class="heading">
-                <td>Réf N°</td>
-                <td>Description</td>
-                <td>Quantités <br>Commandées</td>
-                <td>Prix <br> unitaire</td>
-                <td>PRIX TOTAL</td>
+                            </td>
 
-            </tr>
-            @foreach ($orders['products'] as $item)
-                <tr class="item">
-                    <td> {{ $orders['code'] }}</td>
-                    <td>{{ $item['title'] }}
-                    <br><br>
-                    Livraison
-                    </td>
-                    <td> {{ $item['pivot']['quantity'] }}
-                    <br><br>
-                    {{ $item['pivot']['quantity'] }}
-                    </td>
-                    @php
-                        $total = $item['pivot']['quantity'] * $item['pivot']['unit_price'];
-                    @endphp
-                    <td>{{$item['pivot']['unit_price']}} FCFA</td>
-                    <td>{{number_format($total , 0 , ',' , ' ')}} </td>
-
-                </tr>
-            @endforeach
-
-
-            {{-- <tr class="total" style="text-align:right;">
-                <td colspan="5" style="padding-right:40px; padding-top:10px"> <b>Sous-total</b>:
-                    10000 FCFA</td>
-            </tr> --}}
-
-            {{-- <tr class="total" style="text-align:right;">
-                <td colspan="5" style="padding-right:40px;"> <b>Livraison</b>:
-                    1000 FCFA</td>
-            </tr> --}}
-
-            <tr class="" style="text-align:right;">
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-
-                <td colspan="" class="total" style="padding-right:40px; border:1px solid black">
-                    {{ number_format($orders['total'] , 0 , ',' , ' ') }}  FR TTC
-                    
+                            <td>
+                                <span>Nom: <b>{{ $orders['user']['name'] }}</b> </span><br>
+                                <span>Email: <b>{{ $orders['user']['email'] }}</b> </span><br>
+                                <span>Téléphone: <b>{{ $orders['user']['phone'] }}</b> </span><br>
+                            </td>
+                        </tr>
+                    </table>
                 </td>
             </tr>
 
+            {{-- <tr class="heading">
+                <td>Payment Method</td>
+
+                <td>Check #</td>
+            </tr> --}}
+
+            {{-- <tr class="details">
+                <td>Check</td>
+
+                <td>1000</td>
+            </tr> --}}
+
+            <tr class="heading">
+                <td>Produit</td>
+                <td>Qté</td>
+                <td>Pu</td>
+                <td>Total</td>
+            </tr>
+            @foreach ($orders['products'] as $item)
+                <tr class="item">
+                    <td> {{ $item['title'] }}</td>
+                    <td>{{ $item['pivot']['quantity'] }} </td>
+                    <td> {{ number_format($item['pivot']['unit_price']) }}</td>
+                    @php
+                        $total = $item['pivot']['quantity'] * $item['pivot']['unit_price'];
+                    @endphp
+                    <td> {{ number_format($total) }}</td>
+
+                </tr>
+            @endforeach
+            <tr class="total" style="text-align:right;">
+                <td colspan="4" style="padding-right:40px; padding-top:10px"> <b>Sous-total</b>:
+                    {{ number_format($orders['subtotal']) }} FCFA</td>
+            </tr>
+
+            <tr class="total" style="text-align:right;">
+                <td colspan="4" style="padding-right:40px;"> <b>Livraison</b>:
+                    {{ number_format($orders['delivery_price']) }} FCFA</td>
+
+
+            </tr>
+
+            <tr class="total" style="text-align:right;">
+                <td colspan="4" style="padding-right:40px;"> <b>TOTAL</b>:
+                    {{ number_format($orders['total']) }} FCFA</td>
+            </tr>
         </table>
-        <p class="thanks">Merci d’avoir choisi notre entreprise pour vous servir </p>
-        <div class="d-flex">
-            <h3 class="visa"><u>VISA DU CLIENT </u>
-                <br><small class="text-danger" style="margin:8px;">(Signature, et date)</small>
-            </h3>
-            <h3><u>DOOYA.CI</u></h3>
-        </div>
     </div>
 </body>
 
