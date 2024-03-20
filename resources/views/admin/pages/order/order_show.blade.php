@@ -36,8 +36,8 @@
                 </div>
                 @endif
                 
-                <a class="btn btn-dark text-white py-3"" href="{{route('order.invoice',$orders['id'])}}"><i data-feather="file-text"></i>Facture</a>
-
+  <a class="btn btn-link py-3" href="{{ route('order.invoice', $orders['id']) }}" target="_blank"><i
+                    data-feather="file-text"></i>Aperçu de la facture</a>
             </div>
             <ul class="list-group list-group-flush rounded-0">
 
