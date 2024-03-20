@@ -68,8 +68,8 @@
             text-align: justify;
             border: 1px solid #090909;
             /* font-weight: bold; */
-            font-family: 'Bell MT';
-            font-size: 18px;
+            /* font-family: 'Bell MT'; */
+            font-size: 14px;
             text-align: center;
             padding: auto;
 
@@ -84,7 +84,7 @@
             font-weight: 500;
             font-size: 14px;
             border: 1px solid #090909;
-            font-family: 'Bell MT';
+            /* font-family: 'Bell MT'; */
 
         }
 
@@ -117,7 +117,7 @@
         }
 
         .thanks {
-            font-weight: 700;
+            font-weight: 500;
             font-size: 14px;
         }
 
@@ -217,7 +217,7 @@
             <h3 style="text-align:left" class="visa"><u>VISA DU CLIENT </u>
                 <br><small  style="margin:8px;">(Signature, et date)</small>
             </h3>
-            <h3 style="text-align: :right"><u>DOOYA.CI</u></h3>
+            <h3 style="text-align:right"><u>DOOYA.CI</u></h3>
         </div>
     </div>
 </body>
